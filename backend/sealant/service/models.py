@@ -1,29 +1,115 @@
 from django.db import models
 
 
+class ServiceCompany(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000)
+
+    def __str__(self) -> str:
+        return f"Название :{self.name}"
+
+
+class Technique(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000)
+
+    def __str__(self) -> str:
+        return f"Название :{self.name}"
+
+
+class Engine(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000)
+
+    def __str__(self) -> str:
+        return f"Название :{self.name}"
+
+
+class Transmission(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000)
+
+    def __str__(self) -> str:
+        return f"Название :{self.name}"
+
+
+class Axle(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000)
+
+    def __str__(self) -> str:
+        return f"Название :{self.name}"
+
+
+class SteeringAxle(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000)
+
+    def __str__(self) -> str:
+        return f"Название :{self.name}"
+
+
+class TypeTo(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000)
+
+    def __str__(self) -> str:
+        return f"Название :{self.name}"
+
+
+class Failure(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000)
+
+    def __str__(self) -> str:
+        return f"Название :{self.name}"
+
+
+class RecoveryMethod(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(max_length=1000)
+
+    def __str__(self) -> str:
+        return f"Название :{self.name}"
+
+
 class Cars(models.Model):
     """
     Содержит информацию о характеристиках и комплектации проданных машин,
     а также информацию о месте эксплуатации.
     """
 
-    factory_number = models.CharField(max_length=500, unique=True)
-    vehicle_model = models.ForeignKey()
-    engine_model = models.ForeignKey()
+    vehicle_model = models.ForeignKey(
+        Technique, on_delete=models.CASCADE, related_name="TechniqueCars"
+    )
+    engine_model = models.ForeignKey(
+        Engine, on_delete=models.CASCADE, related_name="EngineCars"
+    )
+    transmission_model = models.ForeignKey(
+        Transmission, on_delete=models.CASCADE, related_name="TransmissionCars"
+    )
+    drive_axle_model = models.ForeignKey(
+        Axle, on_delete=models.CASCADE, related_name="AxleCars"
+    )
+    steering_axle_model = models.ForeignKey(
+        SteeringAxle, on_delete=models.CASCADE, related_name="SteeringAxleCars"
+    )
+    service_company = models.ForeignKey(
+        ServiceCompany, on_delete=models.CASCADE, related_name="ServiceCompanyCars"
+    )
+    # client = models.ForeignKey() # FIXME: include user model here.
+
+    сonsignee = models.CharField(max_length=1000)
+    equipment = models.CharField(max_length=1000)
     engine_number = models.CharField(max_length=500)
-    transmission_model = models.ForeignKey()
+    drive_axle_number = models.CharField(max_length=500)
+    delivery_address = models.CharField(max_length=1000)
     transmission_number = models.CharField(max_length=500)
-    drive_axle_model = models.ForeignKey()
-    drive_axle_number = models.CharField(max_length=200)
-    steering_axle_model = models.ForeignKey()
     steering_axle_number = models.CharField(max_length=500)
     supply_contract_date = models.CharField(max_length=500)
+    factory_number = models.CharField(max_length=500, unique=True)
+
     shipped_from_factory = models.DateField()
-    сonsignee = models.CharField(max_length=1000)
-    delivery_address = models.CharField(max_length=1000)
-    equipment = models.CharField(max_length=1000)
-    client = models.ForeignKey()
-    service_company = models.ForeignKey()
 
 
 class To(models.Model):
@@ -34,14 +120,21 @@ class To(models.Model):
     У каждой машины может быть несколько проведённых ТО.
     """
 
-    type_of_maintenance = models.ForeignKey()
+    type_of_maintenance = models.ForeignKey(
+        TypeTo, on_delete=models.CASCADE, related_name="MaintenanceTo"
+    )
+    maintenance_company = models.ForeignKey(
+        ServiceCompany, on_delete=models.CASCADE, related_name="MaintenanceCompanyTo"
+    )
+    car = models.ManyToManyField(Cars, on_delete=models.CASCADE, related_name="CarTo")
+    # service_company = models.ForeignKey() # FIXME: include here kind of user model.
+
+    order_number = models.CharField(max_length=1000)
+
     maintenance_date = models.DateField()
-    operating_hours = models.IntegerField()
-    order_number = models.CharField(max_length=100)
     order_date = models.DateField()
-    maintenance_company = models.ForeignKey()
-    car = models.ManyToManyField()
-    service_company = models.ForeignKey()
+
+    operating_hours = models.IntegerField()
 
 
 class Complaints(models.Model):
@@ -49,13 +142,24 @@ class Complaints(models.Model):
     Содержит информацию о заявленных клиентами рекламациях, и сроках их устранения.
     """
 
-    refusal_date = models.DateField()
-    operating_hours = models.IntegerField()
-    failure_node = models.ForeignKey()
-    failure_description = models.TextField()
-    recovery_method = models.ForeignKey()
+    failure_node = models.ForeignKey(
+        Failure, on_delete=models.CASCADE, related_name="FailuresComplaints"
+    )
+    recovery_method = models.ForeignKey(
+        RecoveryMethod,
+        on_delete=models.CASCADE,
+        related_name="RecoveryMethodsComplaints",
+    )
+    car = models.ManyToManyField(
+        Cars, on_delete=models.CASCADE, related_name="CarComplaints"
+    )
+    # service_company = models.ForeignKey() # FIXME: include here kind of user model.
+
     parts_used = models.CharField(max_length=1000)
+    failure_description = models.TextField()
+
+    refusal_date = models.DateField()
     restore_date = models.DateField()
+
+    operating_hours = models.IntegerField()
     equipment_downtime = models.IntegerField()
-    car = models.ManyToManyField()
-    service_company = models.ForeignKey()
