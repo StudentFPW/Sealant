@@ -126,7 +126,7 @@ class To(models.Model):
     maintenance_company = models.ForeignKey(
         ServiceCompany, on_delete=models.CASCADE, related_name="MaintenanceCompanyTo"
     )
-    car = models.ManyToManyField(Cars, on_delete=models.CASCADE, related_name="CarTo")
+    car = models.ManyToManyField(Cars, related_name="CarTo")
     # service_company = models.ForeignKey() # FIXME: include here kind of user model.
 
     order_number = models.CharField(max_length=1000)
@@ -150,9 +150,7 @@ class Complaints(models.Model):
         on_delete=models.CASCADE,
         related_name="RecoveryMethodsComplaints",
     )
-    car = models.ManyToManyField(
-        Cars, on_delete=models.CASCADE, related_name="CarComplaints"
-    )
+    car = models.ManyToManyField(Cars, related_name="CarComplaints")
     # service_company = models.ForeignKey() # FIXME: include here kind of user model.
 
     parts_used = models.CharField(max_length=1000)
