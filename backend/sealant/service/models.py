@@ -100,15 +100,16 @@ class Cars(models.Model):
     # client = models.ForeignKey() # FIXME: include user model here.
 
     сonsignee = models.CharField(max_length=1000)
-    equipment = models.CharField(max_length=1000)
     engine_number = models.CharField(max_length=500)
     drive_axle_number = models.CharField(max_length=500)
     delivery_address = models.CharField(max_length=1000)
     transmission_number = models.CharField(max_length=500)
     steering_axle_number = models.CharField(max_length=500)
-    supply_contract_date = models.CharField(max_length=500)
     factory_number = models.CharField(max_length=500, unique=True)
 
+    equipment = models.TextField()
+
+    supply_contract_date = models.DateField()
     shipped_from_factory = models.DateField()
 
 
@@ -126,8 +127,10 @@ class To(models.Model):
     maintenance_company = models.ForeignKey(
         ServiceCompany, on_delete=models.CASCADE, related_name="MaintenanceCompanyTo"
     )
+    service_company = models.ForeignKey(
+        ServiceCompany, on_delete=models.CASCADE, related_name="ServiceCompanyTo"
+    )
     car = models.ManyToManyField(Cars, related_name="CarTo")
-    # service_company = models.ForeignKey() # FIXME: include here kind of user model.
 
     order_number = models.CharField(max_length=1000)
 
@@ -150,8 +153,12 @@ class Complaints(models.Model):
         on_delete=models.CASCADE,
         related_name="RecoveryMethodsComplaints",
     )
+    service_company = models.ForeignKey(
+        ServiceCompany,
+        on_delete=models.CASCADE,
+        related_name="ServiceCompanyComplaints",
+    )
     car = models.ManyToManyField(Cars, related_name="CarComplaints")
-    # service_company = models.ForeignKey() # FIXME: include here kind of user model.
 
     parts_used = models.CharField(max_length=1000)
     failure_description = models.TextField()

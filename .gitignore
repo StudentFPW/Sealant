@@ -11,3 +11,4 @@ pyvenv.cfg
 .env
 pip-selfcheck.json
 db.sqlite3
+__pycache__
