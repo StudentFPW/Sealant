@@ -26,7 +26,7 @@ from drf_yasg import openapi
 schema_view = get_schema_view(
     openapi.Info(
         title="Sealant API",
-        default_version="v1",
+        default_version="vn",
         description="General API documentation",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@snippets.local"),
@@ -38,27 +38,27 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/v1/", include("service.urls")),
+    path("api/vn/", include("service.urls")),
     path("api/auth/", include("users.urls")),
     path("api/auth/rest/", include("rest_framework.urls", namespace="rest_framework")),
     path(
-        "api/v1/swagger<format>/",
+        "api/vn/swagger<format>/",
         schema_view.without_ui(cache_timeout=0),
         name="schema-json-or-yaml",
     ),
     path(
-        "api/v1/swagger/",
+        "api/vn/swagger/",
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
     path(
-        "api/v1/redoc/",
+        "api/vn/redoc/",
         schema_view.with_ui("redoc", cache_timeout=0),
         name="schema-redoc",
     ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-# This exposes 4 endpoints:
+# Swagger exposes 4 endpoints:
 #       A JSON view of your API specification at /swagger.json
 #       A YAML view of your API specification at /swagger.yaml
 #       A swagger-ui view of your API specification at /swagger/

@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-    # Зависимости
+    # Зависимости ↓
     "rest_framework",
     "rest_framework.authtoken",
     "rest_framework_simplejwt",
@@ -63,7 +63,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     # "",
     # "",
-    # Джанго-приложения
+    # Джанго-приложения ↓
     "service",
     "users",
     # "",
@@ -185,6 +185,10 @@ REST_AUTH = {
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = False
 
 # SOCIALACCOUNT_PROVIDERS = {
 #     "google": {

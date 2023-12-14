@@ -94,9 +94,7 @@ class Cars(models.Model):
     steering_axle_model = models.ForeignKey(
         SteeringAxle, on_delete=models.CASCADE, related_name="SteeringAxleCars"
     )
-    service_company = models.ForeignKey(
-        ServiceCompany, on_delete=models.CASCADE, related_name="ServiceCompanyCars"
-    )
+    # service_company = models.ForeignKey() # FIXME: include user model here.
     # client = models.ForeignKey() # FIXME: include user model here.
 
     сonsignee = models.CharField(max_length=1000)
@@ -124,13 +122,9 @@ class To(models.Model):
     type_of_maintenance = models.ForeignKey(
         TypeTo, on_delete=models.CASCADE, related_name="MaintenanceTo"
     )
-    maintenance_company = models.ForeignKey(
-        ServiceCompany, on_delete=models.CASCADE, related_name="MaintenanceCompanyTo"
-    )
-    service_company = models.ForeignKey(
-        ServiceCompany, on_delete=models.CASCADE, related_name="ServiceCompanyTo"
-    )
     car = models.ManyToManyField(Cars, related_name="CarTo")
+    # maintenance_company = models.ForeignKey() # FIXME: include user model here.
+    # service_company = models.ForeignKey() # FIXME: include user model here.
 
     order_number = models.CharField(max_length=1000)
 
@@ -153,12 +147,8 @@ class Complaints(models.Model):
         on_delete=models.CASCADE,
         related_name="RecoveryMethodsComplaints",
     )
-    service_company = models.ForeignKey(
-        ServiceCompany,
-        on_delete=models.CASCADE,
-        related_name="ServiceCompanyComplaints",
-    )
     car = models.ManyToManyField(Cars, related_name="CarComplaints")
+    # service_company = models.ForeignKey() # FIXME: include user model here.
 
     parts_used = models.CharField(max_length=1000)
     failure_description = models.TextField()
