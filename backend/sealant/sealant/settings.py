@@ -156,15 +156,16 @@ STATICFILES_DIR = os.path.join(BASE_DIR, "static")
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "users.CustomUser"
-
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+        "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     ],
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
+    "PAGE_SIZE": 10,
 }
 
 SIMPLE_JWT = {
@@ -179,16 +180,30 @@ SIMPLE_JWT = {
 
 REST_AUTH = {
     "USE_JWT": True,
+    "JWT_AUTH_COOKIE": "JWT-AUTH-COOKIE",
+    "JWT_AUTH_REFRESH_COOKIE": "JWT-AUTH-REFRESH-COOKIE",
     "JWT_AUTH_HTTPONLY": False,
-    "REGISTER_SERIALIZER": "users.serializers.CustomRegisterSerializer",
 }
 
-ACCOUNT_EMAIL_VERIFICATION = "none"
-ACCOUNT_USER_MODEL_USERNAME_FIELD = "email"
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_REQUIRED = True
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+AUTH_USER_MODEL = "users.User"
+
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_USERNAME_REQUIRED = False
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+
+ACCOUNT_AUTHENTICATION_METHOD = "username"
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+
+ACCOUNT_USERNAME_MIN_LENGTH = 7
+ACCOUNT_USERNAME_BLACKLIST = ["admin", "root", "service", "sealant"]
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 
 # SOCIALACCOUNT_PROVIDERS = {
 #     "google": {

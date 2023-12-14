@@ -5,7 +5,6 @@ from dj_rest_auth.views import LoginView, LogoutView, UserDetailsView
 from rest_framework_simplejwt.views import TokenVerifyView
 from dj_rest_auth.jwt_auth import get_refresh_view
 
-# from allauth.socialaccount.views import signup
 # from .views import GoogleLogin
 
 urlpatterns = [

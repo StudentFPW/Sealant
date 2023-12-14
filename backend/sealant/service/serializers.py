@@ -16,61 +16,61 @@ from .models import (
 )
 
 
-class ServiceCompanySerializer(serializers.HyperlinkedModelSerializer):
+class ServiceCompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceCompany
         fields = "__all__"
 
 
-class TechniqueSerializer(serializers.HyperlinkedModelSerializer):
+class TechniqueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Technique
         fields = "__all__"
 
 
-class EngineSerializer(serializers.HyperlinkedModelSerializer):
+class EngineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Engine
         fields = "__all__"
 
 
-class TransmissionSerializer(serializers.HyperlinkedModelSerializer):
+class TransmissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transmission
         fields = "__all__"
 
 
-class AxleSerializer(serializers.HyperlinkedModelSerializer):
+class AxleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Axle
         fields = "__all__"
 
 
-class SteeringAxleSerializer(serializers.HyperlinkedModelSerializer):
+class SteeringAxleSerializer(serializers.ModelSerializer):
     class Meta:
         model = SteeringAxle
         fields = "__all__"
 
 
-class TypeToSerializer(serializers.HyperlinkedModelSerializer):
+class TypeToSerializer(serializers.ModelSerializer):
     class Meta:
         model = TypeTo
         fields = "__all__"
 
 
-class FailureSerializer(serializers.HyperlinkedModelSerializer):
+class FailureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Failure
         fields = "__all__"
 
 
-class RecoveryMethodSerializer(serializers.HyperlinkedModelSerializer):
+class RecoveryMethodSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecoveryMethod
         fields = "__all__"
 
 
-class CarsSerializer(serializers.HyperlinkedModelSerializer):
+class CarsSerializer(serializers.ModelSerializer):
     vehicle_model = TechniqueSerializer(read_only=True)
     engine_model = EngineSerializer(read_only=True)
     transmission_model = TransmissionSerializer(read_only=True)
@@ -84,20 +84,23 @@ class CarsSerializer(serializers.HyperlinkedModelSerializer):
         fields = "__all__"
 
 
-class ToSerializer(serializers.HyperlinkedModelSerializer):
+class ToSerializer(serializers.ModelSerializer):
     type_of_maintenance = TypeToSerializer(read_only=True)
     car = CarsSerializer(read_only=True)
 
+    # maintenance_company =
+    # service_company =
     class Meta:
         model = To
         fields = "__all__"
 
 
-class ComplaintsSerializer(serializers.HyperlinkedModelSerializer):
+class ComplaintsSerializer(serializers.ModelSerializer):
     failure_node = FailureSerializer(read_only=True)
     recovery_method = RecoveryMethodSerializer(read_only=True)
     car = CarsSerializer(read_only=True)
 
+    # service_company =
     class Meta:
         model = Complaints
         fields = "__all__"
