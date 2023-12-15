@@ -9,7 +9,7 @@ class User(AbstractUser):
     is_service = models.BooleanField(default=False)
     is_manager = models.BooleanField(default=False)
     company = models.CharField(max_length=100, default="", blank=True)
-    foto = models.ImageField(upload_to="profile/", blank=True)
+    foto = models.ImageField(upload_to="profile/foto/", blank=True)
     website = models.URLField(max_length=200, blank=True)
 
     def __str__(self):

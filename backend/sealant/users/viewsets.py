@@ -7,19 +7,13 @@ from .serializers import (
 )
 
 
-class ClientRegistrationView(RegisterView):
-    """
-    Класс ClientRegistrationView расширяет
-    класс RegisterView и использует класс
-    сериализатора ClientCustomRegistrationSerializer.
-    """
-
+class ClientRegistrationViewSet(RegisterView):
     serializer_class = ClientCustomRegistrationSerializer
 
 
-class ServiceRegistrationView(RegisterView):
+class ServiceRegistrationViewSet(RegisterView):
     serializer_class = ServiceCustomRegistrationSerializer
 
 
-class ManagerRegistrationView(RegisterView):
+class ManagerRegistrationViewSet(RegisterView):
     serializer_class = ManagerCustomRegistrationSerializer

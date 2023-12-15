@@ -1,7 +1,6 @@
 from rest_framework import serializers
 
 from .models import (
-    ServiceCompany,
     Technique,
     Engine,
     Transmission,
@@ -14,12 +13,6 @@ from .models import (
     To,
     Complaints,
 )
-
-
-class ServiceCompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ServiceCompany
-        fields = "__all__"
 
 
 class TechniqueSerializer(serializers.ModelSerializer):

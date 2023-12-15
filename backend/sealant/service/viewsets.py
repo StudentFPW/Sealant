@@ -1,7 +1,7 @@
 from rest_framework import viewsets
+from rest_framework.response import Response
 
 from .models import (
-    ServiceCompany,
     Technique,
     Engine,
     Transmission,
@@ -15,7 +15,6 @@ from .models import (
     Complaints,
 )
 from .serializers import (
-    ServiceCompanySerializer,
     TechniqueSerializer,
     EngineSerializer,
     TransmissionSerializer,
@@ -30,9 +29,25 @@ from .serializers import (
 )
 
 
-class ServiceCompanyViewSet(viewsets.ModelViewSet):
-    queryset = ServiceCompany.objects.all()
-    serializer_class = ServiceCompanySerializer
+# # For example !!!
+# class ServiceCompanyViewSet(viewsets.ViewSet):
+#     def list(self, request):
+#         if request.user.is_manager:
+#             queryset = ServiceCompany.objects.all()
+#             serializer = ServiceCompanySerializer(queryset, many=True)
+#             return Response(serializer.data)
+#         return Response(status=403)
+
+#     def create(self, request):
+#         if request.user.is_manager:
+#             service = ServiceCompany.objects.create(
+#                 name=request.data["name"],
+#                 description=request.data["description"],
+#             )
+#             service.save()
+#             serializer = ServiceCompanySerializer(service)
+#             return Response(serializer.data)
+#         return Response(status=403)
 
 
 class TechniqueViewSet(viewsets.ModelViewSet):

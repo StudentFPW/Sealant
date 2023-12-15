@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    # "allauth.socialaccount.providers.google",
     "dj_rest_auth",
     "dj_rest_auth.registration",
     "corsheaders",
@@ -165,7 +164,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 10,
+    "PAGE_SIZE": 5,
 }
 
 SIMPLE_JWT = {
@@ -204,21 +203,3 @@ ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 ACCOUNT_USERNAME_MIN_LENGTH = 7
 ACCOUNT_USERNAME_BLACKLIST = ["admin", "root", "service", "sealant"]
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
-
-# SOCIALACCOUNT_PROVIDERS = {
-#     "google": {
-#         "APP": {
-#             "client_id": os.getenv("GOOGLE_CLIENT_ID"),
-#             "secret": os.getenv("GOOGLE_CLIENT_SECRET"),
-#             "key": os.getenv("GOOGLE_CLIENT_KEY"),
-#         },
-#         "SCOPE": [
-#             "profile",
-#             "email",
-#         ],
-#         "AUTH_PARAMS": {
-#             "access_type": "online",
-#         },
-#         "VERIFIED_EMAIL": True,
-#     },
-# }

@@ -2,7 +2,6 @@ from django.urls import path, include
 from rest_framework import routers
 
 from .viewsets import (
-    ServiceCompanyViewSet,
     TechniqueViewSet,
     EngineViewSet,
     TransmissionViewSet,
@@ -17,7 +16,6 @@ from .viewsets import (
 )
 
 router = routers.DefaultRouter()
-router.register(r"servcomp", ServiceCompanyViewSet, basename="SCV")
 router.register(r"teh", TechniqueViewSet, basename="TV1")
 router.register(r"eng", EngineViewSet, basename="EV")
 router.register(r"tran", TransmissionViewSet, basename="TV2")

@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from .models import *
 
-admin.site.register(ServiceCompany)
 admin.site.register(Technique)
 admin.site.register(Engine)
 admin.site.register(Transmission)

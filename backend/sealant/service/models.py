@@ -1,12 +1,6 @@
 from django.db import models
 
-
-class ServiceCompany(models.Model):
-    name = models.CharField(max_length=200)
-    description = models.TextField(max_length=1000)
-
-    def __str__(self) -> str:
-        return f"Name :{self.name}"
+from users.models import Client, Service
 
 
 class Technique(models.Model):
@@ -80,22 +74,40 @@ class Cars(models.Model):
     """
 
     vehicle_model = models.ForeignKey(
-        Technique, on_delete=models.CASCADE, related_name="TechniqueCars"
+        Technique,
+        on_delete=models.CASCADE,
+        related_name="TechniqueCars",
     )
     engine_model = models.ForeignKey(
-        Engine, on_delete=models.CASCADE, related_name="EngineCars"
+        Engine,
+        on_delete=models.CASCADE,
+        related_name="EngineCars",
     )
     transmission_model = models.ForeignKey(
-        Transmission, on_delete=models.CASCADE, related_name="TransmissionCars"
+        Transmission,
+        on_delete=models.CASCADE,
+        related_name="TransmissionCars",
     )
     drive_axle_model = models.ForeignKey(
-        Axle, on_delete=models.CASCADE, related_name="AxleCars"
+        Axle,
+        on_delete=models.CASCADE,
+        related_name="AxleCars",
     )
     steering_axle_model = models.ForeignKey(
-        SteeringAxle, on_delete=models.CASCADE, related_name="SteeringAxleCars"
+        SteeringAxle,
+        on_delete=models.CASCADE,
+        related_name="SteeringAxleCars",
     )
-    # service_company = models.ForeignKey() # FIXME: include user model here.
-    # client = models.ForeignKey() # FIXME: include user model here.
+    service_company = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,
+        related_name="ServiceCompanyCars",
+    )
+    client = models.ForeignKey(
+        Client,
+        on_delete=models.CASCADE,
+        related_name="ClientCars",
+    )
 
     сonsignee = models.CharField(max_length=1000)
     engine_number = models.CharField(max_length=500)
@@ -123,11 +135,24 @@ class To(models.Model):
     """
 
     type_of_maintenance = models.ForeignKey(
-        TypeTo, on_delete=models.CASCADE, related_name="MaintenanceTo"
+        TypeTo,
+        on_delete=models.CASCADE,
+        related_name="MaintenanceTo",
     )
-    car = models.ManyToManyField(Cars, related_name="CarTo")
-    # maintenance_company = models.ForeignKey() # FIXME: include user model here.
-    # service_company = models.ForeignKey() # FIXME: include user model here.
+    maintenance_company = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,
+        related_name="MaintenanceCompanyTo",
+    )
+    service_company = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,
+        related_name="ServiceCompanyTo",
+    )
+    car = models.ManyToManyField(
+        Cars,
+        related_name="CarTo",
+    )
 
     order_number = models.CharField(max_length=1000)
 
@@ -146,15 +171,24 @@ class Complaints(models.Model):
     """
 
     failure_node = models.ForeignKey(
-        Failure, on_delete=models.CASCADE, related_name="FailuresComplaints"
+        Failure,
+        on_delete=models.CASCADE,
+        related_name="FailuresComplaints",
     )
     recovery_method = models.ForeignKey(
         RecoveryMethod,
         on_delete=models.CASCADE,
         related_name="RecoveryMethodsComplaints",
     )
-    car = models.ManyToManyField(Cars, related_name="CarComplaints")
-    # service_company = models.ForeignKey() # FIXME: include user model here.
+    service_company = models.ForeignKey(
+        Service,
+        on_delete=models.CASCADE,
+        related_name="ServiceCompanyComplaints",
+    )
+    car = models.ManyToManyField(
+        Cars,
+        related_name="CarComplaints",
+    )
 
     parts_used = models.CharField(max_length=1000)
     failure_description = models.TextField()

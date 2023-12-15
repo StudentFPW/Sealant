@@ -5,20 +5,26 @@ from .models import Client, Service, Manager
 
 
 class ClientCustomRegistrationSerializer(RegisterSerializer):
-    """
-    Класс ClientCustomRegistrationSerializer — это специальный
-    сериализатор для регистрации пользователя клиента, который
-    устанавливает флаг is_client в значение True и создает
-    соответствующий объект Client.
-    """
-
     client = serializers.PrimaryKeyRelatedField(
         read_only=True,
     )
+    first_name = serializers.CharField()
+    last_name = serializers.CharField(required=False)
+    company = serializers.CharField()
+    website = serializers.URLField(required=False)
+    foto = serializers.ImageField(required=False)
 
     def save(self, request):
         user = super(ClientCustomRegistrationSerializer, self).save(request)
         user.is_client = True
+        user.first_name = self.data.get("first_name")
+        user.company = self.data.get("company")
+        if self.data.get("last_name"):
+            user.last_name = self.data.get("last_name")
+        if self.data.get("website"):
+            user.website = self.data.get("website")
+        if self.data.get("foto"):
+            user.foto = self.data.get("foto")
         user.save()
         client = Client(
             client=user,
@@ -31,10 +37,23 @@ class ServiceCustomRegistrationSerializer(RegisterSerializer):
     service = serializers.PrimaryKeyRelatedField(
         read_only=True,
     )
+    first_name = serializers.CharField()
+    last_name = serializers.CharField(required=False)
+    company = serializers.CharField()
+    website = serializers.URLField(required=False)
+    foto = serializers.ImageField(required=False)
 
     def save(self, request):
         user = super(ServiceCustomRegistrationSerializer, self).save(request)
         user.is_service = True
+        user.first_name = self.data.get("first_name")
+        user.company = self.data.get("company")
+        if self.data.get("last_name"):
+            user.last_name = self.data.get("last_name")
+        if self.data.get("website"):
+            user.website = self.data.get("website")
+        if self.data.get("foto"):
+            user.foto = self.data.get("foto")
         user.save()
         service = Service(
             service=user,
@@ -47,10 +66,23 @@ class ManagerCustomRegistrationSerializer(RegisterSerializer):
     manager = serializers.PrimaryKeyRelatedField(
         read_only=True,
     )
+    first_name = serializers.CharField()
+    last_name = serializers.CharField(required=False)
+    company = serializers.CharField()
+    website = serializers.URLField(required=False)
+    foto = serializers.ImageField(required=False)
 
     def save(self, request):
         user = super(ManagerCustomRegistrationSerializer, self).save(request)
         user.is_manager = True
+        user.first_name = self.data.get("first_name")
+        user.company = self.data.get("company")
+        if self.data.get("last_name"):
+            user.last_name = self.data.get("last_name")
+        if self.data.get("website"):
+            user.website = self.data.get("website")
+        if self.data.get("foto"):
+            user.foto = self.data.get("foto")
         user.save()
         manager = Manager(
             manager=user,
