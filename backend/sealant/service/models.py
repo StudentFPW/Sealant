@@ -6,7 +6,7 @@ class ServiceCompany(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Название :{self.name}"
+        return f"Name :{self.name}"
 
 
 class Technique(models.Model):
@@ -14,7 +14,7 @@ class Technique(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Название :{self.name}"
+        return f"Name :{self.name}"
 
 
 class Engine(models.Model):
@@ -22,7 +22,7 @@ class Engine(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Название :{self.name}"
+        return f"Name :{self.name}"
 
 
 class Transmission(models.Model):
@@ -30,7 +30,7 @@ class Transmission(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Название :{self.name}"
+        return f"Name :{self.name}"
 
 
 class Axle(models.Model):
@@ -38,7 +38,7 @@ class Axle(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Название :{self.name}"
+        return f"Name :{self.name}"
 
 
 class SteeringAxle(models.Model):
@@ -46,7 +46,7 @@ class SteeringAxle(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Название :{self.name}"
+        return f"Name :{self.name}"
 
 
 class TypeTo(models.Model):
@@ -54,7 +54,7 @@ class TypeTo(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Название :{self.name}"
+        return f"Name :{self.name}"
 
 
 class Failure(models.Model):
@@ -62,7 +62,7 @@ class Failure(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Название :{self.name}"
+        return f"Name :{self.name}"
 
 
 class RecoveryMethod(models.Model):
@@ -70,7 +70,7 @@ class RecoveryMethod(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Название :{self.name}"
+        return f"Name :{self.name}"
 
 
 class Cars(models.Model):
@@ -110,6 +110,9 @@ class Cars(models.Model):
     supply_contract_date = models.DateField()
     shipped_from_factory = models.DateField()
 
+    def __str__(self):
+        return f"Veicle model:{self.vehicle_model.name}, Engine model:{self.engine_model.name}"
+
 
 class To(models.Model):
     """
@@ -132,6 +135,9 @@ class To(models.Model):
     order_date = models.DateField()
 
     operating_hours = models.IntegerField()
+
+    def __str__(self):
+        return f"Date: {self.maintenance_date}"
 
 
 class Complaints(models.Model):
@@ -158,3 +164,6 @@ class Complaints(models.Model):
 
     operating_hours = models.IntegerField()
     equipment_downtime = models.IntegerField()
+
+    def __str__(self):
+        return f"Failure description: {self.failure_description.split()[:5]}..."
