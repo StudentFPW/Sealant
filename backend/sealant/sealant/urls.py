@@ -40,7 +40,10 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/vn/", include("service.urls")),
     path("api/auth/", include("users.urls")),
-    path("api/auth/rest/", include("rest_framework.urls", namespace="rest_framework")),
+    path(
+        "api/auth/rest/",
+        include("rest_framework.urls", namespace="rest_framework"),
+    ),
     path(
         "api/vn/swagger<format>/",
         schema_view.without_ui(cache_timeout=0),

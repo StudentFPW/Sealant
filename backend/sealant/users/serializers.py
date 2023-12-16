@@ -5,6 +5,12 @@ from .models import Client, Service, Manager
 
 
 class ClientCustomRegistrationSerializer(RegisterSerializer):
+    """
+    Класс ClientCustomRegistrationSerializer — это специальный сериализатор для регистрации клиента,
+    который расширяет класс RegisterSerializer и добавляет дополнительные поля и логику для сохранения
+    пользователя и создания связанного объекта клиента.
+    """
+
     client = serializers.PrimaryKeyRelatedField(
         read_only=True,
     )

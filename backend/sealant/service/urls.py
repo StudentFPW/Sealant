@@ -1,6 +1,8 @@
 from django.urls import path, include
 from rest_framework import routers
 
+from .views import cars_export_xlsx, cars_export_json
+
 from .viewsets import (
     TechniqueViewSet,
     EngineViewSet,
@@ -30,4 +32,6 @@ router.register(r"compl", ComplaintsViewSet, basename="CV2")
 
 urlpatterns = [
     path("", include(router.urls)),
+    path("export-cars-xlsx/", cars_export_xlsx, name="export_xlsx"),
+    path("export-cars-json/", cars_export_json, name="export_json"),
 ]

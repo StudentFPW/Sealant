@@ -8,6 +8,11 @@ from .serializers import (
 
 
 class ClientRegistrationViewSet(RegisterView):
+    """
+    Класс ClientRegistrationViewSet — это набор представлений для регистрации клиентов с помощью
+    пользовательского сериализатора регистрации.
+    """
+
     serializer_class = ClientCustomRegistrationSerializer
 
 

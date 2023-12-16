@@ -1,3 +1,41 @@
-from django.shortcuts import render
+from django.http import HttpResponse
 
-# Create your views here.
+from .resources import CarsResource
+
+
+def cars_export_xlsx(request):
+    """
+    Функция экспортирует данные автомобиля в файл Excel и возвращает их в виде загружаемого ответа.
+
+    Parameters
+    ----------
+    request
+        Параметр request — это объект, который представляет HTTP-запрос, сделанный клиентом. Он содержит
+    такую информацию, как метод запроса, заголовки и тело. В данном случае он используется для обработки
+    запроса на экспорт данных об автомобилях в файл Excel.
+
+    Returns
+    -------
+        объект ответа HTTP.
+    """
+    cars_resource = CarsResource()
+    data = cars_resource.export()
+    response = HttpResponse(
+        data.xlsx,
+        content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    )
+
+    response["Content-Disposition"] = 'attachment; filename="cars.xlsx"'
+    return response
+
+
+def cars_export_json(request):
+    cars_resource = CarsResource()
+    data = cars_resource.export()
+    response = HttpResponse(
+        data.json,
+        content_type="application/json",
+    )
+
+    response["Content-Disposition"] = 'attachment; filename="cars.json"'
+    return response
