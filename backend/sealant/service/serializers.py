@@ -14,6 +14,8 @@ from .models import (
     Complaints,
 )
 
+from users.serializers import ClientSerializer, ServiceSerializer, ManagerSerializer
+
 
 class TechniqueSerializer(serializers.ModelSerializer):
     class Meta:
@@ -69,9 +71,9 @@ class CarsSerializer(serializers.ModelSerializer):
     transmission_model = TransmissionSerializer(read_only=True)
     drive_axle_model = AxleSerializer(read_only=True)
     steering_axle_model = SteeringAxleSerializer(read_only=True)
+    service_company = ServiceSerializer(read_only=True)
+    client = ClientSerializer(read_only=True)
 
-    # service_company =
-    # client =
     class Meta:
         model = Cars
         fields = "__all__"
@@ -80,9 +82,9 @@ class CarsSerializer(serializers.ModelSerializer):
 class ToSerializer(serializers.ModelSerializer):
     type_of_maintenance = TypeToSerializer(read_only=True)
     car = CarsSerializer(read_only=True)
+    maintenance_company = ServiceSerializer(read_only=True)
+    service_company = ServiceSerializer(read_only=True)
 
-    # maintenance_company =
-    # service_company =
     class Meta:
         model = To
         fields = "__all__"
@@ -92,8 +94,8 @@ class ComplaintsSerializer(serializers.ModelSerializer):
     failure_node = FailureSerializer(read_only=True)
     recovery_method = RecoveryMethodSerializer(read_only=True)
     car = CarsSerializer(read_only=True)
+    service_company = ServiceSerializer(read_only=True)
 
-    # service_company =
     class Meta:
         model = Complaints
         fields = "__all__"

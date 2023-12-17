@@ -109,7 +109,7 @@ class Cars(models.Model):
         related_name="ClientCars",
     )
 
-    сonsignee = models.CharField(max_length=1000)
+    сonsignee = models.CharField(max_length=1000, null=True, blank=True)
     engine_number = models.CharField(max_length=500)
     drive_axle_number = models.CharField(max_length=500)
     delivery_address = models.CharField(max_length=1000)
@@ -117,13 +117,13 @@ class Cars(models.Model):
     steering_axle_number = models.CharField(max_length=500)
     factory_number = models.CharField(max_length=500, unique=True)
 
-    equipment = models.TextField()
+    equipment = models.TextField(null=True, blank=True)
 
     supply_contract_date = models.DateField()
-    shipped_from_factory = models.DateField()
+    shipped_from_factory = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return f"Veicle model:{self.vehicle_model.name}, Engine model:{self.engine_model.name}"
+        return f"Vehicle model: {self.vehicle_model.name}, Engine model: {self.engine_model.name}"
 
 
 class To(models.Model):
@@ -149,17 +149,18 @@ class To(models.Model):
         on_delete=models.CASCADE,
         related_name="ServiceCompanyTo",
     )
-    car = models.ManyToManyField(
+    car = models.ForeignKey(
         Cars,
+        on_delete=models.CASCADE,
         related_name="CarTo",
     )
 
     order_number = models.CharField(max_length=1000)
 
-    maintenance_date = models.DateField()
+    maintenance_date = models.DateField(null=True, blank=True)
     order_date = models.DateField()
 
-    operating_hours = models.IntegerField()
+    operating_hours = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return f"Date: {self.maintenance_date}"
@@ -185,19 +186,20 @@ class Complaints(models.Model):
         on_delete=models.CASCADE,
         related_name="ServiceCompanyComplaints",
     )
-    car = models.ManyToManyField(
+    car = models.ForeignKey(
         Cars,
+        on_delete=models.CASCADE,
         related_name="CarComplaints",
     )
 
-    parts_used = models.CharField(max_length=1000)
+    parts_used = models.CharField(max_length=1000, null=True, blank=True)
     failure_description = models.TextField()
 
-    refusal_date = models.DateField()
-    restore_date = models.DateField()
+    refusal_date = models.DateField(null=True, blank=True)
+    restore_date = models.DateField(null=True, blank=True)
 
-    operating_hours = models.IntegerField()
-    equipment_downtime = models.IntegerField()
+    operating_hours = models.IntegerField(null=True, blank=True)
+    equipment_downtime = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return f"Failure description: {self.failure_description.split()[:5]}..."

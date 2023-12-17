@@ -5,6 +5,9 @@ from .serializers import (
     ClientCustomRegistrationSerializer,
     ServiceCustomRegistrationSerializer,
     ManagerCustomRegistrationSerializer,
+    ClientSerializer,
+    ServiceSerializer,
+    ManagerSerializer,
 )
 
 
@@ -26,3 +29,18 @@ class ServiceRegistrationViewSet(RegisterView):
 class ManagerRegistrationViewSet(RegisterView):
     queryset = Manager.objects.all()
     serializer_class = ManagerCustomRegistrationSerializer
+
+
+class ClientViewSet(viewsets.ModelViewSet):
+    serializer_class = ClientSerializer
+    queryset = Client.objects.all()
+
+
+class ServiceViewSet(viewsets.ModelViewSet):
+    serializer_class = ServiceSerializer
+    queryset = Service.objects.all()
+
+
+class ManagerViewSet(viewsets.ModelViewSet):
+    serializer_class = ManagerSerializer
+    queryset = Manager.objects.all()

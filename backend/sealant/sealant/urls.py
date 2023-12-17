@@ -28,9 +28,9 @@ schema_view = get_schema_view(
         title="Sealant API",
         default_version="vn",
         description="General API documentation",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@snippets.local"),
-        license=openapi.License(name="BSD License"),
+        terms_of_service="https://github.com/StudentFPW/Sealant#readme",
+        contact=openapi.Contact(email="jofeleonids00@gmail.com"),
+        license=openapi.License(name="License"),
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
@@ -38,24 +38,24 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/vn/", include("service.urls")),
-    path("api/auth/", include("users.urls")),
+    path("api/v1/", include("service.urls")),
+    path("api/v1/", include("users.urls")),
     path(
         "api/auth/rest/",
         include("rest_framework.urls", namespace="rest_framework"),
     ),
     path(
-        "api/vn/swagger<format>/",
+        "api/v1/swagger<format>/",
         schema_view.without_ui(cache_timeout=0),
         name="schema-json-or-yaml",
     ),
     path(
-        "api/vn/swagger/",
+        "api/v1/swagger/",
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     ),
     path(
-        "api/vn/redoc/",
+        "api/v1/redoc/",
         schema_view.with_ui("redoc", cache_timeout=0),
         name="schema-redoc",
     ),
