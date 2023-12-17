@@ -1,5 +1,6 @@
 from dj_rest_auth.registration.views import RegisterView
 
+from .models import Client, Service, Manager
 from .serializers import (
     ClientCustomRegistrationSerializer,
     ServiceCustomRegistrationSerializer,
@@ -13,12 +14,15 @@ class ClientRegistrationViewSet(RegisterView):
     пользовательского сериализатора регистрации.
     """
 
+    queryset = Client.objects.all()
     serializer_class = ClientCustomRegistrationSerializer
 
 
 class ServiceRegistrationViewSet(RegisterView):
+    queryset = Service.objects.all()
     serializer_class = ServiceCustomRegistrationSerializer
 
 
 class ManagerRegistrationViewSet(RegisterView):
+    queryset = Manager.objects.all()
     serializer_class = ManagerCustomRegistrationSerializer
