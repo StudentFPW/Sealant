@@ -26,7 +26,7 @@ from drf_yasg import openapi
 schema_view = get_schema_view(
     openapi.Info(
         title="Sealant API",
-        default_version="vn",
+        default_version="v1",
         description="General API documentation",
         terms_of_service="https://github.com/StudentFPW/Sealant#readme",
         contact=openapi.Contact(email="jofeleonids00@gmail.com"),

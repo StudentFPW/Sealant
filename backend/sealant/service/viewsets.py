@@ -18,8 +18,6 @@ from .models import (
     Complaints,
 )
 
-from users.models import Service, Client, Manager
-
 from .serializers import (
     TechniqueSerializer,
     EngineSerializer,
@@ -34,45 +32,38 @@ from .serializers import (
     ComplaintsSerializer,
 )
 
+from users.models import Service, Client
 
-class TechniqueViewSet(viewsets.ViewSet):  # TODO: Test this
+# Спагетти без принципа DRY (* ￣︿￣)
+
+# Была идея использовать наследование, но тогда мы пойдем против принципа SOLID (～￣▽￣)～
+
+
+class TechniqueViewSet(viewsets.ViewSet):
     view_is_async = True
 
     def list(self, request):
-        """
-        Функция возвращает список объектов Technique, если пользователь является менеджером, в противном
-        случае она возвращает код состояния 403.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 queryset = Technique.objects.all()
                 serializer = TechniqueSerializer(queryset, many=True)
                 return Response(serializer.data)
             return Response(status=403)
-        return Response(status=403)
+        return Response(status=401)
 
     def create(self, request):
-        """
-        Функция create создает новый объект Technique, если пользователь является менеджером, в противном
-        случае она возвращает код состояния 403.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 create = Technique.objects.create(
-                    name=request.data["name"],
-                    description=request.data["description"],
+                    name=request.data["name"], description=request.data["description"]
                 )
                 create.save()
                 serializer = TechniqueSerializer(create)
                 return Response(serializer.data)
             return Response(status=403)
-        return Response(status=403)
+        return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        """
-        Функция извлекает объект Technique на основе предоставленного первичного ключа (pk), если
-        пользователь является менеджером, в противном случае она возвращает ответ 403 Forbidden.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 queryset = Technique.objects.all()
@@ -80,223 +71,455 @@ class TechniqueViewSet(viewsets.ViewSet):  # TODO: Test this
                 serializer = TechniqueSerializer(retrieve)
                 return Response(serializer.data)
             return Response(status=403)
-        return Response(status=403)
+        return Response(status=401)
 
     def update(self, request, pk=None):
-        """
-        Эта функция обновляет объект Technique, если пользователь является менеджером, в противном случае
-        она возвращает код состояния 403.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 update = get_object_or_404(Technique.objects.all(), pk=pk)
-                serializer = TechniqueSerializer(
-                    update,
-                    data=request.data,
-                )
+                serializer = TechniqueSerializer(update, data=request.data)
                 if serializer.is_valid():
                     serializer.save()
                     return Response(serializer.data)
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             return Response(status=403)
-        return Response(status=403)
+        return Response(status=401)
 
     def destroy(self, request, pk=None):
-        """
-        Функция destroy удаляет объект Technique, если пользователь, сделавший запрос, является менеджером,
-        в противном случае она возвращает ответ 403 Forbidden.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 delete = get_object_or_404(Technique.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
             return Response(status=403)
-        return Response(status=403)
+        return Response(status=401)
 
 
 class EngineViewSet(viewsets.ViewSet):
+    view_is_async = True
+
     def list(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = Engine.objects.all()
+                serializer = EngineSerializer(queryset, many=True)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def create(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                create = Engine.objects.create(
+                    name=request.data["name"], description=request.data["description"]
+                )
+                create.save()
+                serializer = EngineSerializer(create)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = Engine.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = EngineSerializer(retrieve)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                update = get_object_or_404(Engine.objects.all(), pk=pk)
+                serializer = EngineSerializer(update, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=403)
+        return Response(status=401)
 
     def destroy(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                delete = get_object_or_404(Engine.objects.all(), pk=pk)
+                delete.delete()
+                return Response(status=204)
+            return Response(status=403)
+        return Response(status=401)
 
 
 class TransmissionViewSet(viewsets.ViewSet):
+    view_is_async = True
+
     def list(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = Transmission.objects.all()
+                serializer = TransmissionSerializer(queryset, many=True)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def create(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                create = Transmission.objects.create(
+                    name=request.data["name"], description=request.data["description"]
+                )
+                create.save()
+                serializer = TransmissionSerializer(create)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = Transmission.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = TransmissionSerializer(retrieve)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                update = get_object_or_404(Transmission.objects.all(), pk=pk)
+                serializer = TransmissionSerializer(update, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=403)
+        return Response(status=401)
 
     def destroy(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                delete = get_object_or_404(Transmission.objects.all(), pk=pk)
+                delete.delete()
+                return Response(status=204)
+            return Response(status=403)
+        return Response(status=401)
 
 
 class AxleViewSet(viewsets.ViewSet):
+    view_is_async = True
+
     def list(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = Axle.objects.all()
+                serializer = AxleSerializer(queryset, many=True)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def create(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                create = Axle.objects.create(
+                    name=request.data["name"], description=request.data["description"]
+                )
+                create.save()
+                serializer = AxleSerializer(create)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = Axle.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = AxleSerializer(retrieve)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                update = get_object_or_404(Axle.objects.all(), pk=pk)
+                serializer = AxleSerializer(update, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=403)
+        return Response(status=401)
 
     def destroy(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                delete = get_object_or_404(Axle.objects.all(), pk=pk)
+                delete.delete()
+                return Response(status=204)
+            return Response(status=403)
+        return Response(status=401)
 
 
 class SteeringAxleViewSet(viewsets.ViewSet):
+    view_is_async = True
+
     def list(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = SteeringAxle.objects.all()
+                serializer = SteeringAxleSerializer(queryset, many=True)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def create(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                create = SteeringAxle.objects.create(
+                    name=request.data["name"], description=request.data["description"]
+                )
+                create.save()
+                serializer = SteeringAxleSerializer(create)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = SteeringAxle.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = SteeringAxleSerializer(retrieve)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                update = get_object_or_404(SteeringAxle.objects.all(), pk=pk)
+                serializer = SteeringAxleSerializer(update, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=403)
+        return Response(status=401)
 
     def destroy(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                delete = get_object_or_404(SteeringAxle.objects.all(), pk=pk)
+                delete.delete()
+                return Response(status=204)
+            return Response(status=403)
+        return Response(status=401)
 
 
 class TypeToViewSet(viewsets.ViewSet):
+    view_is_async = True
+
     def list(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = TypeTo.objects.all()
+                serializer = TypeToSerializer(queryset, many=True)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def create(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                create = TypeTo.objects.create(
+                    name=request.data["name"], description=request.data["description"]
+                )
+                create.save()
+                serializer = TypeToSerializer(create)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = TypeTo.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = TypeToSerializer(retrieve)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                update = get_object_or_404(TypeTo.objects.all(), pk=pk)
+                serializer = TypeToSerializer(update, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=403)
+        return Response(status=401)
 
     def destroy(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                delete = get_object_or_404(TypeTo.objects.all(), pk=pk)
+                delete.delete()
+                return Response(status=204)
+            return Response(status=403)
+        return Response(status=401)
 
 
 class FailureViewSet(viewsets.ViewSet):
+    view_is_async = True
+
     def list(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = Failure.objects.all()
+                serializer = FailureSerializer(queryset, many=True)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def create(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                create = Failure.objects.create(
+                    name=request.data["name"], description=request.data["description"]
+                )
+                create.save()
+                serializer = FailureSerializer(create)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = Failure.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = FailureSerializer(retrieve)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                update = get_object_or_404(Failure.objects.all(), pk=pk)
+                serializer = FailureSerializer(update, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=403)
+        return Response(status=401)
 
     def destroy(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                delete = get_object_or_404(Failure.objects.all(), pk=pk)
+                delete.delete()
+                return Response(status=204)
+            return Response(status=403)
+        return Response(status=401)
 
 
 class RecoveryMethodViewSet(viewsets.ViewSet):
+    view_is_async = True
+
     def list(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = RecoveryMethod.objects.all()
+                serializer = RecoveryMethodSerializer(queryset, many=True)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def create(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                create = RecoveryMethod.objects.create(
+                    name=request.data["name"], description=request.data["description"]
+                )
+                create.save()
+                serializer = RecoveryMethodSerializer(create)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = RecoveryMethod.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = RecoveryMethodSerializer(retrieve)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                update = get_object_or_404(RecoveryMethod.objects.all(), pk=pk)
+                serializer = RecoveryMethodSerializer(update, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=403)
+        return Response(status=401)
 
     def destroy(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                delete = get_object_or_404(RecoveryMethod.objects.all(), pk=pk)
+                delete.delete()
+                return Response(status=204)
+            return Response(status=403)
+        return Response(status=401)
 
 
 class CarsViewSet(viewsets.ViewSet):
     view_is_async = True
 
     def list(self, request):
-        """
-        Код возвращает объект Response с сериализованными данными. Сериализованные данные зависят от
-        статуса и роли аутентификации пользователя. Если пользователь не прошел аутентификацию, код
-        возвращает набор запросов всех объектов Cars. Если пользователь прошел проверку подлинности, код
-        проверяет роль пользователя и возвращает набор запросов объектов Cars на основе роли пользователя
-        (клиент, служба или менеджер).
-        """
         # Пользователь не авторизовался ↓
         if not request.user.is_authenticated:
-            queryset = (
-                Cars.objects.all()
-            )  # FIXME: Add more configuration - просмотр (доступ только к полям пп.1-10)
+            # просмотр (доступ только к полям пп.1-10) Как в ТЗ!
+            queryset = Cars.objects.all()[:11]
             serializer = CarsSerializer(queryset, many=True)
             return Response(serializer.data)
         # Пользователь авторизовался ↓
         if request.user.is_authenticated:
             # Является клиентом ↓
             if request.user.is_client:
-                queryset = Cars.objects.filter(client=request.user)
+                client_obj = Client.objects.get(client_id=request.user.pk)
+                queryset = Cars.objects.filter(client=client_obj)
                 serializer = CarsSerializer(queryset, many=True)
+                return Response(serializer.data)
             # Является сервисной организацией ↓
             if request.user.is_service:
-                queryset = Cars.objects.filter(service_company=request.user)
+                service_obj = Service.objects.get(service_id=request.user.pk)
+                queryset = Cars.objects.filter(service_company=service_obj)
                 serializer = CarsSerializer(queryset, many=True)
+                return Response(serializer.data)
             # Является менеджером ↓
             if request.user.is_manager:
                 queryset = Cars.objects.all()
                 serializer = CarsSerializer(queryset, many=True)
-            return Response(serializer.data)
+                return Response(serializer.data)
+            return Response(status=403)
         return Response(status=401)
 
     def create(self, request):
-        """
-        Код возвращает объект Response. Если пользователь прошел проверку подлинности и является
-        менеджером, он создает новый объект Cars и возвращает сериализованные данные созданного объекта.
-        Если пользователь не аутентифицирован, он возвращает код состояния 401. Если пользователь прошел
-        проверку подлинности, но не является менеджером, он возвращает код состояния 403.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 technique_obj = get_object_or_404(
@@ -353,18 +576,11 @@ class CarsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        """
-        Код возвращает объект Response. Если пользователь аутентифицирован и имеет роль клиента, службы или
-        менеджера, он извлекает объект автомобиля с указанным первичным ключом (pk) из модели Cars,
-        сериализует его с помощью CarsSerializer и возвращает сериализованные данные в объекте Response.
-        Если пользователь не аутентифицирован, он возвращает код состояния 401 Unauthorized.
-        """
+        client = request.user.is_client
+        service = request.user.is_service
+        manager = request.user.is_manager
         if request.user.is_authenticated:
-            if (
-                request.user.is_client
-                or request.user.is_service
-                or request.user.is_manager
-            ):
+            if client or service or manager:
                 queryset = Cars.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = CarsSerializer(retrieve)
@@ -373,20 +589,11 @@ class CarsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def update(self, request, pk=None):
-        """
-        Если пользователь прошел проверку подлинности и является менеджером, он вернет
-        сериализованные данные обновленного объекта автомобиля, если сериализатор действителен. Если
-        сериализатор недействителен, он вернет ошибки сериализатора со статусом HTTP 400 Bad Request. Если
-        пользователь не является менеджером, он вернет объект Response со статусом 403 Forbidden.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 queryset = Cars.objects.all()
                 update = get_object_or_404(queryset, pk=pk)
-                serializer = CarsSerializer(
-                    update,
-                    data=request.data,
-                )
+                serializer = CarsSerializer(update, data=request.data)
                 if serializer.is_valid():
                     serializer.save()
                     return Response(serializer.data)
@@ -395,12 +602,6 @@ class CarsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def destroy(self, request, pk=None):
-        """
-        Код возвращает объект Response с кодом состояния. Если пользователь прошел проверку подлинности и
-        является менеджером, возвращается ответ с кодом состояния 204 (нет содержимого). Если пользователь
-        прошел проверку подлинности, но не является менеджером, возвращается ответ с кодом состояния 403
-        (запрещено). Если пользователь не аутентифицирован, будет получен ответ с кодом состояния 401.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 delete = get_object_or_404(Cars.objects.all(), pk=pk)
@@ -411,40 +612,197 @@ class CarsViewSet(viewsets.ViewSet):
 
 
 class ToViewSet(viewsets.ViewSet):
+    view_is_async = True
+
     def list(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_client:
+                client_obj = Client.objects.get(client_id=request.user.pk)
+                queryset = To.objects.filter(
+                    car__client=client_obj
+                )  # TODO: Надо проверить этот момент
+                serializer = ToSerializer(queryset, many=True)
+                return Response(serializer.data)
+            if request.user.is_service:
+                service_obj = Service.objects.get(service_id=request.user.pk)
+                queryset = To.objects.filter(service_company=service_obj)
+                serializer = ToSerializer(queryset, many=True)
+                return Response(serializer.data)
+            if request.user.is_manager:
+                queryset = To.objects.all()
+                serializer = ToSerializer(queryset, many=True)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def create(self, request):
-        pass
+        client = request.user.is_client
+        service = request.user.is_service
+        manager = request.user.is_manager
+        if request.user.is_authenticated:
+            if client or service or manager:
+                type_of_maintenance = get_object_or_404(
+                    TypeTo,
+                    id=request.data["type_of_maintenance"],
+                )
+                maintenance_company = get_object_or_404(
+                    Service,
+                    id=request.data["maintenance_company"],
+                )
+                service_company = get_object_or_404(
+                    Service,
+                    id=request.data["service_company"],
+                )
+                car = get_object_or_404(
+                    Cars,
+                    id=request.data["car"],
+                )
+                create = To.objects.create(
+                    type_of_maintenance=type_of_maintenance,
+                    maintenance_company=maintenance_company,
+                    service_company=service_company,
+                    car=car,
+                    order_number=request.data["order_number"],
+                    maintenance_date=request.data["maintenance_date"],
+                    order_date=request.data["order_date"],
+                    operating_hours=request.data["operating_hours"],
+                )
+                create.save()
+                serializer = ToSerializer(create)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        pass
+        client = request.user.is_client
+        service = request.user.is_service
+        manager = request.user.is_manager
+        if request.user.is_authenticated:
+            if client or service or manager:
+                queryset = To.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = ToSerializer(retrieve)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = To.objects.all()
+                update = get_object_or_404(queryset, pk=pk)
+                serializer = ToSerializer(update, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=403)
+        return Response(status=401)
 
     def destroy(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                delete = get_object_or_404(To.objects.all(), pk=pk)
+                delete.delete()
+                return Response(status=204)
+            return Response(status=403)
+        return Response(status=401)
 
 
 class ComplaintsViewSet(viewsets.ViewSet):
+    view_is_async = True
+
     def list(self, request):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_client:
+                client_obj = Client.objects.get(client_id=request.user.pk)
+                queryset = Complaints.objects.filter(
+                    car__client=client_obj
+                )  # TODO: Надо проверить этот момент
+                serializer = ComplaintsSerializer(queryset, many=True)
+                return Response(serializer.data)
+            if request.user.is_service:
+                service_obj = Service.objects.get(service_id=request.user.pk)
+                queryset = Complaints.objects.filter(service_company=service_obj)
+                serializer = ComplaintsSerializer(queryset, many=True)
+                return Response(serializer.data)
+            if request.user.is_manager:
+                queryset = Complaints.objects.all()
+                serializer = ComplaintsSerializer(queryset, many=True)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def create(self, request):
-        pass
+        service = request.user.is_service
+        manager = request.user.is_manager
+        if request.user.is_authenticated:
+            if service or manager:
+                failure_node = get_object_or_404(
+                    Failure,
+                    id=request.data["failure_node"],
+                )
+                recovery_method = get_object_or_404(
+                    RecoveryMethod,
+                    id=request.data["recovery_method"],
+                )
+                service_company = get_object_or_404(
+                    Service,
+                    id=request.data["service_company"],
+                )
+                car = get_object_or_404(
+                    Cars,
+                    id=request.data["car"],
+                )
+                create = Complaints.objects.create(
+                    failure_node=failure_node,
+                    recovery_method=recovery_method,
+                    service_company=service_company,
+                    car=car,
+                    parts_used=request.data["parts_used"],
+                    failure_description=request.data["failure_description"],
+                    refusal_date=request.data["refusal_date"],
+                    restore_date=request.data["restore_date"],
+                    operating_hours=request.data["operating_hours"],
+                    equipment_downtime=request.data["equipment_downtime"],
+                )
+                create.save()
+                serializer = ComplaintsSerializer(create)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        pass
+        client = request.user.is_client
+        service = request.user.is_service
+        manager = request.user.is_manager
+        if request.user.is_authenticated:
+            if client or service or manager:
+                queryset = Complaints.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = ComplaintsSerializer(retrieve)
+                return Response(serializer.data)
+            return Response(status=403)
+        return Response(status=401)
 
     def update(self, request, pk=None):
-        pass
-
-    def partial_update(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                queryset = Complaints.objects.all()
+                update = get_object_or_404(queryset, pk=pk)
+                serializer = ComplaintsSerializer(update, data=request.data)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response(serializer.data)
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(status=403)
+        return Response(status=401)
 
     def destroy(self, request, pk=None):
-        pass
+        if request.user.is_authenticated:
+            if request.user.is_manager:
+                delete = get_object_or_404(Complaints.objects.all(), pk=pk)
+                delete.delete()
+                return Response(status=204)
+            return Response(status=403)
+        return Response(status=401)

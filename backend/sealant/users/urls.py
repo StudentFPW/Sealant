@@ -8,18 +8,19 @@ from .viewsets import (
     ClientRegistrationViewSet as client,
     ServiceRegistrationViewSet as service,
     ManagerRegistrationViewSet as manager,
-    ClientSerializer,
-    ServiceSerializer,
-    ManagerSerializer,
+    ClientViewSet,
+    ServiceViewSet,
+    ManagerViewSet,
 )
 
 urlpatterns = [
     path("reg/client/", client.as_view(), name="reg-client"),
     path("reg/service/", service.as_view(), name="reg-service"),
     path("reg/manager/", manager.as_view(), name="reg-manager"),
-    path("list/client/", ClientSerializer.as_view(), name="list-client"),
-    path("list/service/", ServiceSerializer.as_view(), name="list-service"),
-    path("list/manager/", ManagerSerializer.as_view(), name="list-manager"),
+    path("list/client/", ClientViewSet.as_view({"get": "list"}), name="list-client"),
+    path("list/service/", ServiceViewSet.as_view({"get": "list"}), name="list-service"),
+    path("list/manager/", ManagerViewSet.as_view({"get": "list"}), name="list-manager"),
+    # TODO: add full user information ↓
     path("user/", UserDetailsView.as_view(), name="rest_user_details"),
     path("login/", LoginView.as_view(), name="rest_login"),
     path("logout/", LogoutView.as_view(), name="rest_logout"),

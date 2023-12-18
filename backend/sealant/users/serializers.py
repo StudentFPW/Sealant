@@ -81,6 +81,7 @@ class ManagerCustomRegistrationSerializer(RegisterSerializer):
     def save(self, request):
         user = super(ManagerCustomRegistrationSerializer, self).save(request)
         user.is_manager = True
+        user.is_staff = True  # Для класса IsAdminUser
         user.first_name = self.data.get("first_name")
         user.company = self.data.get("company")
         if self.data.get("last_name"):

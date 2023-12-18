@@ -14,7 +14,7 @@ from .models import (
     Complaints,
 )
 
-from users.serializers import ClientSerializer, ServiceSerializer, ManagerSerializer
+from users.serializers import ClientSerializer, ServiceSerializer
 
 
 class TechniqueSerializer(serializers.ModelSerializer):

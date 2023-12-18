@@ -119,7 +119,7 @@ class Cars(models.Model):
 
     equipment = models.TextField(null=True, blank=True)
 
-    supply_contract_date = models.DateField()
+    supply_contract_date = models.DateField(null=True, blank=True)
     shipped_from_factory = models.DateField(null=True, blank=True)
 
     def __str__(self):
