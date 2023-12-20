@@ -3,6 +3,14 @@ from django.db import models
 
 from django.conf import settings
 
+# Принцип авторизации:
+#       Король является администратором
+#       Рыцарь является менеджером
+
+# Администратор посвящает менеджера в рыцари
+
+# PS. users.viewsets.py
+
 
 class User(AbstractUser):
     is_client = models.BooleanField(default=False)

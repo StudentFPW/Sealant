@@ -1,8 +1,7 @@
 from django.shortcuts import get_object_or_404
 
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework import status
 
 from .models import (
     Technique,
@@ -35,14 +34,29 @@ from .serializers import (
 from users.models import Service, Client
 
 # Спагетти без принципа DRY (* ￣︿￣)
+# Была идея использовать наследование, но тогда мы пойдем против одного под принципа SOLID X﹏X
 
-# Была идея использовать наследование, но тогда мы пойдем против принципа SOLID (～￣▽￣)～
+# Я мог работать с классом viewsets.ModelViewSet и уже в дочернем классе использовать
+# инструкции подвязанные в группу а именно permission_required = ('service.add_cars', 'service.change_cars', 'service.delete_cars')
+# LoginRequiredMixin, PermissionRequiredMixin.
+# В таком случае код был бы в разы меньше.
+
+# Я взял за основу этот метод так как легче манипулировать данными.
 
 
 class TechniqueViewSet(viewsets.ViewSet):
     view_is_async = True
 
+    # def get_queryset(self):
+    #     name = self.request.query_params.get("name")
+    #     queryset = Technique.objects.filter(name=name)
+    #     return queryset
+
     def list(self, request):
+        """
+        Эта функция возвращает список объектов Technique, если пользователь прошел аутентификацию и является
+        менеджером, в противном случае она возвращает соответствующий статус ответа.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 queryset = Technique.objects.all()
@@ -52,6 +66,10 @@ class TechniqueViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def create(self, request):
+        """
+        Функция create создает новый объект Technique, если пользователь аутентифицирован и является
+        менеджером, и возвращает сериализованные данные созданного объекта.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 create = Technique.objects.create(
@@ -64,6 +82,10 @@ class TechniqueViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def retrieve(self, request, pk=None):
+        """
+        Функция извлекает объект Technique, если пользователь прошел проверку подлинности и является
+        менеджером, в противном случае она возвращает соответствующий статус ответа.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 queryset = Technique.objects.all()
@@ -74,6 +96,10 @@ class TechniqueViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def update(self, request, pk=None):
+        """
+        Эта функция обновляет объект Technique, если пользователь прошел аутентификацию и является
+        менеджером, в противном случае она возвращает соответствующий статус ответа.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 update = get_object_or_404(Technique.objects.all(), pk=pk)
@@ -86,6 +112,10 @@ class TechniqueViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def destroy(self, request, pk=None):
+        """
+        Функция destroy удаляет объект Technique, если пользователь аутентифицирован и является менеджером,
+        в противном случае она возвращает соответствующий код состояния ответа.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 delete = get_object_or_404(Technique.objects.all(), pk=pk)
@@ -491,10 +521,15 @@ class CarsViewSet(viewsets.ViewSet):
     view_is_async = True
 
     def list(self, request):
+        """
+        Эта функция возвращает список автомобилей на основе аутентификации и роли пользователя.
+        """
         # Пользователь не авторизовался ↓
         if not request.user.is_authenticated:
             # просмотр (доступ только к полям пп.1-10) Как в ТЗ!
-            queryset = Cars.objects.all()[:11]
+            queryset = Cars.objects.filter().order_by(
+                "-shipped_from_factory",
+            )[:11]
             serializer = CarsSerializer(queryset, many=True)
             return Response(serializer.data)
         # Пользователь авторизовался ↓
@@ -502,24 +537,34 @@ class CarsViewSet(viewsets.ViewSet):
             # Является клиентом ↓
             if request.user.is_client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
-                queryset = Cars.objects.filter(client=client_obj)
+                queryset = Cars.objects.filter(client=client_obj).order_by(
+                    "-shipped_from_factory",
+                )
                 serializer = CarsSerializer(queryset, many=True)
                 return Response(serializer.data)
             # Является сервисной организацией ↓
             if request.user.is_service:
                 service_obj = Service.objects.get(service_id=request.user.pk)
-                queryset = Cars.objects.filter(service_company=service_obj)
+                queryset = Cars.objects.filter(service_company=service_obj).order_by(
+                    "-shipped_from_factory",
+                )
                 serializer = CarsSerializer(queryset, many=True)
                 return Response(serializer.data)
             # Является менеджером ↓
             if request.user.is_manager:
-                queryset = Cars.objects.all()
+                queryset = Cars.objects.filter().order_by(
+                    "-shipped_from_factory",
+                )
                 serializer = CarsSerializer(queryset, many=True)
                 return Response(serializer.data)
             return Response(status=403)
         return Response(status=401)
 
     def create(self, request):
+        """
+        Функция create создает новый экземпляр модели Cars с предоставленными данными, если пользователь
+        прошел аутентификацию и является менеджером.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 technique_obj = get_object_or_404(
@@ -544,11 +589,11 @@ class CarsViewSet(viewsets.ViewSet):
                 )
                 service_obj = get_object_or_404(
                     Service,
-                    id=request.data["service_company"],
+                    service_id=request.data["service_company"],
                 )
                 client_obj = get_object_or_404(
                     Client,
-                    id=request.data["client"],
+                    client_id=request.data["client"],
                 )
                 create = Cars.objects.create(
                     vehicle_model=technique_obj,
@@ -576,11 +621,27 @@ class CarsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def retrieve(self, request, pk=None):
+        """
+        Функция get извлекает конкретный объект автомобиля в зависимости от роли пользователя (клиент,
+        служба или менеджер) и возвращает сериализованные данные.
+        """
         client = request.user.is_client
         service = request.user.is_service
         manager = request.user.is_manager
         if request.user.is_authenticated:
-            if client or service or manager:
+            if client:
+                client_obj = Client.objects.get(client_id=request.user.pk)
+                queryset = Cars.objects.filter(client=client_obj)
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = CarsSerializer(retrieve)
+                return Response(serializer.data)
+            if service:
+                service_obj = Service.objects.get(service_id=request.user.pk)
+                queryset = Cars.objects.filter(service_company=service_obj)
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = CarsSerializer(retrieve)
+                return Response(serializer.data)
+            if manager:
                 queryset = Cars.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = CarsSerializer(retrieve)
@@ -589,6 +650,10 @@ class CarsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def update(self, request, pk=None):
+        """
+        Функция update обновляет объект автомобиля, если пользователь аутентифицирован и является
+        менеджером, в противном случае она возвращает соответствующий статус ответа.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 queryset = Cars.objects.all()
@@ -602,6 +667,10 @@ class CarsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def destroy(self, request, pk=None):
+        """
+        Функция «destroy» удаляет объект автомобиля, если пользователь аутентифицирован и является
+        менеджером, в противном случае она возвращает соответствующий код состояния ответа.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 delete = get_object_or_404(Cars.objects.all(), pk=pk)
@@ -615,27 +684,39 @@ class ToViewSet(viewsets.ViewSet):
     view_is_async = True
 
     def list(self, request):
+        """
+        Функция возвращает список объектов на основе роли пользователя (клиент, служба или менеджер) и
+        статуса их аутентификации.
+        """
         if request.user.is_authenticated:
             if request.user.is_client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
-                queryset = To.objects.filter(
-                    car__client=client_obj
-                )  # TODO: Надо проверить этот момент
+                queryset = To.objects.filter(car__client=client_obj).order_by(
+                    "-maintenance_date",
+                )
                 serializer = ToSerializer(queryset, many=True)
                 return Response(serializer.data)
             if request.user.is_service:
                 service_obj = Service.objects.get(service_id=request.user.pk)
-                queryset = To.objects.filter(service_company=service_obj)
+                queryset = To.objects.filter(service_company=service_obj).order_by(
+                    "-maintenance_date",
+                )
                 serializer = ToSerializer(queryset, many=True)
                 return Response(serializer.data)
             if request.user.is_manager:
-                queryset = To.objects.all()
+                queryset = To.objects.filter().order_by(
+                    "-maintenance_date",
+                )
                 serializer = ToSerializer(queryset, many=True)
                 return Response(serializer.data)
             return Response(status=403)
         return Response(status=401)
 
     def create(self, request):
+        """
+        Функция create создает новый объект To с предоставленными данными и возвращает сериализованные
+        данные.
+        """
         client = request.user.is_client
         service = request.user.is_service
         manager = request.user.is_manager
@@ -647,11 +728,11 @@ class ToViewSet(viewsets.ViewSet):
                 )
                 maintenance_company = get_object_or_404(
                     Service,
-                    id=request.data["maintenance_company"],
+                    service_id=request.data["maintenance_company"],
                 )
                 service_company = get_object_or_404(
                     Service,
-                    id=request.data["service_company"],
+                    service_id=request.data["service_company"],
                 )
                 car = get_object_or_404(
                     Cars,
@@ -674,11 +755,27 @@ class ToViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def retrieve(self, request, pk=None):
+        """
+        Функция get извлекает конкретный объект в зависимости от роли пользователя (клиент, служба или
+        менеджер) и возвращает его сериализованные данные.
+        """
         client = request.user.is_client
         service = request.user.is_service
         manager = request.user.is_manager
         if request.user.is_authenticated:
-            if client or service or manager:
+            if client:
+                client_obj = Client.objects.get(client_id=request.user.pk)
+                queryset = To.objects.filter(car__client=client_obj)
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = ToSerializer(retrieve)
+                return Response(serializer.data)
+            if service:
+                service_obj = Service.objects.get(service_id=request.user.pk)
+                queryset = To.objects.filter(service_company=service_obj)
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = ToSerializer(retrieve)
+                return Response(serializer.data)
+            if manager:
                 queryset = To.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = ToSerializer(retrieve)
@@ -687,6 +784,10 @@ class ToViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def update(self, request, pk=None):
+        """
+        Функция update обновляет объект «To», если пользователь аутентифицирован и является менеджером, в
+        противном случае она возвращает соответствующий статус ответа.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 queryset = To.objects.all()
@@ -700,6 +801,12 @@ class ToViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def destroy(self, request, pk=None):
+        """
+        Функция проверяет, аутентифицирован ли пользователь и является ли он менеджером, и если да, удаляет
+        объект и возвращает код состояния 204; в противном случае он возвращает код состояния 403, если
+        пользователь не является менеджером, или код состояния 401, если пользователь не прошел проверку
+        подлинности.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 delete = get_object_or_404(To.objects.all(), pk=pk)
@@ -713,27 +820,41 @@ class ComplaintsViewSet(viewsets.ViewSet):
     view_is_async = True
 
     def list(self, request):
+        """
+        Функция возвращает список жалоб в зависимости от роли пользователя (клиент, служба или менеджер),
+        если пользователь прошел аутентификацию.
+        """
         if request.user.is_authenticated:
             if request.user.is_client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
-                queryset = Complaints.objects.filter(
-                    car__client=client_obj
-                )  # TODO: Надо проверить этот момент
+                queryset = Complaints.objects.filter(car__client=client_obj).order_by(
+                    "-refusal_date",
+                )
                 serializer = ComplaintsSerializer(queryset, many=True)
                 return Response(serializer.data)
             if request.user.is_service:
                 service_obj = Service.objects.get(service_id=request.user.pk)
-                queryset = Complaints.objects.filter(service_company=service_obj)
+                queryset = Complaints.objects.filter(
+                    service_company=service_obj
+                ).order_by(
+                    "-refusal_date",
+                )
                 serializer = ComplaintsSerializer(queryset, many=True)
                 return Response(serializer.data)
             if request.user.is_manager:
-                queryset = Complaints.objects.all()
+                queryset = Complaints.objects.filter().order_by(
+                    "-refusal_date",
+                )
                 serializer = ComplaintsSerializer(queryset, many=True)
                 return Response(serializer.data)
             return Response(status=403)
         return Response(status=401)
 
     def create(self, request):
+        """
+        Функция «создать» создает новый объект жалобы, если пользователь прошел аутентификацию и имеет
+        необходимые разрешения.
+        """
         service = request.user.is_service
         manager = request.user.is_manager
         if request.user.is_authenticated:
@@ -748,7 +869,7 @@ class ComplaintsViewSet(viewsets.ViewSet):
                 )
                 service_company = get_object_or_404(
                     Service,
-                    id=request.data["service_company"],
+                    service_id=request.data["service_company"],
                 )
                 car = get_object_or_404(
                     Cars,
@@ -773,11 +894,27 @@ class ComplaintsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def retrieve(self, request, pk=None):
+        """
+        Функция «получить» извлекает конкретную жалобу в зависимости от роли пользователя (клиент, служба
+        или менеджер) и возвращает сериализованные данные жалобы.
+        """
         client = request.user.is_client
         service = request.user.is_service
         manager = request.user.is_manager
         if request.user.is_authenticated:
-            if client or service or manager:
+            if client:
+                client_obj = Client.objects.get(client_id=request.user.pk)
+                queryset = Complaints.objects.filter(car__client=client_obj)
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = ComplaintsSerializer(retrieve)
+                return Response(serializer.data)
+            if service:
+                service_obj = Service.objects.get(service_id=request.user.pk)
+                queryset = Complaints.objects.filter(service_company=service_obj)
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = ComplaintsSerializer(retrieve)
+                return Response(serializer.data)
+            if manager:
                 queryset = Complaints.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = ComplaintsSerializer(retrieve)
@@ -786,6 +923,9 @@ class ComplaintsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def update(self, request, pk=None):
+        """
+        Эта функция обновляет объект жалобы, если пользователь прошел аутентификацию и является менеджером.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 queryset = Complaints.objects.all()
@@ -799,6 +939,10 @@ class ComplaintsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def destroy(self, request, pk=None):
+        """
+        Функция «destroy» удаляет объект жалобы, если пользователь аутентифицирован и является менеджером, в
+        противном случае она возвращает соответствующий код состояния ответа.
+        """
         if request.user.is_authenticated:
             if request.user.is_manager:
                 delete = get_object_or_404(Complaints.objects.all(), pk=pk)

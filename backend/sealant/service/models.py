@@ -202,4 +202,6 @@ class Complaints(models.Model):
     equipment_downtime = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f"Failure description: {self.failure_description.split()[:5]}..."
+        return (
+            f"Failure description: {' '.join(self.failure_description.split()[:10])}..."
+        )

@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from dj_rest_auth.registration.serializers import RegisterSerializer
 
-from .models import Client, Service, Manager
+from .models import User, Client, Service, Manager
 
 
 class ClientCustomRegistrationSerializer(RegisterSerializer):
@@ -114,3 +114,25 @@ class ManagerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Manager
         fields = "__all__"
+
+
+class UserDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "is_superuser",
+            "is_staff",
+            "is_active",
+            "date_joined",
+            "is_client",
+            "is_service",
+            "is_manager",
+            "foto",
+            "website",
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "company",
+        )

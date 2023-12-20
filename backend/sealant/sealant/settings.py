@@ -63,13 +63,9 @@ INSTALLED_APPS = [
     "corsheaders",
     "drf_yasg",
     "import_export",
-    # "",
-    # "",
     # Джанго-приложения ↓
     "service",
     "users",
-    # "",
-    # "",
 ]
 
 SITE_ID = 1
@@ -159,13 +155,9 @@ STATICFILES_DIR = os.path.join(BASE_DIR, "static")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
-    # "DEFAULT_PERMISSION_CLASSES": [
-    #     "rest_framework.permissions.IsAuthenticated",
-    # ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     ],
-    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
 }
@@ -185,6 +177,7 @@ REST_AUTH = {
     "JWT_AUTH_COOKIE": "JWT-AUTH-COOKIE",
     "JWT_AUTH_REFRESH_COOKIE": "JWT-AUTH-REFRESH-COOKIE",
     "JWT_AUTH_HTTPONLY": False,
+    "USER_DETAILS_SERIALIZER": "users.serializers.UserDetailsSerializer",
 }
 
 AUTHENTICATION_BACKENDS = [

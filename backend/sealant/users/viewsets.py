@@ -2,7 +2,7 @@ from dj_rest_auth.registration.views import RegisterView
 from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser
 
-from .models import Client, Service, Manager
+from .models import User, Client, Service, Manager
 from .serializers import (
     ClientCustomRegistrationSerializer,
     ServiceCustomRegistrationSerializer,
@@ -10,6 +10,7 @@ from .serializers import (
     ClientSerializer,
     ServiceSerializer,
     ManagerSerializer,
+    UserDetailsSerializer,
 )
 
 # Класс разрешений IsAdminUser будет отказывать в разрешении любому пользователю,
@@ -18,7 +19,7 @@ from .serializers import (
 # Это разрешение подходит, если вы хотите, чтобы ваш API был доступен только
 # ограниченному кругу доверенных администраторов.
 
-# ps. users.serializers.py class ManagerCustomRegistrationSerializer
+# PS. users.serializers.py class ManagerCustomRegistrationSerializer
 
 
 class ClientRegistrationViewSet(RegisterView):
@@ -55,3 +56,9 @@ class ManagerViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
     serializer_class = ManagerSerializer
     queryset = Manager.objects.all()
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAdminUser]
+    serializer_class = UserDetailsSerializer
+    queryset = User.objects.all()
