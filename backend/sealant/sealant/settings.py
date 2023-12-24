@@ -39,7 +39,7 @@ else:
         "http://127.0.0.1:3000/",
     ]
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 

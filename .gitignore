@@ -12,3 +12,4 @@ pyvenv.cfg
 pip-selfcheck.json
 # db.sqlite3
 # __pycache__
+# migrations
