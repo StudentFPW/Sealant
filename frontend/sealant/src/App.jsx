@@ -9,10 +9,17 @@ export default function App() {
     <React.Fragment>
       <BrowserRouter>
         <Switch>
+          <Route path='/profile/'>
+            <h1>Profile</h1>
+          </Route>
+          <Route path='/dash/'>
+            <h1>Dashboard</h1>
+          </Route>
           <Route path='/login/'>
             <Login />
           </Route>
           <Route path='/'>
+            <h1>Home</h1>
           </Route>
         </Switch>
       </BrowserRouter>
