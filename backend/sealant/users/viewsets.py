@@ -59,6 +59,8 @@ class ManagerViewSet(viewsets.ModelViewSet):
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdminUser]
     serializer_class = UserDetailsSerializer
     queryset = User.objects.all()
+
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id)

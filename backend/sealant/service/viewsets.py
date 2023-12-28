@@ -47,18 +47,13 @@ from users.models import Service, Client
 class TechniqueViewSet(viewsets.ViewSet):
     view_is_async = True
 
-    # def get_queryset(self):
-    #     name = self.request.query_params.get("name")
-    #     queryset = Technique.objects.filter(name=name)
-    #     return queryset
-
     def list(self, request):
         """
         Эта функция возвращает список объектов Technique, если пользователь прошел аутентификацию и является
         менеджером, в противном случае она возвращает соответствующий статус ответа.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Technique.objects.all()
                 serializer = TechniqueSerializer(queryset, many=True)
                 return Response(serializer.data)
@@ -71,7 +66,7 @@ class TechniqueViewSet(viewsets.ViewSet):
         менеджером, и возвращает сериализованные данные созданного объекта.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 create = Technique.objects.create(
                     name=request.data["name"], description=request.data["description"]
                 )
@@ -87,7 +82,7 @@ class TechniqueViewSet(viewsets.ViewSet):
         менеджером, в противном случае она возвращает соответствующий статус ответа.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Technique.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = TechniqueSerializer(retrieve)
@@ -101,7 +96,7 @@ class TechniqueViewSet(viewsets.ViewSet):
         менеджером, в противном случае она возвращает соответствующий статус ответа.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 update = get_object_or_404(Technique.objects.all(), pk=pk)
                 serializer = TechniqueSerializer(update, data=request.data)
                 if serializer.is_valid():
@@ -117,7 +112,7 @@ class TechniqueViewSet(viewsets.ViewSet):
         в противном случае она возвращает соответствующий код состояния ответа.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(Technique.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
@@ -130,7 +125,7 @@ class EngineViewSet(viewsets.ViewSet):
 
     def list(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Engine.objects.all()
                 serializer = EngineSerializer(queryset, many=True)
                 return Response(serializer.data)
@@ -139,7 +134,7 @@ class EngineViewSet(viewsets.ViewSet):
 
     def create(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 create = Engine.objects.create(
                     name=request.data["name"], description=request.data["description"]
                 )
@@ -151,7 +146,7 @@ class EngineViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Engine.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = EngineSerializer(retrieve)
@@ -161,7 +156,7 @@ class EngineViewSet(viewsets.ViewSet):
 
     def update(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 update = get_object_or_404(Engine.objects.all(), pk=pk)
                 serializer = EngineSerializer(update, data=request.data)
                 if serializer.is_valid():
@@ -173,7 +168,7 @@ class EngineViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(Engine.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
@@ -186,7 +181,7 @@ class TransmissionViewSet(viewsets.ViewSet):
 
     def list(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Transmission.objects.all()
                 serializer = TransmissionSerializer(queryset, many=True)
                 return Response(serializer.data)
@@ -195,7 +190,7 @@ class TransmissionViewSet(viewsets.ViewSet):
 
     def create(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 create = Transmission.objects.create(
                     name=request.data["name"], description=request.data["description"]
                 )
@@ -207,7 +202,7 @@ class TransmissionViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Transmission.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = TransmissionSerializer(retrieve)
@@ -217,7 +212,7 @@ class TransmissionViewSet(viewsets.ViewSet):
 
     def update(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 update = get_object_or_404(Transmission.objects.all(), pk=pk)
                 serializer = TransmissionSerializer(update, data=request.data)
                 if serializer.is_valid():
@@ -229,7 +224,7 @@ class TransmissionViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(Transmission.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
@@ -242,7 +237,7 @@ class AxleViewSet(viewsets.ViewSet):
 
     def list(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Axle.objects.all()
                 serializer = AxleSerializer(queryset, many=True)
                 return Response(serializer.data)
@@ -251,7 +246,7 @@ class AxleViewSet(viewsets.ViewSet):
 
     def create(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 create = Axle.objects.create(
                     name=request.data["name"], description=request.data["description"]
                 )
@@ -263,7 +258,7 @@ class AxleViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Axle.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = AxleSerializer(retrieve)
@@ -273,7 +268,7 @@ class AxleViewSet(viewsets.ViewSet):
 
     def update(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 update = get_object_or_404(Axle.objects.all(), pk=pk)
                 serializer = AxleSerializer(update, data=request.data)
                 if serializer.is_valid():
@@ -285,7 +280,7 @@ class AxleViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(Axle.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
@@ -298,7 +293,7 @@ class SteeringAxleViewSet(viewsets.ViewSet):
 
     def list(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = SteeringAxle.objects.all()
                 serializer = SteeringAxleSerializer(queryset, many=True)
                 return Response(serializer.data)
@@ -307,7 +302,7 @@ class SteeringAxleViewSet(viewsets.ViewSet):
 
     def create(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 create = SteeringAxle.objects.create(
                     name=request.data["name"], description=request.data["description"]
                 )
@@ -319,7 +314,7 @@ class SteeringAxleViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = SteeringAxle.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = SteeringAxleSerializer(retrieve)
@@ -329,7 +324,7 @@ class SteeringAxleViewSet(viewsets.ViewSet):
 
     def update(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 update = get_object_or_404(SteeringAxle.objects.all(), pk=pk)
                 serializer = SteeringAxleSerializer(update, data=request.data)
                 if serializer.is_valid():
@@ -341,7 +336,7 @@ class SteeringAxleViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(SteeringAxle.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
@@ -354,7 +349,7 @@ class TypeToViewSet(viewsets.ViewSet):
 
     def list(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = TypeTo.objects.all()
                 serializer = TypeToSerializer(queryset, many=True)
                 return Response(serializer.data)
@@ -363,7 +358,7 @@ class TypeToViewSet(viewsets.ViewSet):
 
     def create(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 create = TypeTo.objects.create(
                     name=request.data["name"], description=request.data["description"]
                 )
@@ -375,7 +370,7 @@ class TypeToViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = TypeTo.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = TypeToSerializer(retrieve)
@@ -385,7 +380,7 @@ class TypeToViewSet(viewsets.ViewSet):
 
     def update(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 update = get_object_or_404(TypeTo.objects.all(), pk=pk)
                 serializer = TypeToSerializer(update, data=request.data)
                 if serializer.is_valid():
@@ -397,7 +392,7 @@ class TypeToViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(TypeTo.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
@@ -410,7 +405,7 @@ class FailureViewSet(viewsets.ViewSet):
 
     def list(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Failure.objects.all()
                 serializer = FailureSerializer(queryset, many=True)
                 return Response(serializer.data)
@@ -419,7 +414,7 @@ class FailureViewSet(viewsets.ViewSet):
 
     def create(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 create = Failure.objects.create(
                     name=request.data["name"], description=request.data["description"]
                 )
@@ -431,7 +426,7 @@ class FailureViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Failure.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = FailureSerializer(retrieve)
@@ -441,7 +436,7 @@ class FailureViewSet(viewsets.ViewSet):
 
     def update(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 update = get_object_or_404(Failure.objects.all(), pk=pk)
                 serializer = FailureSerializer(update, data=request.data)
                 if serializer.is_valid():
@@ -453,7 +448,7 @@ class FailureViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(Failure.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
@@ -466,7 +461,7 @@ class RecoveryMethodViewSet(viewsets.ViewSet):
 
     def list(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = RecoveryMethod.objects.all()
                 serializer = RecoveryMethodSerializer(queryset, many=True)
                 return Response(serializer.data)
@@ -475,7 +470,7 @@ class RecoveryMethodViewSet(viewsets.ViewSet):
 
     def create(self, request):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 create = RecoveryMethod.objects.create(
                     name=request.data["name"], description=request.data["description"]
                 )
@@ -487,7 +482,7 @@ class RecoveryMethodViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = RecoveryMethod.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = RecoveryMethodSerializer(retrieve)
@@ -497,7 +492,7 @@ class RecoveryMethodViewSet(viewsets.ViewSet):
 
     def update(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 update = get_object_or_404(RecoveryMethod.objects.all(), pk=pk)
                 serializer = RecoveryMethodSerializer(update, data=request.data)
                 if serializer.is_valid():
@@ -509,7 +504,7 @@ class RecoveryMethodViewSet(viewsets.ViewSet):
 
     def destroy(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(RecoveryMethod.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
@@ -534,6 +529,12 @@ class CarsViewSet(viewsets.ViewSet):
             return Response(serializer.data)
         # Пользователь авторизовался ↓
         if request.user.is_authenticated:
+            if request.user.is_superuser:
+                queryset = Cars.objects.filter().order_by(
+                    "-shipped_from_factory",
+                )
+                serializer = CarsSerializer(queryset, many=True)
+                return Response(serializer.data)
             # Является клиентом ↓
             if request.user.is_client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
@@ -566,7 +567,7 @@ class CarsViewSet(viewsets.ViewSet):
         прошел аутентификацию и является менеджером.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 technique_obj = get_object_or_404(
                     Technique,
                     id=request.data["vehicle_model"],
@@ -629,6 +630,11 @@ class CarsViewSet(viewsets.ViewSet):
         service = request.user.is_service
         manager = request.user.is_manager
         if request.user.is_authenticated:
+            if request.user.is_superuser:
+                queryset = Cars.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = CarsSerializer(retrieve)
+                return Response(serializer.data)
             if client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
                 queryset = Cars.objects.filter(client=client_obj)
@@ -655,7 +661,7 @@ class CarsViewSet(viewsets.ViewSet):
         менеджером, в противном случае она возвращает соответствующий статус ответа.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Cars.objects.all()
                 update = get_object_or_404(queryset, pk=pk)
                 serializer = CarsSerializer(update, data=request.data)
@@ -672,7 +678,7 @@ class CarsViewSet(viewsets.ViewSet):
         менеджером, в противном случае она возвращает соответствующий код состояния ответа.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(Cars.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
@@ -689,6 +695,12 @@ class ToViewSet(viewsets.ViewSet):
         статуса их аутентификации.
         """
         if request.user.is_authenticated:
+            if request.user.is_superuser:
+                queryset = To.objects.filter().order_by(
+                    "-maintenance_date",
+                )
+                serializer = ToSerializer(queryset, many=True)
+                return Response(serializer.data)
             if request.user.is_client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
                 queryset = To.objects.filter(car__client=client_obj).order_by(
@@ -721,7 +733,7 @@ class ToViewSet(viewsets.ViewSet):
         service = request.user.is_service
         manager = request.user.is_manager
         if request.user.is_authenticated:
-            if client or service or manager:
+            if client or service or manager or request.user.is_superuser:
                 type_of_maintenance = get_object_or_404(
                     TypeTo,
                     id=request.data["type_of_maintenance"],
@@ -763,6 +775,11 @@ class ToViewSet(viewsets.ViewSet):
         service = request.user.is_service
         manager = request.user.is_manager
         if request.user.is_authenticated:
+            if request.user.is_superuser:
+                queryset = To.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = ToSerializer(retrieve)
+                return Response(serializer.data)
             if client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
                 queryset = To.objects.filter(car__client=client_obj)
@@ -789,7 +806,7 @@ class ToViewSet(viewsets.ViewSet):
         противном случае она возвращает соответствующий статус ответа.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = To.objects.all()
                 update = get_object_or_404(queryset, pk=pk)
                 serializer = ToSerializer(update, data=request.data)
@@ -808,7 +825,7 @@ class ToViewSet(viewsets.ViewSet):
         подлинности.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(To.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
@@ -825,6 +842,12 @@ class ComplaintsViewSet(viewsets.ViewSet):
         если пользователь прошел аутентификацию.
         """
         if request.user.is_authenticated:
+            if request.user.is_superuser:
+                queryset = Complaints.objects.filter().order_by(
+                    "-refusal_date",
+                )
+                serializer = ComplaintsSerializer(queryset, many=True)
+                return Response(serializer.data)
             if request.user.is_client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
                 queryset = Complaints.objects.filter(car__client=client_obj).order_by(
@@ -858,7 +881,7 @@ class ComplaintsViewSet(viewsets.ViewSet):
         service = request.user.is_service
         manager = request.user.is_manager
         if request.user.is_authenticated:
-            if service or manager:
+            if service or manager or request.user.is_superuser:
                 failure_node = get_object_or_404(
                     Failure,
                     id=request.data["failure_node"],
@@ -902,6 +925,11 @@ class ComplaintsViewSet(viewsets.ViewSet):
         service = request.user.is_service
         manager = request.user.is_manager
         if request.user.is_authenticated:
+            if request.user.is_superuser:
+                queryset = Complaints.objects.all()
+                retrieve = get_object_or_404(queryset, pk=pk)
+                serializer = ComplaintsSerializer(retrieve)
+                return Response(serializer.data)
             if client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
                 queryset = Complaints.objects.filter(car__client=client_obj)
@@ -927,7 +955,7 @@ class ComplaintsViewSet(viewsets.ViewSet):
         Эта функция обновляет объект жалобы, если пользователь прошел аутентификацию и является менеджером.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 queryset = Complaints.objects.all()
                 update = get_object_or_404(queryset, pk=pk)
                 serializer = ComplaintsSerializer(update, data=request.data)
@@ -944,7 +972,7 @@ class ComplaintsViewSet(viewsets.ViewSet):
         противном случае она возвращает соответствующий код состояния ответа.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager:
+            if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(Complaints.objects.all(), pk=pk)
                 delete.delete()
                 return Response(status=204)
