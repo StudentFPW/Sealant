@@ -1,48 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
+import secureLocalStorage from "react-secure-storage";
 import axios from 'axios';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
+
+import { main } from './urls';
 
 import RGB1 from '../images/RGB1.jpg';
 
 
 export default function Profile() {
-    const [user, setUser] = useState([])
-    const [cars, setCarsCount] = useState([])
+    const [cars, setCars] = useState([])
     const [typeto, setTypeTo] = useState([])
     const [complaints, setComplaints] = useState([])
 
     const fetchUser = async () => {
         axios.request({
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
             method: "GET",
-            url: `http://127.0.0.1:8000/api/v1/user/`
+            url: `${main}/api/v1/user/`
         }).then(response => {
-            setUser(response.data["results"][0]);
+            secureLocalStorage.setItem('user', response.data["results"][0]);
         });
     };
 
     const fetchCars = async () => {
         axios.request({
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
             method: "GET",
-            url: `http://127.0.0.1:8000/api/v1/cars/`
+            url: `${main}/api/v1/cars/`
         }).then(response => {
-            setCarsCount(response.data);
+            setCars(response.data);
         });
     };
 
     const fetchTypeTo = async () => {
         axios.request({
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
             method: "GET",
-            url: `http://127.0.0.1:8000/api/v1/typeto/`
+            url: `${main}/api/v1/typeto/`
         }).then(response => {
             setTypeTo(response.data);
         });
@@ -51,10 +53,10 @@ export default function Profile() {
     const fetchComplaints = async () => {
         axios.request({
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+                Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
             method: "GET",
-            url: `http://127.0.0.1:8000/api/v1/compl/`
+            url: `${main}/api/v1/compl/`
         }).then(response => {
             setComplaints(response.data);
         });
@@ -76,14 +78,14 @@ export default function Profile() {
                             <MDBCardBody className="text-center">
 
                                 <div className="mt-3 mb-4">
-                                    <MDBCardImage src={user.foto ? user.foto : RGB1}
+                                    <MDBCardImage src={secureLocalStorage.getItem('user')['foto'] ? secureLocalStorage.getItem('user')['foto'] : RGB1}
                                         className="rounded-circle" fluid style={{ width: '100px' }} />
                                 </div>
 
-                                <MDBTypography tag="h4">{user.first_name}</MDBTypography>
+                                <MDBTypography tag="h4">{secureLocalStorage.getItem('user')['first_name']}</MDBTypography>
 
                                 <MDBCardText className="text-muted mb-4">
-                                    @{user.username} <span className="mx-2">|</span> <a href="#!">{user.email}</a>
+                                    @{secureLocalStorage.getItem('user')['username']} <span className="mx-2">|</span> <a href="#!">{secureLocalStorage.getItem('user')['email']}</a>
                                 </MDBCardText>
 
                                 <div className="d-flex justify-content-between text-center mt-5 mb-2">

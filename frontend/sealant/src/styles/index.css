@@ -1,0 +1,26 @@
+body,
+html {
+    margin: 0;
+    font-family: 'PTAstraSansBold', 'PTAstraSansRegular';
+    background-color: rgb(235, 229, 214);
+}
+
+@font-face {
+    font-family: 'PTAstraSansBold';
+    src: local('PTAstraSansBold'), url(../fonts/PT-Astra-Sans_Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'PTAstraSansBoldItalic';
+    src: local('PTAstraSansBoldItalic'), url(../fonts/PT-Astra-Sans_Bold-Italic.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'PTAstraSansItalic';
+    src: local('PTAstraSansItalic'), url(../fonts/PT-Astra-Sans_Italic.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'PTAstraSansRegular';
+    src: local('PTAstraSansRegular'), url(../fonts/PT-Astra-Sans_Regular.ttf) format('truetype');
+}
