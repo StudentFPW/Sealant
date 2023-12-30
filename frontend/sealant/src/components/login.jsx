@@ -31,12 +31,12 @@ export default function Login() {
             // Redirect or perform other actions upon successful login
             console.log('Successful login');
 
-            history.push('/profile')
+            history.push('/dash');
         } catch (error) {
             // Handle login error
-            console.log('Error login: ' + error)
+            console.log('Error login: ' + error);
 
-            alert('Учетные данные не верны')
+            alert('Учетные данные не верны');
         };
     };
 

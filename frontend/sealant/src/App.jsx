@@ -5,8 +5,8 @@ import { Switch } from 'react-router-dom/cjs/react-router-dom.min';
 
 import Login from "./components/login";
 import Profile from "./components/profile";
-import Dashboard from "./components/dashboard";
-import Home from "./components/home";
+import DashboardHome from "./components/dashboard-home";
+import DashboardWork from "./components/dashboard-work";
 
 
 export default function App() {
@@ -15,16 +15,16 @@ export default function App() {
       <Router>
         <Switch>
           <Route path='/dash'>
-            <Dashboard />
+            <DashboardWork /> {/* 3 */}
           </Route>
           <Route path='/login'>
-            <Login />
+            <Login /> {/* 2 */}
           </Route>
           <Route path='/profile'>
-            <Profile />
+            <Profile /> {/* 4 */}
           </Route>
           <Route path='/'>
-            <Home />
+            <DashboardHome /> {/* 1 */}
           </Route>
         </Switch>
       </Router>

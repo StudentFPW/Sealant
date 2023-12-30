@@ -7,9 +7,9 @@
 [Ss]cripts
 pyvenv.cfg
 .vscode
-.venv
+venv
 .env
 pip-selfcheck.json
-# db.sqlite3
-# __pycache__
-# migrations
+db.sqlite3
+__pycache__
+migrations
