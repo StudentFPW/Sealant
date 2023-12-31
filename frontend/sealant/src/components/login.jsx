@@ -50,7 +50,7 @@ export default function Login() {
                             <Card className="shadow">
                                 <Card.Body>
                                     <div className="mb-3 mt-4">
-                                        <h2 className="fw-bold mb-2 text-uppercase">СИЛАНТ — российский бренд надежной техники</h2>
+                                        <h2 className="fw-bold mb-2 text-uppercase">ООО “ЧЕБОКСАРСКИЙ ЗАВОД СИЛОВЫХ АГРЕГАТОВ”</h2>
                                         <p className=" mb-5">Пожалуйста, введите логин и пароль!</p>
                                         <Form className="mb-3" onSubmit={handleSubmit}>
 

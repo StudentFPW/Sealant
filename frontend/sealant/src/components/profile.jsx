@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import secureLocalStorage from "react-secure-storage";
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
 
@@ -9,10 +10,16 @@ import { main } from './urls';
 import RGB1 from '../images/RGB1.jpg';
 
 
-export default function Profile() { // FIXME: handled data is not available
+export default function Profile() {
+    const [user, setUser] = useState([]);
     const [cars, setCars] = useState([]);
     const [typeto, setTypeTo] = useState([]);
     const [complaints, setComplaints] = useState([]);
+    let history = useHistory();
+
+    if (!secureLocalStorage.getItem('token')) {
+        history.push('/login');
+    };
 
     const fetchUser = async () => {
         axios.request({
@@ -22,7 +29,12 @@ export default function Profile() { // FIXME: handled data is not available
             method: "GET",
             url: `${main}/api/v1/user/`
         }).then(response => {
-            secureLocalStorage.setItem('user', response.data["results"][0]);
+            // Это не совсем безопасно по отношению к приватным данным ! ↓↓↓
+            setUser(response.data["results"][0])
+
+            // Через secureLocalStorage не получается вывести данные должным образом !
+            // Сам метод работает <<иногда>> !
+            // secureLocalStorage.setItem('user', response.data["results"][0]);
         });
     };
 
@@ -78,28 +90,28 @@ export default function Profile() { // FIXME: handled data is not available
                             <MDBCardBody className="text-center">
 
                                 <div className="mt-3 mb-4">
-                                    <MDBCardImage src={secureLocalStorage.getItem('user')['foto'] !== null ? secureLocalStorage.getItem('user')['foto'] : RGB1}
+                                    <MDBCardImage src={user.foto !== null ? user.foto : RGB1}
                                         className="rounded-circle" fluid style={{ width: '100px' }} />
                                 </div>
 
                                 <MDBTypography tag="h4">
-                                    Фио - {secureLocalStorage.getItem('user')['first_name']} {secureLocalStorage.getItem('user')['last_name'] ? secureLocalStorage.getItem('user')['last_name'] : ''}
+                                    Фио - {user.first_name} {user.last_name ? user.last_name : ''}
                                 </MDBTypography>
 
                                 <MDBCardText className="text-muted mb-4">
-                                    Имя пользователя - {secureLocalStorage.getItem('user')['username']} <span className="mx-2">|</span> {secureLocalStorage.getItem('user')['email']}
+                                    @ {user.username} <span className="mx-2">|</span> {user.email}
                                 </MDBCardText>
 
                                 <MDBCardText className="text-muted mb-4">
-                                    Компания - {secureLocalStorage.getItem('user')['company'] ? secureLocalStorage.getItem('user')['company'] : 'Отсутствует'}
+                                    Компания - {user.company ? user.company : 'Отсутствует'}
                                 </MDBCardText>
 
                                 <MDBCardText className="text-muted mb-4">
-                                    Присоединился - {secureLocalStorage.getItem('user')['date_joined'].slice(0, 10)}
+                                    Присоединился - {Date(user.date_joined).slice(0, 10)}
                                 </MDBCardText>
 
                                 <MDBCardText className="text-muted mb-4">
-                                    Веб сайт - {secureLocalStorage.getItem('user')['website'] ? <a href={secureLocalStorage.getItem('user')['website']} target="_blank" rel="noopener noreferrer">{secureLocalStorage.getItem('user')['website']}</a> : 'Отсутствует'}
+                                    Веб сайт - {user.website ? <a href={user.website} target="_blank" rel="noopener noreferrer">{user.website}</a> : 'Отсутствует'}
                                 </MDBCardText>
 
                                 <div className="d-flex justify-content-between text-center mt-5 mb-2">
