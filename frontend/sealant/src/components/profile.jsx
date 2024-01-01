@@ -19,6 +19,13 @@ export default function Profile() {
 
     if (!secureLocalStorage.getItem('token')) {
         history.push('/login');
+    } else {
+        useEffect(() => {
+            fetchUser();
+            fetchCars();
+            fetchTypeTo();
+            fetchComplaints();
+        }, []);
     };
 
     const fetchUser = async () => {
@@ -73,13 +80,6 @@ export default function Profile() {
             setComplaints(response.data);
         });
     };
-
-    useEffect(() => {
-        fetchUser();
-        fetchCars();
-        fetchTypeTo();
-        fetchComplaints();
-    }, []);
 
     return (
         <div className="vh-100">

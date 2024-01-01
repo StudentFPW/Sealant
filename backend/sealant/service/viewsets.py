@@ -522,9 +522,14 @@ class CarsViewSet(viewsets.ViewSet):
         # Пользователь не авторизовался ↓
         if not request.user.is_authenticated:
             # просмотр (доступ только к полям пп.1-10) Как в ТЗ!
-            queryset = Cars.objects.filter().order_by(
-                "-shipped_from_factory",
-            )[:11]
+            if request.data:
+                queryset = Cars.objects.filter(
+                    factory_number=request.data["factory_number"]
+                ).order_by("-shipped_from_factory",)[:11]
+            else:
+                queryset = Cars.objects.filter().order_by(
+                    "-shipped_from_factory",
+                )[:11]
             serializer = CarsSerializer(queryset, many=True)
             return Response(serializer.data)
         # Пользователь авторизовался ↓
