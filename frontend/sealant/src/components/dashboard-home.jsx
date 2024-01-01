@@ -13,13 +13,7 @@ export default function DashboardHome() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let item = document.getElementsByClassName('form-control')[0].value;
-        // axios.request({
-        //     method: "GET",
-        //     url: `${main}/api/v1/cars/${item}`
-        // }).then(response => {
-        //     setCars(response.data);
-        // });
+        //document.getElementsByClassName('form-control')[0].value);
     };
 
     const fetchCars = async () => {
@@ -116,7 +110,7 @@ export default function DashboardHome() {
                             <td>{cars.steering_axle_number ? cars.steering_axle_number : 'Не указано !'}</td>
                             <td>{cars.equipment ? cars.equipment.slice(0, 20) + '...' : 'Не указано !'}</td>
                         </tr>
-                    )) : <h6>Ничего не найдено !</h6>}
+                    )) : null}
                 </tbody>
             </table>
 
