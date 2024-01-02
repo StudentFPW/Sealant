@@ -14,7 +14,6 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
             const response = await axios.post(
                 `${main}/api/v1/login/`,
@@ -22,19 +21,12 @@ export default function Login() {
                     username: secureLocalStorage.getItem("username"),
                     password: secureLocalStorage.getItem("password"),
                 });
-
-            // Store the tokens in localStorage or secure cookie for later use
             secureLocalStorage.setItem("token", response.data["access"]);
             secureLocalStorage.setItem("refreshToken", response.data["refresh"]);
-
-            // Redirect or perform other actions upon successful login
             console.log('Successful login');
-
             history.push('/dash');
         } catch (error) {
-            // Handle login error
             console.log('Error login: ' + error);
-
             alert('Учетные данные не верны');
         };
     };

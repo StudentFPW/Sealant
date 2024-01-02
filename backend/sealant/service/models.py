@@ -8,7 +8,7 @@ class Technique(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Name :{self.name}"
+        return f"{self.name}"
 
 
 class Engine(models.Model):
@@ -16,7 +16,7 @@ class Engine(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Name :{self.name}"
+        return f"{self.name}"
 
 
 class Transmission(models.Model):
@@ -24,7 +24,7 @@ class Transmission(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Name :{self.name}"
+        return f"{self.name}"
 
 
 class Axle(models.Model):
@@ -32,7 +32,7 @@ class Axle(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Name :{self.name}"
+        return f"{self.name}"
 
 
 class SteeringAxle(models.Model):
@@ -40,7 +40,7 @@ class SteeringAxle(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Name :{self.name}"
+        return f"{self.name}"
 
 
 class TypeTo(models.Model):
@@ -48,7 +48,7 @@ class TypeTo(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Name :{self.name}"
+        return f"{self.name}"
 
 
 class Failure(models.Model):
@@ -56,7 +56,7 @@ class Failure(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Name :{self.name}"
+        return f"{self.name}"
 
 
 class RecoveryMethod(models.Model):
@@ -64,7 +64,7 @@ class RecoveryMethod(models.Model):
     description = models.TextField(max_length=1000)
 
     def __str__(self) -> str:
-        return f"Name :{self.name}"
+        return f"{self.name}"
 
 
 class Cars(models.Model):

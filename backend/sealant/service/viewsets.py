@@ -41,7 +41,7 @@ from users.models import Service, Client
 # LoginRequiredMixin, PermissionRequiredMixin.
 # В таком случае код был бы в разы меньше.
 
-# Я взял за основу этот метод так как легче манипулировать данными.
+# Я взял за основу этот метод так как легче оперировать данными.
 
 
 class TechniqueViewSet(viewsets.ViewSet):

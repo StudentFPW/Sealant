@@ -3,7 +3,16 @@ import { useState, useEffect } from 'react';
 import secureLocalStorage from "react-secure-storage";
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
+import {
+    MDBCol,
+    MDBContainer,
+    MDBRow,
+    MDBCard,
+    MDBCardText,
+    MDBCardBody,
+    MDBCardImage,
+    MDBTypography
+} from 'mdb-react-ui-kit';
 
 import { main } from './urls';
 import RGB1 from '../images/RGB1.jpg';
