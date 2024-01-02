@@ -6,8 +6,8 @@ import axios from 'axios';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBTypography } from 'mdb-react-ui-kit';
 
 import { main } from './urls';
-
 import RGB1 from '../images/RGB1.jpg';
+import '../styles/profile.css';
 
 
 export default function Profile() {
@@ -82,7 +82,7 @@ export default function Profile() {
     };
 
     return (
-        <div className="vh-100">
+        <div className="vh-100 bg-img">
             <MDBContainer className="container py-5 h-100">
                 <MDBRow className="d-flex justify-content-center align-items-center h-100">
                     <MDBCol md="12" xl="4">

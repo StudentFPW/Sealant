@@ -6,7 +6,6 @@ import axios from 'axios';
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 
 import { main } from './urls';
-
 import '../styles/login.css';
 
 

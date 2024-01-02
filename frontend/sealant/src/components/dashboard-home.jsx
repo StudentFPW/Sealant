@@ -3,26 +3,42 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import { Telegram } from 'react-bootstrap-icons';
 import { Search } from 'react-bootstrap-icons';
+import { ArrowClockwise } from 'react-bootstrap-icons';
 
 import { main } from './urls';
-
 import RGB1 from '../images/RGB1.png';
+
 
 export default function DashboardHome() {
     const [cars, setCars] = useState([]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        //document.getElementsByClassName('form-control')[0].value);
+    const handleFilter = async () => {
+        let item = document.getElementsByClassName('form-control')[0].value;
+        if (item) {
+            try {
+                const response = await axios.get(`${main}/api/v1/cars/?factory_number=${item}`);
+                if (response.data.length) {
+                    setCars(response.data);
+                } else {
+                    alert('Ничего не найдено, попробуйте еще раз!');
+                };
+            } catch (error) {
+                console.log(error);
+                alert('Что-то пошло не так, попробуйте попозже!')
+            };
+        } else {
+            alert('Пожалуйста введите заводской номер!');
+        };
     };
 
     const fetchCars = async () => {
-        axios.request({
-            method: "GET",
-            url: `${main}/api/v1/cars/`
-        }).then(response => {
+        try {
+            const response = await axios.get(`${main}/api/v1/cars/`);
             setCars(response.data);
-        });
+        } catch (error) {
+            console.log(error);
+            alert('Что-то пошло не так, попробуйте попозже!')
+        };
     };
 
     useEffect(() => {
@@ -59,10 +75,13 @@ export default function DashboardHome() {
                     </div>
                     <div className="d-flex align-items-center">
                         <div className="input-group">
+                            <button type="submit" onClick={fetchCars} className="btn btn-danger" data-mdb-ripple-init>
+                                <ArrowClockwise size={20} />
+                            </button>
                             <div className="form-outline" data-mdb-input-init>
                                 <input type="search" placeholder='Заводской номер' className="form-control" />
                             </div>
-                            <button type="submit" onClick={handleSubmit} className="btn btn-danger" data-mdb-ripple-init>
+                            <button type="submit" onClick={handleFilter} className="btn btn-danger" data-mdb-ripple-init>
                                 <Search size={20} />
                             </button>
                         </div>
@@ -88,7 +107,7 @@ export default function DashboardHome() {
                         {/* <th>Дата отгрузки с завода</th> */}
                         {/* <th>Грузополучатель (конечный потребитель)</th> */}
                         {/* <th>Адрес поставки (эксплуатации)</th> */}
-                        <th>Комплектация (доп. опции)</th>
+                        {/* <th>Комплектация (доп. опции)</th> */}
                         {/* <th>Клиент</th> */}
                         {/* <th>Сервисная организация</th> */}
                     </tr>
@@ -108,7 +127,6 @@ export default function DashboardHome() {
                             <td>{cars.drive_axle_number ? cars.drive_axle_number : 'Не указано !'}</td>
                             <td>{cars.steering_axle_model['name'] ? cars.steering_axle_model['name'] : 'Не указано !'}</td>
                             <td>{cars.steering_axle_number ? cars.steering_axle_number : 'Не указано !'}</td>
-                            <td>{cars.equipment ? cars.equipment.slice(0, 20) + '...' : 'Не указано !'}</td>
                         </tr>
                     )) : null}
                 </tbody>

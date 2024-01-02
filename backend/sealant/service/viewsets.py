@@ -519,12 +519,13 @@ class CarsViewSet(viewsets.ViewSet):
         """
         Эта функция возвращает список автомобилей на основе аутентификации и роли пользователя.
         """
+        query = self.request.query_params
         # Пользователь не авторизовался ↓
         if not request.user.is_authenticated:
             # просмотр (доступ только к полям пп.1-10) Как в ТЗ!
-            if request.data:
+            if query:
                 queryset = Cars.objects.filter(
-                    factory_number=request.data["factory_number"]
+                    factory_number=query.get("factory_number")
                 ).order_by("-shipped_from_factory",)[:11]
             else:
                 queryset = Cars.objects.filter().order_by(
