@@ -123,7 +123,7 @@ class Cars(models.Model):
     shipped_from_factory = models.DateField(null=True, blank=True)
 
     def __str__(self):
-        return f"Vehicle model: {self.vehicle_model.name}, Engine model: {self.engine_model.name}"
+        return f"Зав. № машины: {self.factory_number}, Модель техники: {self.vehicle_model.name}, Модель двигателя: {self.engine_model.name}"
 
 
 class To(models.Model):
@@ -163,7 +163,7 @@ class To(models.Model):
     operating_hours = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f"Date: {self.maintenance_date}"
+        return f"Дата: {self.maintenance_date}"
 
 
 class Complaints(models.Model):
@@ -203,5 +203,5 @@ class Complaints(models.Model):
 
     def __str__(self):
         return (
-            f"Failure description: {' '.join(self.failure_description.split()[:10])}..."
+            f"Описание рекламации: {' '.join(self.failure_description.split()[:10])}..."
         )

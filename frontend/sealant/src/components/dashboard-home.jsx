@@ -7,6 +7,7 @@ import { ArrowClockwise } from 'react-bootstrap-icons';
 
 import { main } from './urls';
 import RGB1 from '../images/RGB1.png';
+import '../styles/dashboard-home.css';
 
 
 export default function DashboardHome() {
@@ -132,7 +133,7 @@ export default function DashboardHome() {
                 </tbody>
             </table>
 
-            <footer className="bg-body-tertiary text-center text-lg-start">
+            <footer className="bg-body-tertiary text-center text-lg-start" id="footer">
                 <div className="text-center p-3">
                     © 2024 Copyright&nbsp;:&nbsp;
                     <a className="text-body" href="https://silant.com/" target="_blank" rel="noopener noreferrer">

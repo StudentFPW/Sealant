@@ -21,7 +21,7 @@ class User(AbstractUser):
     website = models.URLField(max_length=200, blank=True)
 
     def __str__(self):
-        return f"Username: {self.username}, Email: {self.email}, Name: {self.first_name if self.first_name else 'not registered'}"
+        return f"Компания: {self.company}, Пользовательское имя: {self.username}, Электронная Почта: {self.email}, Имя: {self.first_name if self.first_name else 'Не задано!'}"
 
 
 class Client(models.Model):

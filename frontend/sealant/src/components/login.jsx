@@ -12,6 +12,10 @@ import '../styles/login.css';
 export default function Login() {
     let history = useHistory();
 
+    const handleBack = () => {
+        history.push('/')
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -70,6 +74,14 @@ export default function Login() {
                                             <div className="d-grid">
                                                 <Button variant="danger" type="submit">
                                                     Авторизоваться
+                                                </Button>
+                                            </div>
+
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                            <div className="d-grid">
+                                                <Button variant="primary" type="submit" onClick={handleBack}>
+                                                    Вернуться
                                                 </Button>
                                             </div>
 

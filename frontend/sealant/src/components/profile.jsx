@@ -13,6 +13,7 @@ import {
     MDBCardImage,
     MDBTypography
 } from 'mdb-react-ui-kit';
+import { Button } from "react-bootstrap";
 
 import { main } from './urls';
 import RGB1 from '../images/RGB1.jpg';
@@ -35,6 +36,10 @@ export default function Profile() {
             fetchTypeTo();
             fetchComplaints();
         }, []);
+    };
+
+    const handleBack = () => {
+        history.push('/dash')
     };
 
     const fetchUser = async () => {
@@ -136,6 +141,14 @@ export default function Profile() {
                                         <MDBCardText className="mb-1 h5">{Object.keys(typeto).length}</MDBCardText>
                                         <MDBCardText className="small text-muted mb-0">Количество ремонтов и/или техосмотров </MDBCardText>
                                     </div>
+                                </div>
+
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                <div className="d-grid">
+                                    <Button variant="danger" type="submit" onClick={handleBack}>
+                                        Вернуться
+                                    </Button>
                                 </div>
 
                             </MDBCardBody>
