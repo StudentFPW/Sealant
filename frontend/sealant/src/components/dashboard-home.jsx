@@ -6,8 +6,8 @@ import { Search } from 'react-bootstrap-icons';
 import { ArrowClockwise } from 'react-bootstrap-icons';
 
 import { main } from './urls';
-import RGB1 from '../images/RGB1.png';
-import '../styles/dashboard-home.css';
+import RGB1 from './images/RGB1.png';
+import './styles/dashboard-home.css';
 
 
 export default function DashboardHome() {
@@ -63,7 +63,7 @@ export default function DashboardHome() {
                     </div>
                     <div className="w-auto p-3 translucent-bg">Электронная сервисная книжка СИЛАНТ</div>
                     &nbsp;&nbsp;
-                    <a href="/login" target="_blank" rel="noopener noreferrer">
+                    <a href="/login">
                         <button type="button" className="btn btn-danger" data-mdb-ripple-init>Войти</button>
                     </a>
                 </div>
@@ -104,13 +104,6 @@ export default function DashboardHome() {
                         <th>Зав. № ведущего моста</th>
                         <th>Модель управляемого моста</th>
                         <th>Зав. № управляемого моста</th>
-                        {/* <th>Договор по ставке №, Дата</th> */}
-                        {/* <th>Дата отгрузки с завода</th> */}
-                        {/* <th>Грузополучатель (конечный потребитель)</th> */}
-                        {/* <th>Адрес поставки (эксплуатации)</th> */}
-                        {/* <th>Комплектация (доп. опции)</th> */}
-                        {/* <th>Клиент</th> */}
-                        {/* <th>Сервисная организация</th> */}
                     </tr>
                 </thead>
 

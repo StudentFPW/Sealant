@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom/cjs/react-router-dom.min';
 
 import Login from "./components/login";
-import Profile from "./components/profile";
+import Profile from "./components/dashboard-work/profile";
 import DashboardHome from "./components/dashboard-home";
-import DashboardWork from "./components/dashboard-work";
+import DashboardWork from "./components/dashboard-work/main";
 
 
 export default function App() {

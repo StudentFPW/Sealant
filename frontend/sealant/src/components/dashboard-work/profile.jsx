@@ -15,9 +15,9 @@ import {
 } from 'mdb-react-ui-kit';
 import { Button } from "react-bootstrap";
 
-import { main } from './urls';
-import RGB1 from '../images/RGB1.jpg';
-import '../styles/profile.css';
+import { main } from '../urls';
+import RGB1 from './images/RGB1.jpg';
+import './styles/profile.css';
 
 
 export default function Profile() {
@@ -25,6 +25,7 @@ export default function Profile() {
     const [cars, setCars] = useState([]);
     const [typeto, setTypeTo] = useState([]);
     const [complaints, setComplaints] = useState([]);
+    const [status, setStatus] = useState([]);
     let history = useHistory();
 
     if (!secureLocalStorage.getItem('token')) {
@@ -43,7 +44,7 @@ export default function Profile() {
     };
 
     const fetchUser = async () => {
-        axios.request({
+        await axios.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -51,16 +52,33 @@ export default function Profile() {
             url: `${main}/api/v1/user/`
         }).then(response => {
             // Это не совсем безопасно по отношению к приватным данным ! ↓↓↓
-            setUser(response.data["results"][0])
-
+            setUser(response.data["results"][0]);
             // Через secureLocalStorage не получается вывести данные должным образом !
             // Сам метод работает <<иногда>> !
             // secureLocalStorage.setItem('user', response.data["results"][0]);
+
+            // В <<макете основной внутренний страницы>> была функциональность вывести статус пользователя.
+            // Я это сделал на странице профиля.
+            let client = response.data["results"][0]['is_client'];
+            let manager = response.data["results"][0]['is_manager'];
+            let service = response.data["results"][0]['is_service'];
+            if (client) {
+                setStatus('Статус клиента')
+            };
+            if (service) {
+                setStatus('Статус сервисной компании')
+            };
+            if (manager) {
+                setStatus('Статус менеджера')
+            };
+            if (client && manager && service) {
+                setStatus('Статус администратора')
+            };
         });
     };
 
     const fetchCars = async () => {
-        axios.request({
+        await axios.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -72,7 +90,7 @@ export default function Profile() {
     };
 
     const fetchTypeTo = async () => {
-        axios.request({
+        await axios.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -84,7 +102,7 @@ export default function Profile() {
     };
 
     const fetchComplaints = async () => {
-        axios.request({
+        await axios.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -111,6 +129,10 @@ export default function Profile() {
                                 <MDBTypography tag="h4">
                                     Фио - {user.first_name} {user.last_name ? user.last_name : ''}
                                 </MDBTypography>
+
+                                <MDBCardText className="text-muted mb-4">
+                                    {status}
+                                </MDBCardText>
 
                                 <MDBCardText className="text-muted mb-4">
                                     @ {user.username} <span className="mx-2">|</span> {user.email}
