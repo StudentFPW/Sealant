@@ -1,6 +1,6 @@
 from dj_rest_auth.registration.views import RegisterView
 from rest_framework import viewsets
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 
 from .models import User, Client, Service, Manager
 from .serializers import (
@@ -59,8 +59,16 @@ class ManagerViewSet(viewsets.ModelViewSet):
 
 
 class UserViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
     serializer_class = UserDetailsSerializer
     queryset = User.objects.all()
 
     def get_queryset(self):
         return User.objects.filter(id=self.request.user.id)
+
+
+class UsersViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserDetailsSerializer
+    queryset = User.objects.all()
+    filterset_fields = ["id"]

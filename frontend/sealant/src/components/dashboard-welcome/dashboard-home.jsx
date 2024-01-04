@@ -48,7 +48,7 @@ export default function DashboardHome() {
 
     return (
         <React.Fragment>
-            <header className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+            <header className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#ebe5d6" }}>
                 <div className="container-fluid">
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <a className="navbar-brand mt-2 mt-lg-0" href="https://silant.com/" target="_blank" rel="noopener noreferrer">
@@ -69,7 +69,7 @@ export default function DashboardHome() {
                 </div>
             </header>
 
-            <nav className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+            <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#ebe5d6" }}>
                 <div className="container-fluid">
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <h5>Проверьте комплектацию и технические характеристики техники СИЛАНТ</h5>
@@ -126,7 +126,7 @@ export default function DashboardHome() {
                 </tbody>
             </table>
 
-            <footer className="bg-body-tertiary text-center text-lg-start" id="footer">
+            <footer className="text-center text-lg-start" id="footer" style={{ backgroundColor: "#ebe5d6" }}>
                 <div className="text-center p-3">
                     © 2024 Copyright&nbsp;:&nbsp;
                     <a className="text-body" href="https://silant.com/" target="_blank" rel="noopener noreferrer">

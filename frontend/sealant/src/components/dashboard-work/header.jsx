@@ -5,8 +5,9 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { Telegram } from 'react-bootstrap-icons';
 
-import { main } from '../urls';
+import { main } from '../dashboard-welcome/urls';
 import RGB1 from './images/RGB1.png';
+
 
 export default function Header() {
     let history = useHistory();
@@ -27,7 +28,7 @@ export default function Header() {
 
     return (
         <React.Fragment>
-            <header className="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+            <header className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#ebe5d6" }}>
                 <div className="container-fluid">
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <a className="navbar-brand mt-2 mt-lg-0" href="https://silant.com/" target="_blank" rel="noopener noreferrer">
@@ -47,7 +48,7 @@ export default function Header() {
                     </button>
                     &nbsp;&nbsp;
                     <a href="/profile">
-                        <button type="button" className="btn btn-primary" data-mdb-ripple-init>Профиль</button>
+                        <button type="button" className="btn btn-danger" data-mdb-ripple-init>Профиль</button>
                     </a>
                 </div>
             </header>

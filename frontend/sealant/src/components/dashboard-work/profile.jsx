@@ -15,15 +15,15 @@ import {
 } from 'mdb-react-ui-kit';
 import { Button } from "react-bootstrap";
 
-import { main } from '../urls';
-import RGB1 from './images/RGB1.jpg';
+import { main } from '../dashboard-welcome/urls';
+import RGB1 from './images/RGB2.jpg';
 import './styles/profile.css';
 
 
 export default function Profile() {
     const [user, setUser] = useState([]);
     const [cars, setCars] = useState([]);
-    const [typeto, setTypeTo] = useState([]);
+    const [to, setTo] = useState([]);
     const [complaints, setComplaints] = useState([]);
     const [status, setStatus] = useState([]);
     let history = useHistory();
@@ -34,7 +34,7 @@ export default function Profile() {
         useEffect(() => {
             fetchUser();
             fetchCars();
-            fetchTypeTo();
+            fetchTo();
             fetchComplaints();
         }, []);
     };
@@ -58,7 +58,7 @@ export default function Profile() {
             // secureLocalStorage.setItem('user', response.data["results"][0]);
 
             // В <<макете основной внутренний страницы>> была функциональность вывести статус пользователя.
-            // Я это сделал на странице профиля.
+            // Я это сделал на странице профиля. Так как ей там с самое место с остальными данными пользователя.
             let client = response.data["results"][0]['is_client'];
             let manager = response.data["results"][0]['is_manager'];
             let service = response.data["results"][0]['is_service'];
@@ -89,15 +89,15 @@ export default function Profile() {
         });
     };
 
-    const fetchTypeTo = async () => {
+    const fetchTo = async () => {
         await axios.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
             method: "GET",
-            url: `${main}/api/v1/typeto/`
+            url: `${main}/api/v1/to/`
         }).then(response => {
-            setTypeTo(response.data);
+            setTo(response.data);
         });
     };
 
@@ -160,7 +160,7 @@ export default function Profile() {
                                         <MDBCardText className="small text-muted mb-0">Подсчет арсенала</MDBCardText>
                                     </div>
                                     <div>
-                                        <MDBCardText className="mb-1 h5">{Object.keys(typeto).length}</MDBCardText>
+                                        <MDBCardText className="mb-1 h5">{Object.keys(to).length}</MDBCardText>
                                         <MDBCardText className="small text-muted mb-0">Количество ремонтов и/или техосмотров </MDBCardText>
                                     </div>
                                 </div>

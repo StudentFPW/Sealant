@@ -4,10 +4,11 @@ import { Telegram } from 'react-bootstrap-icons';
 
 import './styles/footer.css';
 
+
 export default function Footer() {
     return (
         <React.Fragment>
-            <footer className="bg-body-tertiary text-center text-lg-start" id="footer">
+            <footer className="text-center text-lg-start" id="footer" style={{ backgroundColor: "#ebe5d6" }}>
                 <div className="text-center p-3">
                     © 2024 Copyright&nbsp;:&nbsp;
                     <a className="text-body" href="https://silant.com/" target="_blank" rel="noopener noreferrer">

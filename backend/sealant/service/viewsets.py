@@ -526,11 +526,11 @@ class CarsViewSet(viewsets.ViewSet):
             if query:
                 queryset = Cars.objects.filter(
                     factory_number=query.get("factory_number")
-                ).order_by("-shipped_from_factory",)[:11]
+                ).order_by("-shipped_from_factory",)
             else:
                 queryset = Cars.objects.filter().order_by(
                     "-shipped_from_factory",
-                )[:10]
+                )
             serializer = CarsSerializer(queryset, many=True)
             return Response(serializer.data)
         # Пользователь авторизовался ↓
