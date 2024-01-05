@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 import axios from 'axios';
+import secureLocalStorage from "react-secure-storage";
+import { useHistory } from 'react-router-dom';
 import { Telegram } from 'react-bootstrap-icons';
 import { Search } from 'react-bootstrap-icons';
 import { ArrowClockwise } from 'react-bootstrap-icons';
@@ -12,6 +14,11 @@ import './styles/dashboard-home.css';
 
 export default function DashboardHome() {
     const [cars, setCars] = useState([]);
+    let history = useHistory();
+
+    if (secureLocalStorage.getItem('token')) {
+        history.push('/dash');
+    };
 
     const handleFilter = async () => {
         let item = document.getElementsByClassName('form-control')[0].value;
@@ -63,9 +70,9 @@ export default function DashboardHome() {
                     </div>
                     <div className="w-auto p-3 translucent-bg">Электронная сервисная книжка СИЛАНТ</div>
                     &nbsp;&nbsp;
-                    <a href="/login">
-                        <button type="button" className="btn btn-danger" data-mdb-ripple-init>Войти</button>
-                    </a>
+                    <button onClick={() => { history.push('/login') }} type="button" className="btn btn-danger" data-mdb-ripple-init style={{ WebkitTextFillColor: "black" }}>
+                        Войти
+                    </button>
                 </div>
             </header>
 
@@ -77,13 +84,13 @@ export default function DashboardHome() {
                     <div className="d-flex align-items-center">
                         <div className="input-group">
                             <button type="submit" onClick={fetchCars} className="btn btn-danger" data-mdb-ripple-init>
-                                <ArrowClockwise size={20} />
+                                <ArrowClockwise size={20} style={{ color: 'black' }} />
                             </button>
                             <div className="form-outline" data-mdb-input-init>
                                 <input type="search" placeholder='Заводской номер' className="form-control" />
                             </div>
                             <button type="submit" onClick={handleFilter} className="btn btn-danger" data-mdb-ripple-init>
-                                <Search size={20} />
+                                <Search size={20} style={{ color: 'black' }} />
                             </button>
                         </div>
                     </div>

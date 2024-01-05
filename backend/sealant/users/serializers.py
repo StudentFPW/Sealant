@@ -98,25 +98,12 @@ class ManagerCustomRegistrationSerializer(RegisterSerializer):
         return user
 
 
-class ServiceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Service
-        fields = "__all__"
-
-
-class ClientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Client
-        fields = "__all__"
-
-
-class ManagerSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Manager
-        fields = "__all__"
-
-
 class UserDetailsSerializer(serializers.ModelSerializer):
+    """
+    Класс UserDetailsSerializer — это сериализатор модели User,
+    который включает в себя различные поля для сведений о пользователе.
+    """
+
     class Meta:
         model = User
         fields = (
@@ -136,3 +123,32 @@ class UserDetailsSerializer(serializers.ModelSerializer):
             "last_name",
             "company",
         )
+
+
+class ServiceSerializer(serializers.ModelSerializer):
+    """
+    Класс ServiceSerializer — это сериализатор, который сериализует модель службы и включает
+    UserDetailsSerializer в качестве вложенного сериализатора для поля «служба».
+    """
+
+    service = UserDetailsSerializer(read_only=True)
+
+    class Meta:
+        model = Service
+        fields = "__all__"
+
+
+class ClientSerializer(serializers.ModelSerializer):
+    client = UserDetailsSerializer(read_only=True)
+
+    class Meta:
+        model = Client
+        fields = "__all__"
+
+
+class ManagerSerializer(serializers.ModelSerializer):
+    manager = UserDetailsSerializer(read_only=True)
+
+    class Meta:
+        model = Manager
+        fields = "__all__"

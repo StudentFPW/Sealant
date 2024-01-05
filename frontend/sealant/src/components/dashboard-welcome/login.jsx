@@ -12,8 +12,8 @@ import './styles/login.css';
 export default function Login() {
     let history = useHistory();
 
-    const handleBack = () => {
-        history.push('/')
+    if (secureLocalStorage.getItem('token')) {
+        history.push('/dash');
     };
 
     const handleSubmit = async (e) => {
@@ -72,7 +72,7 @@ export default function Login() {
                                             </Form.Group>
 
                                             <div className="d-grid">
-                                                <Button variant="danger" type="submit">
+                                                <Button variant="danger" type="submit" style={{ WebkitTextFillColor: "black" }}>
                                                     Авторизоваться
                                                 </Button>
                                             </div>
@@ -80,7 +80,7 @@ export default function Login() {
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                             <div className="d-grid">
-                                                <Button variant="primary" type="submit" onClick={handleBack}>
+                                                <Button variant="primary" type="submit" onClick={() => { history.push('/') }} style={{ WebkitTextFillColor: "black" }}>
                                                     Вернуться
                                                 </Button>
                                             </div>

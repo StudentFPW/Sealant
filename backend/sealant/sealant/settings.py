@@ -63,7 +63,6 @@ INSTALLED_APPS = [
     "corsheaders",
     "drf_yasg",
     "import_export",
-    "django_filters",
     # Джанго-приложения ↓
     "service",
     "users",
@@ -159,7 +158,6 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "dj_rest_auth.jwt_auth.JWTCookieAuthentication",
     ],
-    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
     "PAGE_SIZE": 10,
 }

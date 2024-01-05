@@ -16,7 +16,7 @@ import {
 import { Button } from "react-bootstrap";
 
 import { main } from '../dashboard-welcome/urls';
-import RGB1 from './images/RGB2.jpg';
+import RGB from './images/RGB1.jpg';
 import './styles/profile.css';
 
 
@@ -37,10 +37,6 @@ export default function Profile() {
             fetchTo();
             fetchComplaints();
         }, []);
-    };
-
-    const handleBack = () => {
-        history.push('/dash')
     };
 
     const fetchUser = async () => {
@@ -122,7 +118,7 @@ export default function Profile() {
                             <MDBCardBody className="text-center">
 
                                 <div className="mt-3 mb-4">
-                                    <MDBCardImage src={user.foto !== null ? user.foto : RGB1}
+                                    <MDBCardImage src={user.foto !== null ? user.foto : RGB}
                                         className="rounded-circle" fluid style={{ width: '100px' }} />
                                 </div>
 
@@ -168,7 +164,7 @@ export default function Profile() {
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                 <div className="d-grid">
-                                    <Button variant="danger" type="submit" onClick={handleBack}>
+                                    <Button variant="danger" type="submit" onClick={() => { history.push('/dash') }} style={{ WebkitTextFillColor: "black" }}>
                                         Вернуться
                                     </Button>
                                 </div>
