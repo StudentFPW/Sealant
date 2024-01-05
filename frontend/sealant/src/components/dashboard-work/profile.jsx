@@ -159,9 +159,7 @@ export default function Profile() {
                                         <MDBCardText className="mb-1 h5">{Object.keys(to).length}</MDBCardText>
                                         <MDBCardText className="small text-muted mb-0">Количество ремонтов и/или техосмотров </MDBCardText>
                                     </div>
-                                </div>
-
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                 <div className="d-grid">
                                     <Button variant="danger" type="submit" onClick={() => { history.push('/dash') }} style={{ WebkitTextFillColor: "black" }}>

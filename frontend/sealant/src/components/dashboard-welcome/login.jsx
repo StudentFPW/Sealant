@@ -75,9 +75,7 @@ export default function Login() {
                                                 <Button variant="danger" type="submit" style={{ WebkitTextFillColor: "black" }}>
                                                     Авторизоваться
                                                 </Button>
-                                            </div>
-
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                             <div className="d-grid">
                                                 <Button variant="primary" type="submit" onClick={() => { history.push('/') }} style={{ WebkitTextFillColor: "black" }}>

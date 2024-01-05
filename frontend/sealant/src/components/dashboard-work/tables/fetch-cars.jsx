@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function FetchCars(data) {
+export default function FetchCars(props) {
     return (
         <React.Fragment>
             <table className="table align-middle mb-0 bg-white">
@@ -28,7 +28,7 @@ export default function FetchCars(data) {
                 </thead>
 
                 <tbody>
-                    {data.cars ? data.cars.map((cars, index) => (
+                    {props.cars ? props.cars.map((cars, index) => (
                         <tr key={index}>
                             <td>{index + 1}</td>
                             <td>{cars.factory_number ? cars.factory_number : 'Не указано !'}</td>
@@ -45,7 +45,7 @@ export default function FetchCars(data) {
                             <td>{cars.shipped_from_factory ? cars.shipped_from_factory : 'Не указано !'}</td>
                             <td>{cars.сonsignee ? cars.сonsignee : 'Не указано !'}</td>
                             <td>{cars.delivery_address ? cars.delivery_address : 'Не указано !'}</td>
-                            <td>{cars.equipment ? cars.equipment.slice(0, 15) + '...' : 'Не указано !'}</td>
+                            <td>{cars.equipment ? cars.equipment : 'Не указано !'}</td>
                             <td>{cars.client["client"] ? cars.client["client"]['company'] : 'Не указано !'}</td>
                             <td>{cars.service_company["service"] ? cars.service_company["service"]['company'] : 'Не указано !'}</td>
                         </tr>
