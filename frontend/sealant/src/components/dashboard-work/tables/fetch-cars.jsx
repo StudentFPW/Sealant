@@ -24,6 +24,7 @@ export default function FetchCars(props) {
                         <th>Комплектация</th>
                         <th>Клиент</th>
                         <th>Сервисная организация</th>
+                        {props.staffstatus === "allow" ? <th></th> : ''}
                     </tr>
                 </thead>
 
@@ -44,10 +45,11 @@ export default function FetchCars(props) {
                             <td>{cars.supply_contract_date ? cars.supply_contract_date : 'Не указано !'}</td>
                             <td>{cars.shipped_from_factory ? cars.shipped_from_factory : 'Не указано !'}</td>
                             <td>{cars.сonsignee ? cars.сonsignee : 'Не указано !'}</td>
-                            <td>{cars.delivery_address ? cars.delivery_address : 'Не указано !'}</td>
-                            <td>{cars.equipment ? cars.equipment : 'Не указано !'}</td>
+                            <td title={cars.delivery_address}>{cars.delivery_address ? cars.delivery_address.slice(0, 15) + '...' : 'Не указано !'}</td>
+                            <td title={cars.equipment}>{cars.equipment ? cars.equipment.slice(0, 15) + '...' : 'Не указано !'}</td>
                             <td>{cars.client["client"] ? cars.client["client"]['company'] : 'Не указано !'}</td>
                             <td>{cars.service_company["service"] ? cars.service_company["service"]['company'] : 'Не указано !'}</td>
+                            {props.staffstatus === "allow" ? <td><button type="button" class="btn btn-link btn-sm btn-rounded">🛠️</button></td> : ""}
                         </tr>
                     )) : null}
                 </tbody>

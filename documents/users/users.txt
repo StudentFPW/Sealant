@@ -1,6 +1,8 @@
 industrial-equipment:8276rcb2i7634rtbv
 pmkletc:8276rcb2i7634rtbv
+
 admin:admin
 support-sealant:8276rcb2i7634rtbv
 
-login:password
+Формат:
+    login:password

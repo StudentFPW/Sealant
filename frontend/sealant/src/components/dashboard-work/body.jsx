@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Tab, initMDB } from "mdb-ui-kit";
 
 import { main } from '../dashboard-welcome/urls';
+import Navbar from "./navbar";
 import FetchCars from "./tables/fetch-cars";
 import FetchTo from "./tables/fetch-to";
 import FetchComplaints from "./tables/fetch-complaints";
@@ -14,7 +15,29 @@ export default function Body() {
     const [cars, setCars] = useState([]);
     const [to, setTo] = useState([]);
     const [complaints, setComplaints] = useState([]);
+    const [staffstatus, setStaffStatus] = useState([]);
+    const [clientstatus, setClientStatus] = useState([]);
     initMDB({ Tab });
+
+    const fetchUser = async () => {
+        await axios.request({
+            headers: {
+                Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
+            },
+            method: "GET",
+            url: `${main}/api/v1/user/`
+        }).then(response => {
+            let manager = response.data["results"][0]['is_manager'];
+            let admin = response.data["results"][0]['is_superuser'];
+            let client = response.data["results"][0]['is_client'];
+            if (manager || admin) {
+                setStaffStatus('allow');
+            };
+            if (client) {
+                setClientStatus('disallow');
+            };
+        });
+    };
 
     const fetchCars = async () => {
         await axios.request({
@@ -56,30 +79,19 @@ export default function Body() {
         fetchCars();
         fetchTo();
         fetchComplaints();
+        fetchUser();
     }, []);
 
     return (
         <React.Fragment>
-            <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#ebe5d6" }}>
-                <div className="container-fluid justify-content-between">
-                    <div className="d-flex">
-                    </div>
+            <Navbar staff={staffstatus} client={clientstatus} />
 
-                    <ul className="navbar-nav flex-row d-none d-md-flex">
-                        <li className="nav-item me-3 me-lg-1 active">
-                            <h5>Информация о комплектации и технических характеристиках вашей техники</h5>
-                        </li>
-                    </ul>
-
-                    <ul className="navbar-nav flex-row">
-                    </ul>
-                </div>
-            </nav>
-
-            <ul className="nav nav-tabs nav-fill mb-3" id="ex1" role="tablist" style={{ backgroundColor: "#dc3545" }}>
+            <ul className="nav nav-tabs nav-fill mb-3"
+                id="ex1"
+                role="tablist"
+                style={{ backgroundColor: "#dc3545" }}>
                 <li className="nav-item" role="presentation">
-                    <a
-                        data-mdb-tab-init
+                    <a data-mdb-tab-init
                         className="nav-link active"
                         id="ex2-tab-1"
                         href="#ex2-tabs-1"
@@ -89,9 +101,9 @@ export default function Body() {
                         style={{ WebkitTextFillColor: "black" }}
                     >Общая информация</a>
                 </li>
+
                 <li className="nav-item" role="presentation">
-                    <a
-                        data-mdb-tab-init
+                    <a data-mdb-tab-init
                         className="nav-link"
                         id="ex2-tab-2"
                         href="#ex2-tabs-2"
@@ -101,9 +113,9 @@ export default function Body() {
                         style={{ WebkitTextFillColor: "black" }}
                     >Техническое обслуживание</a>
                 </li>
+
                 <li className="nav-item" role="presentation">
-                    <a
-                        data-mdb-tab-init
+                    <a data-mdb-tab-init
                         className="nav-link"
                         id="ex2-tab-3"
                         href="#ex2-tabs-3"
@@ -116,24 +128,29 @@ export default function Body() {
             </ul>
 
             <div className="tab-content" id="ex2-content">
-                <div
-                    className="tab-pane fade show active"
+                <div className="tab-pane fade show active"
                     id="ex2-tabs-1"
                     role="tabpanel"
                     aria-labelledby="ex2-tab-1"
-                >{cars ? <FetchCars cars={cars} /> : "Пусто !"}</div>
-                <div
-                    className="tab-pane fade"
+                >{cars.length ? <FetchCars cars={cars} staffstatus={staffstatus} /> :
+                    <h5 class="text-center fw-bolder">Пусто !</h5>
+                    }</div>
+
+                <div className="tab-pane fade"
                     id="ex2-tabs-2"
                     role="tabpanel"
                     aria-labelledby="ex2-tab-2"
-                >{to ? <FetchTo to={to} /> : "Пусто !"}</div>
-                <div
-                    className="tab-pane fade"
+                >{to.length ? <FetchTo to={to} staffstatus={staffstatus} /> :
+                    <h5 class="text-center fw-bolder">Пусто !</h5>
+                    }</div>
+
+                <div className="tab-pane fade"
                     id="ex2-tabs-3"
                     role="tabpanel"
                     aria-labelledby="ex2-tab-3"
-                >{complaints ? <FetchComplaints complaints={complaints} /> : "Пусто !"}</div>
+                >{complaints.length ? <FetchComplaints complaints={complaints} staffstatus={staffstatus} /> :
+                    <h5 class="text-center fw-bolder">Пусто !</h5>
+                    }</div>
             </div>
         </React.Fragment>
     );

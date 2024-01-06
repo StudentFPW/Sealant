@@ -522,7 +522,6 @@ class CarsViewSet(viewsets.ViewSet):
         query = self.request.query_params
         # Пользователь не авторизовался ↓
         if not request.user.is_authenticated:
-            # просмотр (доступ только к полям пп.1-10) Как в ТЗ!
             if query:
                 queryset = Cars.objects.filter(
                     factory_number=query.get("factory_number")

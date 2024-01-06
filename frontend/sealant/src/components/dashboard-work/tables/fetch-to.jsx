@@ -13,6 +13,7 @@ export default function FetchTo(props) {
                         <th>№ заказ-наряда</th>
                         <th>Дата заказа-наряда</th>
                         <th>Сервисная компания</th>
+                        {props.staffstatus === "allow" ? <th></th> : ''}
                     </tr>
                 </thead>
 
@@ -26,6 +27,7 @@ export default function FetchTo(props) {
                             <td>{to.order_number ? to.order_number : 'Не указано !'}</td>
                             <td>{to.order_date ? to.order_date : 'Не указано !'}</td>
                             <td>{to.service_company ? to.service_company['service']['company'] : 'Не указано !'}</td>
+                            {props.staffstatus === "allow" ? <td><button type="button" class="btn btn-link btn-sm btn-rounded">🛠️</button></td> : ""}
                         </tr>
                     )) : null}
                 </tbody>

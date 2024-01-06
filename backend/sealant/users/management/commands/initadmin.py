@@ -3,6 +3,10 @@ from users.models import User
 
 
 class Command(BaseCommand):
+    """
+    Этот класс создает учетную запись администратора, если учетных записей пользователей не существует.
+    """
+
     def handle(self, *args, **options):
         if User.objects.count() == 0:
             print("Creating account for admin")

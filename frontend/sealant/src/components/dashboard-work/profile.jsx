@@ -130,8 +130,8 @@ export default function Profile() {
                                     {status}
                                 </MDBCardText>
 
-                                <MDBCardText className="text-muted mb-4">
-                                    @ {user.username} <span className="mx-2">|</span> {user.email}
+                                <MDBCardText className="text-muted mb-4" title="Имя пользователя и email">
+                                    @{user.username} <span className="mx-2">|</span> {user.email}
                                 </MDBCardText>
 
                                 <MDBCardText className="text-muted mb-4">

@@ -45,8 +45,15 @@ export default function Login() {
                             <Card className="shadow">
                                 <Card.Body>
                                     <div className="mb-3 mt-4">
-                                        <h2 className="fw-bold mb-2 text-uppercase">ООО “ЧЕБОКСАРСКИЙ ЗАВОД СИЛОВЫХ АГРЕГАТОВ”</h2>
-                                        <p className=" mb-5">Пожалуйста, введите логин и пароль!</p>
+
+                                        <h2 className="fw-bold mb-2 text-uppercase">
+                                            ООО “ЧЕБОКСАРСКИЙ ЗАВОД СИЛОВЫХ АГРЕГАТОВ”
+                                        </h2>
+
+                                        <p className=" mb-5">
+                                            Пожалуйста, введите логин и пароль!
+                                        </p>
+
                                         <Form className="mb-3" onSubmit={handleSubmit}>
 
                                             <Form.Group className="mb-3" controlId="formBasicUsername">
@@ -57,8 +64,7 @@ export default function Login() {
                                                     type="text"
                                                     placeholder="Введите имя пользователя"
                                                     onChange={(e) => secureLocalStorage.setItem("username", e.target.value)}
-                                                    required
-                                                />
+                                                    required />
                                             </Form.Group>
 
                                             <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -67,18 +73,22 @@ export default function Login() {
                                                     type="password"
                                                     placeholder="Введите пароль"
                                                     onChange={(e) => secureLocalStorage.setItem("password", e.target.value)}
-                                                    required
-                                                />
+                                                    required />
                                             </Form.Group>
 
                                             <div className="d-grid">
-                                                <Button variant="danger" type="submit" style={{ WebkitTextFillColor: "black" }}>
+                                                <Button variant="danger"
+                                                    type="submit"
+                                                    style={{ WebkitTextFillColor: "black" }}>
                                                     Авторизоваться
                                                 </Button>
                                             </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                             <div className="d-grid">
-                                                <Button variant="primary" type="submit" onClick={() => { history.push('/') }} style={{ WebkitTextFillColor: "black" }}>
+                                                <Button variant="primary"
+                                                    type="submit"
+                                                    onClick={() => { history.push('/') }}
+                                                    style={{ WebkitTextFillColor: "black" }}>
                                                     Вернуться
                                                 </Button>
                                             </div>

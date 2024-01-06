@@ -16,6 +16,7 @@ export default function FetchComplaints(props) {
                         <th>Дата восстановления</th>
                         <th>Время простоя техники</th>
                         <th>Сервисная компания</th>
+                        {props.staffstatus === "allow" ? <th></th> : ''}
                     </tr>
                 </thead>
 
@@ -26,12 +27,13 @@ export default function FetchComplaints(props) {
                             <td>{complaints.refusal_date ? complaints.refusal_date : 'Не указано !'}</td>
                             <td>{complaints.operating_hours ? complaints.operating_hours : 'Не указано !'}</td>
                             <td>{complaints.failure_node ? complaints.failure_node['description'] : 'Не указано !'}</td>
-                            <td>{complaints.failure_description ? complaints.failure_description : 'Не указано !'}</td>
-                            <td>{complaints.recovery_method ? complaints.recovery_method['description'] : 'Не указано !'}</td>
-                            <td>{complaints.parts_used ? complaints.parts_used : 'Не указано !'}</td>
+                            <td title={complaints.failure_description}>{complaints.failure_description ? complaints.failure_description.slice(0, 15) + '...' : 'Не указано !'}</td>
+                            <td title={complaints.recovery_method['description']}>{complaints.recovery_method ? complaints.recovery_method['description'].slice(0, 15) + '...' : 'Не указано !'}</td>
+                            <td title={complaints.parts_used}>{complaints.parts_used ? complaints.parts_used.slice(0, 15) + '...' : 'Не указано !'}</td>
                             <td>{complaints.restore_date ? complaints.restore_date : 'Не указано !'}</td>
                             <td>{complaints.equipment_downtime ? complaints.equipment_downtime : 'Не указано !'} д</td>
                             <td>{complaints.service_company ? complaints.service_company['service']['company'] : 'Не указано !'}</td>
+                            {props.staffstatus === "allow" ? <td><button type="button" class="btn btn-link btn-sm btn-rounded">🛠️</button></td> : ""}
                         </tr>
                     )) : null}
                 </tbody>

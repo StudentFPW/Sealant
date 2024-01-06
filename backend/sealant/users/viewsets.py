@@ -7,10 +7,10 @@ from .serializers import (
     ClientCustomRegistrationSerializer,
     ServiceCustomRegistrationSerializer,
     ManagerCustomRegistrationSerializer,
-    ClientSerializer,
-    ServiceSerializer,
-    ManagerSerializer,
     UserDetailsSerializer,
+    # ClientSerializer,
+    # ServiceSerializer,
+    # ManagerSerializer,
 )
 
 # Класс разрешений IsAdminUser будет отказывать в разрешении любому пользователю,
@@ -40,24 +40,6 @@ class ManagerRegistrationViewSet(RegisterView):
     serializer_class = ManagerCustomRegistrationSerializer
 
 
-class ClientViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdminUser]
-    serializer_class = ClientSerializer
-    queryset = Client.objects.all()
-
-
-class ServiceViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdminUser]
-    serializer_class = ServiceSerializer
-    queryset = Service.objects.all()
-
-
-class ManagerViewSet(viewsets.ModelViewSet):
-    permission_classes = [IsAdminUser]
-    serializer_class = ManagerSerializer
-    queryset = Manager.objects.all()
-
-
 class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = UserDetailsSerializer
@@ -65,3 +47,21 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return User.objects.filter(id=self.request.user.id)
+
+
+# class ClientViewSet(viewsets.ModelViewSet):
+#     permission_classes = [IsAdminUser]
+#     serializer_class = ClientSerializer
+#     queryset = Client.objects.all()
+
+
+# class ServiceViewSet(viewsets.ModelViewSet):
+#     permission_classes = [IsAdminUser]
+#     serializer_class = ServiceSerializer
+#     queryset = Service.objects.all()
+
+
+# class ManagerViewSet(viewsets.ModelViewSet):
+#     permission_classes = [IsAdminUser]
+#     serializer_class = ManagerSerializer
+#     queryset = Manager.objects.all()

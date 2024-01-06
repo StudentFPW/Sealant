@@ -58,40 +58,73 @@ export default function DashboardHome() {
             <header className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#ebe5d6" }}>
                 <div className="container-fluid">
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <a className="navbar-brand mt-2 mt-lg-0" href="https://silant.com/" target="_blank" rel="noopener noreferrer">
+
+                        <a className="navbar-brand mt-2 mt-lg-0"
+                            href="https://silant.com/"
+                            target="_blank"
+                            rel="noopener noreferrer">
                             <img src={RGB1} height="90" alt="СИЛАНТ logo" loading="lazy" />
                         </a>
-                        <a className="text-body" href="tel:+7-8352-20-12-09">
+
+                        <a className="text-body"
+                            href="tel:+7-8352-20-12-09">
                             +7-8352-20-12-09
                         </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a className="text-body" href="https://t.me/LEON_JOFE" target="_blank" rel="noopener noreferrer">
+
+                        <a className="text-body"
+                            href="https://t.me/LEON_JOFE"
+                            target="_blank"
+                            rel="noopener noreferrer">
                             <Telegram size={20} />
                         </a>
+
                     </div>
-                    <div className="w-auto p-3 translucent-bg">Электронная сервисная книжка СИЛАНТ</div>
-                    &nbsp;&nbsp;
-                    <button onClick={() => { history.push('/login') }} type="button" className="btn btn-danger" data-mdb-ripple-init style={{ WebkitTextFillColor: "black" }}>
+
+                    <div className="w-auto p-3 translucent-bg">
+                        Электронная сервисная книжка СИЛАНТ
+                    </div>&nbsp;&nbsp;
+
+                    <button
+                        onClick={() => { history.push('/login') }}
+                        type="button"
+                        className="btn btn-danger"
+                        data-mdb-ripple-init style={{ WebkitTextFillColor: "black" }}>
                         Войти
                     </button>
+
                 </div>
             </header>
 
             <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "#ebe5d6" }}>
                 <div className="container-fluid">
+
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <h5>Проверьте комплектацию и технические характеристики техники СИЛАНТ</h5>
+                        <h5>
+                            Проверьте комплектацию и технические характеристики техники СИЛАНТ
+                        </h5>
                     </div>
+
                     <div className="d-flex align-items-center">
                         <div className="input-group">
-                            <button type="submit" onClick={fetchCars} className="btn btn-danger" data-mdb-ripple-init>
+
+                            <button type="submit"
+                                onClick={fetchCars}
+                                className="btn btn-danger"
+                                data-mdb-ripple-init>
                                 <ArrowClockwise size={20} style={{ color: 'black' }} />
                             </button>
+
                             <div className="form-outline" data-mdb-input-init>
                                 <input type="search" placeholder='Заводской номер' className="form-control" />
                             </div>
-                            <button type="submit" onClick={handleFilter} className="btn btn-danger" data-mdb-ripple-init>
+
+                            <button type="submit"
+                                onClick={handleFilter}
+                                className="btn btn-danger"
+                                data-mdb-ripple-init>
                                 <Search size={20} style={{ color: 'black' }} />
                             </button>
+
                         </div>
                     </div>
                 </div>
@@ -136,13 +169,23 @@ export default function DashboardHome() {
             <footer className="text-center text-lg-start" id="footer" style={{ backgroundColor: "#ebe5d6" }}>
                 <div className="text-center p-3">
                     © 2024 Copyright&nbsp;:&nbsp;
-                    <a className="text-body" href="https://silant.com/" target="_blank" rel="noopener noreferrer">
+
+                    <a className="text-body"
+                        href="https://silant.com/"
+                        target="_blank"
+                        rel="noopener noreferrer">
                         Silant.com
                     </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a className="text-body" href="tel:+7-8352-20-12-09">
+
+                    <a className="text-body"
+                        href="tel:+7-8352-20-12-09">
                         +7-8352-20-12-09
                     </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a className="text-body" href="https://t.me/LEON_JOFE" target="_blank" rel="noopener noreferrer">
+
+                    <a className="text-body"
+                        href="https://t.me/LEON_JOFE"
+                        target="_blank"
+                        rel="noopener noreferrer">
                         <Telegram size={20} />
                     </a>
                 </div>
