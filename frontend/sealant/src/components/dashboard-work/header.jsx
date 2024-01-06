@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { Telegram } from 'react-bootstrap-icons';
 
-import { main } from '../dashboard-welcome/urls';
+import { main } from '../urls';
 import RGB1 from './images/RGB1.png';
 
 

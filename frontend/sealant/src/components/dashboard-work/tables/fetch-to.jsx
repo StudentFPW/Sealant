@@ -1,6 +1,11 @@
 import React from "react";
 
+import { useHistory } from 'react-router-dom';
+
+
 export default function FetchTo(props) {
+    let history = useHistory();
+
     return (
         <React.Fragment>
             <table className="table align-middle mb-0 bg-white">
@@ -27,7 +32,7 @@ export default function FetchTo(props) {
                             <td>{to.order_number ? to.order_number : 'Не указано !'}</td>
                             <td>{to.order_date ? to.order_date : 'Не указано !'}</td>
                             <td>{to.service_company ? to.service_company['service']['company'] : 'Не указано !'}</td>
-                            {props.staffstatus === "allow" ? <td><button type="button" class="btn btn-link btn-sm btn-rounded">🛠️</button></td> : ""}
+                            {props.staffstatus === "allow" ? <td><button type="button" className="btn btn-link btn-sm btn-rounded" onClick={() => { history.push(`/updateto/${to.id}`) }}>🛠️</button></td> : ""}
                         </tr>
                     )) : null}
                 </tbody>

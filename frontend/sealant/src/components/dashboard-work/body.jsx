@@ -4,7 +4,7 @@ import secureLocalStorage from "react-secure-storage";
 import axios from 'axios';
 import { Tab, initMDB } from "mdb-ui-kit";
 
-import { main } from '../dashboard-welcome/urls';
+import { main } from '../urls';
 import Navbar from "./navbar";
 import FetchCars from "./tables/fetch-cars";
 import FetchTo from "./tables/fetch-to";
@@ -84,6 +84,10 @@ export default function Body() {
 
     return (
         <React.Fragment>
+            {/* Компонент `<Navbar Staff={staffstatus} client={clientstatus} />` отображает компонент
+            панели навигации с переданными ему реквизитами `staff` и `client`. Эти реквизиты
+            используются для определения видимости и функциональности определенных элементов на
+            панели навигации в зависимости от роли пользователя. */}
             <Navbar staff={staffstatus} client={clientstatus} />
 
             <ul className="nav nav-tabs nav-fill mb-3"
@@ -127,13 +131,22 @@ export default function Body() {
                 </li>
             </ul>
 
+            {/* <FetchCars cars={cars} Staffstatus={staffstatus} />` — это
+                компонент, который отображается на первой вкладке интерфейса с
+                вкладками. Он передает реквизиты cars и Staffstatus компоненту
+                FetchCars. Свойство cars содержит массив данных об автомобилях, а
+                свойство Staffstatus указывает, является ли пользователь сотрудником
+                компании или нет. Компонент FetchCars будет использовать эти
+                реквизиты для отображения данных автомобиля и определения функций,
+                доступных пользователю в зависимости от его роли. */}
+
             <div className="tab-content" id="ex2-content">
                 <div className="tab-pane fade show active"
                     id="ex2-tabs-1"
                     role="tabpanel"
                     aria-labelledby="ex2-tab-1"
                 >{cars.length ? <FetchCars cars={cars} staffstatus={staffstatus} /> :
-                    <h5 class="text-center fw-bolder">Пусто !</h5>
+                    <h5 className="text-center fw-bolder">Пусто !</h5>
                     }</div>
 
                 <div className="tab-pane fade"
@@ -141,7 +154,7 @@ export default function Body() {
                     role="tabpanel"
                     aria-labelledby="ex2-tab-2"
                 >{to.length ? <FetchTo to={to} staffstatus={staffstatus} /> :
-                    <h5 class="text-center fw-bolder">Пусто !</h5>
+                    <h5 className="text-center fw-bolder">Пусто !</h5>
                     }</div>
 
                 <div className="tab-pane fade"
@@ -149,7 +162,7 @@ export default function Body() {
                     role="tabpanel"
                     aria-labelledby="ex2-tab-3"
                 >{complaints.length ? <FetchComplaints complaints={complaints} staffstatus={staffstatus} /> :
-                    <h5 class="text-center fw-bolder">Пусто !</h5>
+                    <h5 className="text-center fw-bolder">Пусто !</h5>
                     }</div>
             </div>
         </React.Fragment>

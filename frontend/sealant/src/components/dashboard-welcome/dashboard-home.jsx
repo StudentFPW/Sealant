@@ -7,7 +7,7 @@ import { Telegram } from 'react-bootstrap-icons';
 import { Search } from 'react-bootstrap-icons';
 import { ArrowClockwise } from 'react-bootstrap-icons';
 
-import { main } from './urls';
+import { main } from '../urls';
 import RGB1 from './images/RGB1.png';
 import './styles/dashboard-home.css';
 

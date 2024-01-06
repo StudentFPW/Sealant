@@ -1,6 +1,11 @@
 import React from "react";
 
+import { useHistory } from 'react-router-dom';
+
+
 export default function FetchCars(props) {
+    let history = useHistory();
+
     return (
         <React.Fragment>
             <table className="table align-middle mb-0 bg-white">
@@ -49,7 +54,9 @@ export default function FetchCars(props) {
                             <td title={cars.equipment}>{cars.equipment ? cars.equipment.slice(0, 15) + '...' : 'Не указано !'}</td>
                             <td>{cars.client["client"] ? cars.client["client"]['company'] : 'Не указано !'}</td>
                             <td>{cars.service_company["service"] ? cars.service_company["service"]['company'] : 'Не указано !'}</td>
-                            {props.staffstatus === "allow" ? <td><button type="button" class="btn btn-link btn-sm btn-rounded">🛠️</button></td> : ""}
+                            {/* Эта строка кода условно отображает кнопку на основе значения переменной
+                            props.staffstatus. */}
+                            {props.staffstatus === "allow" ? <td><button type="button" onClick={() => { history.push(`/updatecar/${cars.id}`) }} className="btn btn-link btn-sm btn-rounded">🛠️</button></td> : ""}
                         </tr>
                     )) : null}
                 </tbody>

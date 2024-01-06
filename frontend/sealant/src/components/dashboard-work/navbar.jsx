@@ -25,7 +25,7 @@ export default function Navbar(props) {
                             Зафиксировать ТО
                         </button>&nbsp;&nbsp;
 
-                        {props.client === 'allow' ? "" :
+                        {props.client === 'disallow' ? "" :
                             <button
                                 type="button"
                                 className="btn btn-danger"

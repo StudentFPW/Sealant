@@ -15,7 +15,7 @@ import {
 } from 'mdb-react-ui-kit';
 import { Button } from "react-bootstrap";
 
-import { main } from '../dashboard-welcome/urls';
+import { main } from '../urls';
 import RGB from './images/RGB1.jpg';
 import './styles/profile.css';
 

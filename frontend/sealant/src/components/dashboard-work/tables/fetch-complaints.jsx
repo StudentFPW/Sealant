@@ -1,6 +1,11 @@
 import React from "react";
 
+import { useHistory } from 'react-router-dom';
+
+
 export default function FetchComplaints(props) {
+    let history = useHistory();
+
     return (
         <React.Fragment>
             <table className="table align-middle mb-0 bg-white">
@@ -33,7 +38,7 @@ export default function FetchComplaints(props) {
                             <td>{complaints.restore_date ? complaints.restore_date : 'Не указано !'}</td>
                             <td>{complaints.equipment_downtime ? complaints.equipment_downtime : 'Не указано !'} д</td>
                             <td>{complaints.service_company ? complaints.service_company['service']['company'] : 'Не указано !'}</td>
-                            {props.staffstatus === "allow" ? <td><button type="button" class="btn btn-link btn-sm btn-rounded">🛠️</button></td> : ""}
+                            {props.staffstatus === "allow" ? <td><button type="button" className="btn btn-link btn-sm btn-rounded" onClick={() => { history.push(`/updatecomplaints/${complaints.id}`) }}>🛠️</button></td> : ""}
                         </tr>
                     )) : null}
                 </tbody>
