@@ -27,10 +27,9 @@ export default function Login() {
                 });
             secureLocalStorage.setItem("token", response.data["access"]);
             secureLocalStorage.setItem("refreshToken", response.data["refresh"]);
-            console.log('Successful login');
             history.push('/dash');
         } catch (error) {
-            console.log('Error login: ' + error);
+            console.log("Request error: " + error);
             alert('Учетные данные не верны');
         };
     };

@@ -31,7 +31,7 @@ export default function DashboardHome() {
                     alert('Ничего не найдено, попробуйте еще раз!');
                 };
             } catch (error) {
-                console.log(error);
+                console.log("Request error: " + error);
                 alert('Что-то пошло не так, попробуйте попозже!');
             };
         } else {
@@ -44,7 +44,7 @@ export default function DashboardHome() {
             const response = await axios.get(`${main}/api/v1/cars/`);
             setCars(response.data);
         } catch (error) {
-            console.log(error);
+            console.log("Request error: " + error);
             alert('Что-то пошло не так, попробуйте попозже!');
         };
     };

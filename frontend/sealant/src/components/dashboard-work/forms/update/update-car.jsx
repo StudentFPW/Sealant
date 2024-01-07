@@ -15,23 +15,6 @@ function UpdateCars(props) {
     const [car, setCar] = useState([]);
     let history = useHistory();
 
-    let data = {
-        factory_number: document.getElementById('form1') !== null ? document.getElementById('form1').value : car.factory_number,
-        vehicle_model: document.getElementById('form2') !== null ? document.getElementById('form2').value : car.vehicle_model,
-        engine_model: document.getElementById('form3') !== null ? document.getElementById('form3').value : car.engine_model,
-        engine_number: document.getElementById('form4') !== null ? document.getElementById('form4').value : car.engine_number,
-        transmission_model: document.getElementById('form5') !== null ? document.getElementById('form5').value : car.transmission_model,
-        transmission_number: document.getElementById('form6') !== null ? document.getElementById('form6').value : car.transmission_number,
-        drive_axle_model: document.getElementById('form7') !== null ? document.getElementById('form7').value : car.drive_axle_model,
-        drive_axle_number: document.getElementById('form8') !== null ? document.getElementById('form8').value : car.drive_axle_number,
-        steering_axle_model: document.getElementById('form9') !== null ? document.getElementById('form9').value : car.steering_axle_model,
-        steering_axle_number: document.getElementById('form10') !== null ? document.getElementById('form10').value : car.steering_axle_number,
-        supply_contract_date: document.getElementById('form11') !== null ? document.getElementById('form11').value : car.supply_contract_date,
-        shipped_from_factory: document.getElementById('form12') !== null ? document.getElementById('form12').value : car.shipped_from_factory,
-        сonsignee: document.getElementById('form13') !== null ? document.getElementById('form13').value : car.сonsignee,
-        delivery_address: document.getElementById('form14') !== null ? document.getElementById('form14').value : car.delivery_address,
-    }
-
     if (!secureLocalStorage.getItem('token')) {
         history.push('/login');
     } else {
@@ -49,19 +32,43 @@ function UpdateCars(props) {
             url: `${main}/api/v1/cars/${props.params.id}/`,
         }).then(response => {
             setCar(response.data);
+        }).catch((error) => {
+            console.log("Request error: " + error);
         });
     };
 
-    const putCar = async () => {
+    const getFormData = () => {
+        let data = {
+            factory_number: document.getElementById('form1').value ? document.getElementById('form1').value : car.factory_number,
+            vehicle_model: document.getElementById('form2').value ? document.getElementById('form2').value : car.vehicle_model['name'],
+            engine_model: document.getElementById('form3').value ? document.getElementById('form3').value : car.engine_model['name'],
+            engine_number: document.getElementById('form4').value ? document.getElementById('form4').value : car.engine_number,
+            transmission_model: document.getElementById('form5').value ? document.getElementById('form5').value : car.transmission_model['name'],
+            transmission_number: document.getElementById('form6').value ? document.getElementById('form6').value : car.transmission_number,
+            drive_axle_model: document.getElementById('form7').value ? document.getElementById('form7').value : car.drive_axle_model['name'],
+            drive_axle_number: document.getElementById('form8').value ? document.getElementById('form8').value : car.drive_axle_number,
+            steering_axle_model: document.getElementById('form9').value ? document.getElementById('form9').value : car.steering_axle_model['name'],
+            steering_axle_number: document.getElementById('form10').value ? document.getElementById('form10').value : car.steering_axle_number,
+            supply_contract_date: document.getElementById('form11').value ? document.getElementById('form11').value : car.supply_contract_date,
+            shipped_from_factory: document.getElementById('form12').value ? document.getElementById('form12').value : car.shipped_from_factory,
+            сonsignee: document.getElementById('form13').value ? document.getElementById('form13').value : car.сonsignee,
+            delivery_address: document.getElementById('form14').value ? document.getElementById('form14').value : car.delivery_address,
+        };
+        putCar(data);
+    };
+
+    const putCar = async (formdata) => {
         await axios.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
             method: "PUT",
             url: `${main}/api/v1/cars/${props.params.id}/`,
-            data: data
-        }).then(response => {
-            console.log(response.data);
+            data: formdata
+        }).then(() => {
+            history.push('/dash');
+        }).catch((error) => {
+            console.log("Request error: " + error);
         });
     };
 
@@ -205,7 +212,7 @@ function UpdateCars(props) {
                                             variant="danger"
                                             type="submit"
                                             style={{ WebkitTextFillColor: "black" }}
-                                            onClick={() => { putCar() }}>
+                                            onClick={() => { getFormData() }}>
                                             Сохранить
                                         </Button>
                                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

@@ -45,7 +45,7 @@ export default function Navbar(props) {
                     </ul>
 
                     <ul className="navbar-nav flex-row">
-                        <p title="Наведите курсор на интересующий вас элемент">❗</p>
+                        <p title="Наведите курсор на интересующий вас элемент (В частности предложения с 3 точками!).">❗</p>
                     </ul>
                 </div>
             </nav>

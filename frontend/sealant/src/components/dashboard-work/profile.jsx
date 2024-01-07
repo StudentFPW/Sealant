@@ -70,6 +70,8 @@ export default function Profile() {
             if (client && manager && service) {
                 setStatus('Статус администратора')
             };
+        }).catch((error) => {
+            console.log("Request error: " + error);
         });
     };
 
@@ -82,6 +84,8 @@ export default function Profile() {
             url: `${main}/api/v1/cars/`
         }).then(response => {
             setCars(response.data);
+        }).catch((error) => {
+            console.log("Request error: " + error);
         });
     };
 
@@ -94,6 +98,8 @@ export default function Profile() {
             url: `${main}/api/v1/to/`
         }).then(response => {
             setTo(response.data);
+        }).catch((error) => {
+            console.log("Request error: " + error);
         });
     };
 
@@ -106,6 +112,8 @@ export default function Profile() {
             url: `${main}/api/v1/compl/`
         }).then(response => {
             setComplaints(response.data);
+        }).catch((error) => {
+            console.log("Request error: " + error);
         });
     };
 

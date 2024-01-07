@@ -31,7 +31,7 @@ export default function FetchComplaints(props) {
                             <td>{index + 1}</td>
                             <td>{complaints.refusal_date ? complaints.refusal_date : 'Не указано !'}</td>
                             <td>{complaints.operating_hours ? complaints.operating_hours : 'Не указано !'}</td>
-                            <td>{complaints.failure_node ? complaints.failure_node['description'] : 'Не указано !'}</td>
+                            <td title={complaints.failure_node ? complaints.failure_node['description'] : 'Не указано !'}>{complaints.failure_node ? complaints.failure_node['description'].slice(0, 15) + '...' : 'Не указано !'}</td>
                             <td title={complaints.failure_description}>{complaints.failure_description ? complaints.failure_description.slice(0, 15) + '...' : 'Не указано !'}</td>
                             <td title={complaints.recovery_method['description']}>{complaints.recovery_method ? complaints.recovery_method['description'].slice(0, 15) + '...' : 'Не указано !'}</td>
                             <td title={complaints.parts_used}>{complaints.parts_used ? complaints.parts_used.slice(0, 15) + '...' : 'Не указано !'}</td>

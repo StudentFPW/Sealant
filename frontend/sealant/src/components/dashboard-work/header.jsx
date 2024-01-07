@@ -23,6 +23,8 @@ export default function Header() {
             secureLocalStorage.removeItem('token');
             secureLocalStorage.removeItem('refreshToken');
             history.push('/');
+        }).catch((error) => {
+            console.log("Request error: " + error);
         });
     };
 
