@@ -25,6 +25,8 @@ export default function Header() {
             history.push('/');
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert("Что-то пошло не так, попробуйте попозже!");
+            history.push('/dash');
         });
     };
 

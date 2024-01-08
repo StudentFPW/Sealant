@@ -38,6 +38,8 @@ export default function Body() {
             };
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert("Что-то пошло не так, попробуйте попозже!");
+            history.push('/dash');
         });
     };
 
@@ -52,6 +54,8 @@ export default function Body() {
             setCars(response.data);
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert("Что-то пошло не так, попробуйте попозже!");
+            history.push('/dash');
         });
     };
 
@@ -66,6 +70,8 @@ export default function Body() {
             setTo(response.data);
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert("Что-то пошло не так, попробуйте попозже!");
+            history.push('/dash');
         });
     };
 
@@ -80,6 +86,8 @@ export default function Body() {
             setComplaints(response.data);
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert("Что-то пошло не так, попробуйте попозже!");
+            history.push('/dash');
         });
     };
 

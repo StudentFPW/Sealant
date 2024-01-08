@@ -82,7 +82,10 @@ class TechniqueViewSet(viewsets.ViewSet):
         менеджером, в противном случае она возвращает соответствующий статус ответа.
         """
         if request.user.is_authenticated:
-            if request.user.is_manager or request.user.is_superuser:
+            manager = request.user.is_manager
+            client = request.user.is_client
+            service = request.user.is_service
+            if request.user.is_superuser or manager or client or service:
                 queryset = Technique.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = TechniqueSerializer(retrieve)
@@ -146,7 +149,10 @@ class EngineViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager or request.user.is_superuser:
+            manager = request.user.is_manager
+            client = request.user.is_client
+            service = request.user.is_service
+            if request.user.is_superuser or manager or client or service:
                 queryset = Engine.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = EngineSerializer(retrieve)
@@ -202,7 +208,10 @@ class TransmissionViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager or request.user.is_superuser:
+            manager = request.user.is_manager
+            client = request.user.is_client
+            service = request.user.is_service
+            if request.user.is_superuser or manager or client or service:
                 queryset = Transmission.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = TransmissionSerializer(retrieve)
@@ -258,7 +267,10 @@ class AxleViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager or request.user.is_superuser:
+            manager = request.user.is_manager
+            client = request.user.is_client
+            service = request.user.is_service
+            if request.user.is_superuser or manager or client or service:
                 queryset = Axle.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = AxleSerializer(retrieve)
@@ -314,7 +326,10 @@ class SteeringAxleViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager or request.user.is_superuser:
+            manager = request.user.is_manager
+            client = request.user.is_client
+            service = request.user.is_service
+            if request.user.is_superuser or manager or client or service:
                 queryset = SteeringAxle.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = SteeringAxleSerializer(retrieve)
@@ -370,7 +385,10 @@ class TypeToViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager or request.user.is_superuser:
+            manager = request.user.is_manager
+            client = request.user.is_client
+            service = request.user.is_service
+            if request.user.is_superuser or manager or client or service:
                 queryset = TypeTo.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = TypeToSerializer(retrieve)
@@ -426,7 +444,10 @@ class FailureViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager or request.user.is_superuser:
+            manager = request.user.is_manager
+            client = request.user.is_client
+            service = request.user.is_service
+            if request.user.is_superuser or manager or client or service:
                 queryset = Failure.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = FailureSerializer(retrieve)
@@ -482,7 +503,10 @@ class RecoveryMethodViewSet(viewsets.ViewSet):
 
     def retrieve(self, request, pk=None):
         if request.user.is_authenticated:
-            if request.user.is_manager or request.user.is_superuser:
+            manager = request.user.is_manager
+            client = request.user.is_client
+            service = request.user.is_service
+            if request.user.is_superuser or manager or client or service:
                 queryset = RecoveryMethod.objects.all()
                 retrieve = get_object_or_404(queryset, pk=pk)
                 serializer = RecoveryMethodSerializer(retrieve)

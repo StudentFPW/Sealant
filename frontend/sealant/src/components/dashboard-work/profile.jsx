@@ -73,6 +73,8 @@ export default function Profile() {
             };
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert("Что-то пошло не так, попробуйте попозже!");
+            history.push('/dash');
         });
     };
 
@@ -87,6 +89,8 @@ export default function Profile() {
             setCars(response.data);
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert("Что-то пошло не так, попробуйте попозже!");
+            history.push('/dash');
         });
     };
 
@@ -101,6 +105,8 @@ export default function Profile() {
             setTo(response.data);
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert("Что-то пошло не так, попробуйте попозже!");
+            history.push('/dash');
         });
     };
 
@@ -115,6 +121,8 @@ export default function Profile() {
             setComplaints(response.data);
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert("Что-то пошло не так, попробуйте попозже!");
+            history.push('/dash');
         });
     };
 
