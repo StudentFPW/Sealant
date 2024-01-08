@@ -156,7 +156,7 @@ function UpdateComplaints(props) {
                                         <Button
                                             variant="danger"
                                             type="submit"
-                                            style={{ WebkitTextFillColor: "black" }}
+                                            style={{ WebkitTextFillColor: "black", backgroundColor: '#D20A11' }}
                                             onClick={() => { getFormData() }}>
                                             Сохранить
                                         </Button>
@@ -166,7 +166,7 @@ function UpdateComplaints(props) {
                                         <Button
                                             variant="primary"
                                             type="submit"
-                                            style={{ WebkitTextFillColor: "black" }}
+                                            style={{ WebkitTextFillColor: "white", backgroundColor: '#163E6C' }}
                                             onClick={() => { history.push('/dash') }}>
                                             Вернуться
                                         </Button>

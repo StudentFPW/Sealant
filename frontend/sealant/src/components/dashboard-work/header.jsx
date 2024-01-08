@@ -31,7 +31,7 @@ export default function Header() {
     return (
         <React.Fragment>
             <header className="navbar navbar-expand-lg navbar-light"
-                style={{ backgroundColor: "#ebe5d6" }}>
+                style={{ backgroundColor: "#EBE6D6" }}>
                 <div className="container-fluid">
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -61,8 +61,8 @@ export default function Header() {
                     <button
                         onClick={handleLogout}
                         type="button"
-                        className="btn btn-danger"
-                        style={{ WebkitTextFillColor: "black" }}
+                        className="btn"
+                        style={{ WebkitTextFillColor: "white", backgroundColor: '#163E6C' }}
                         data-mdb-ripple-init>
                         Выйти
                     </button>&nbsp;&nbsp;
@@ -71,7 +71,7 @@ export default function Header() {
                         onClick={() => { history.push('/profile') }}
                         type="button"
                         className="btn btn-danger"
-                        style={{ WebkitTextFillColor: "black" }}
+                        style={{ WebkitTextFillColor: "black", backgroundColor: '#D20A11' }}
                         data-mdb-ripple-init>
                         Профиль
                     </button>

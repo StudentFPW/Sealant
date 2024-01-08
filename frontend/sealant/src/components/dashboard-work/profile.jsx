@@ -13,6 +13,7 @@ import {
     MDBCardImage,
     MDBTypography
 } from 'mdb-react-ui-kit';
+import { InfoSquare } from 'react-bootstrap-icons';
 import { Button } from "react-bootstrap";
 
 import { main } from '../urls';
@@ -125,6 +126,14 @@ export default function Profile() {
                         <MDBCard style={{ borderRadius: '6px' }} className="shadow">
                             <MDBCardBody className="text-center">
 
+                                <ul className="navbar-nav flex-row">
+                                    <p title="
+                                    Нашли ошибки в ваших данных ?
+                                    Обратитесь в техподдержку !
+                                    "><InfoSquare size={20} color="#163E6C" />
+                                    </p>
+                                </ul>
+
                                 <div className="mt-3 mb-4">
                                     <MDBCardImage src={user.foto !== null ? user.foto : RGB}
                                         className="rounded-circle" fluid style={{ width: '100px' }} />
@@ -170,7 +179,7 @@ export default function Profile() {
                                 </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                 <div className="d-grid">
-                                    <Button variant="danger" type="submit" onClick={() => { history.push('/dash') }} style={{ WebkitTextFillColor: "black" }}>
+                                    <Button type="submit" onClick={() => { history.push('/dash') }} style={{ WebkitTextFillColor: "white", backgroundColor: '#163E6C' }}>
                                         Вернуться
                                     </Button>
                                 </div>

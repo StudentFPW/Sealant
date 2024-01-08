@@ -36,7 +36,7 @@ export default function Login() {
 
     return (
         <React.Fragment>
-            <div className="bg-img">
+            <div className="vh-100 bg-img">
                 <Container>
                     <Row className="vh-100 d-flex justify-content-center align-items-center">
                         <Col md={8} lg={6} xs={12}>
@@ -78,7 +78,7 @@ export default function Login() {
                                             <div className="d-grid">
                                                 <Button variant="danger"
                                                     type="submit"
-                                                    style={{ WebkitTextFillColor: "black" }}>
+                                                    style={{ WebkitTextFillColor: "black", backgroundColor: '#D20A11' }}>
                                                     Авторизоваться
                                                 </Button>
                                             </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -87,7 +87,7 @@ export default function Login() {
                                                 <Button variant="primary"
                                                     type="submit"
                                                     onClick={() => { history.push('/') }}
-                                                    style={{ WebkitTextFillColor: "black" }}>
+                                                    style={{ WebkitTextFillColor: "white", backgroundColor: '#163E6C' }}>
                                                     Вернуться
                                                 </Button>
                                             </div>

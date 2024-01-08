@@ -1,11 +1,13 @@
 import React from "react";
 
-// import secureLocalStorage from "react-secure-storage";
-// import axios from 'axios';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom/cjs/react-router-dom.min';
 
-// import { main } from './components/urls';
+import DriveAxleModel from "./components/dashboard-work/forms/get/get-drive-axle-model";
+import EngineModel from "./components/dashboard-work/forms/get/get-engine-model";
+import SteeringAxleModel from "./components/dashboard-work/forms/get/get-steering-axle-model";
+import TransmissionModel from "./components/dashboard-work/forms/get/get-transmission-model";
+import VehicleModel from "./components/dashboard-work/forms/get/get-vehicle-model";
 
 import UpdateCars from "./components/dashboard-work/forms/update/update-car";
 import UpdateTo from "./components/dashboard-work/forms/update/update-to";
@@ -19,25 +21,25 @@ import DashboardWork from "./components/dashboard-work/main";
 
 
 export default function App() {
-
-  // const fetchToken = async () => { // FIXME: this method not good !
-  //   await axios.request({
-  //     method: "POST",
-  //     url: `${main}/api/v1/token/verify/`,
-  //     data: { token: secureLocalStorage.getItem('token') },
-  //   }).then(() => {
-  //   }).catch(() => {
-  //     secureLocalStorage.removeItem('token');
-  //     secureLocalStorage.removeItem('refreshToken');
-  //   });
-  // };
-
-  // fetchToken();
-
   return (
     <React.Fragment>
       <Router>
         <Switch>
+          <Route path='/driveaxle/:id'>
+            <DriveAxleModel />
+          </Route>
+          <Route path='/engine/:id'>
+            <EngineModel />
+          </Route>
+          <Route path='/steeringaxle/:id'>
+            <SteeringAxleModel />
+          </Route>
+          <Route path='/transmission/:id'>
+            <TransmissionModel />
+          </Route>
+          <Route path='/vehicle/:id'>
+            <VehicleModel />
+          </Route>
           <Route path='/updatecar/:id'>
             <UpdateCars />
           </Route>

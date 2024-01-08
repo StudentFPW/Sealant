@@ -8,7 +8,7 @@ import './styles/footer.css';
 export default function Footer() {
     return (
         <React.Fragment>
-            <footer className="text-center text-lg-start" id="footer" style={{ backgroundColor: "#ebe5d6" }}>
+            <footer className="text-center text-lg-start" id="footer" style={{ backgroundColor: "#EBE6D6" }}>
                 <div className="text-center p-3">
 
                     © 2024 Copyright&nbsp;:&nbsp;

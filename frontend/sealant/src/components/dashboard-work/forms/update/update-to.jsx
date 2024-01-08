@@ -11,7 +11,7 @@ import './styles/update.css';
 import { main } from "../../../urls";
 
 
-function UpdateTo(props) { // FIXME: update here css !
+function UpdateTo(props) {
     const [to, setTo] = useState([]);
     let history = useHistory();
 
@@ -65,87 +65,85 @@ function UpdateTo(props) { // FIXME: update here css !
     };
 
     return (
-        <React.Fragment>
-            <div className="bg-img">
-                <MDBContainer className="container py-5 h-100">
-                    <MDBRow className="d-flex justify-content-center align-items-center h-100">
-                        <MDBCol md="12" xl="10">
-                            <MDBCard style={{ borderRadius: '6px' }} className="shadow">
-                                <MDBCardBody className="text-center">
+        <div className="vh-100 bg-img">
+            <MDBContainer className="container py-5 h-100">
+                <MDBRow className="d-flex justify-content-center align-items-center h-100">
+                    <MDBCol md="12" xl="10">
+                        <MDBCard style={{ borderRadius: '6px' }} className="shadow">
+                            <MDBCardBody className="text-center">
 
-                                    <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form1">Вид ТО</label>
-                                        <input
-                                            title={to.type_of_maintenance ? to.type_of_maintenance['description'] : ''}
-                                            placeholder={to.type_of_maintenance ? to.type_of_maintenance['description'].slice(0, 15) + '...' : 'Отсутствует !'}
-                                            type="text"
-                                            id="form1"
-                                            className="form-control" />
-                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div className="form-outline" data-mdb-input-init>
+                                    <label className="form-label" htmlFor="form1">Вид ТО</label>
+                                    <input
+                                        title={to.type_of_maintenance ? to.type_of_maintenance['description'] : ''}
+                                        placeholder={to.type_of_maintenance ? to.type_of_maintenance['description'].slice(0, 15) + '...' : 'Отсутствует !'}
+                                        type="text"
+                                        id="form1"
+                                        className="form-control" />
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form2">Дата проведения ТО</label>
-                                        <input
-                                            placeholder={to.maintenance_date ? to.maintenance_date : 'Отсутствует !'}
-                                            type="text"
-                                            id="form2"
-                                            className="form-control" />
-                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div className="form-outline" data-mdb-input-init>
+                                    <label className="form-label" htmlFor="form2">Дата проведения ТО</label>
+                                    <input
+                                        placeholder={to.maintenance_date ? to.maintenance_date : 'Отсутствует !'}
+                                        type="text"
+                                        id="form2"
+                                        className="form-control" />
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form3">Наработка, м/час</label>
-                                        <input
-                                            placeholder={to.operating_hours ? to.operating_hours : 'Отсутствует !'}
-                                            type="text"
-                                            id="form3"
-                                            className="form-control" />
-                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div className="form-outline" data-mdb-input-init>
+                                    <label className="form-label" htmlFor="form3">Наработка, м/час</label>
+                                    <input
+                                        placeholder={to.operating_hours ? to.operating_hours : 'Отсутствует !'}
+                                        type="text"
+                                        id="form3"
+                                        className="form-control" />
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form4">№ заказ-наряда</label>
-                                        <input
-                                            placeholder={to.order_number ? to.order_number : 'Отсутствует !'}
-                                            type="text"
-                                            id="form4"
-                                            className="form-control" />
-                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div className="form-outline" data-mdb-input-init>
+                                    <label className="form-label" htmlFor="form4">№ заказ-наряда</label>
+                                    <input
+                                        placeholder={to.order_number ? to.order_number : 'Отсутствует !'}
+                                        type="text"
+                                        id="form4"
+                                        className="form-control" />
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form5">Дата заказа-наряда</label>
-                                        <input
-                                            placeholder={to.order_date ? to.order_date : 'Отсутствует !'}
-                                            type="text"
-                                            id="form5"
-                                            className="form-control" />
-                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div className="form-outline" data-mdb-input-init>
+                                    <label className="form-label" htmlFor="form5">Дата заказа-наряда</label>
+                                    <input
+                                        placeholder={to.order_date ? to.order_date : 'Отсутствует !'}
+                                        type="text"
+                                        id="form5"
+                                        className="form-control" />
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <div className="d-grid">
-                                        <Button
-                                            variant="danger"
-                                            type="submit"
-                                            style={{ WebkitTextFillColor: "black" }}
-                                            onClick={() => { getFormData() }}>
-                                            Сохранить
-                                        </Button>
-                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div className="d-grid">
+                                    <Button
+                                        variant="danger"
+                                        type="submit"
+                                        style={{ WebkitTextFillColor: "black", backgroundColor: '#D20A11' }}
+                                        onClick={() => { getFormData() }}>
+                                        Сохранить
+                                    </Button>
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <div className="d-grid">
-                                        <Button
-                                            variant="primary"
-                                            type="submit"
-                                            style={{ WebkitTextFillColor: "black" }}
-                                            onClick={() => { history.push('/dash') }}>
-                                            Вернуться
-                                        </Button>
-                                    </div>
+                                <div className="d-grid">
+                                    <Button
+                                        variant="primary"
+                                        type="submit"
+                                        style={{ WebkitTextFillColor: "white", backgroundColor: '#163E6C' }}
+                                        onClick={() => { history.push('/dash') }}>
+                                        Вернуться
+                                    </Button>
+                                </div>
 
-                                </MDBCardBody>
-                            </MDBCard>
-                        </MDBCol>
-                    </MDBRow>
-                </MDBContainer>
-            </div>
-        </React.Fragment >
+                            </MDBCardBody>
+                        </MDBCard>
+                    </MDBCol>
+                </MDBRow>
+            </MDBContainer>
+        </div>
     );
 };
 

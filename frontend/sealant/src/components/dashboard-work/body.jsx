@@ -101,7 +101,7 @@ export default function Body() {
             <ul className="nav nav-tabs nav-fill mb-3"
                 id="ex1"
                 role="tablist"
-                style={{ backgroundColor: "#dc3545" }}>
+                style={{ backgroundColor: '#D20A11' }}>
                 <li className="nav-item" role="presentation">
                     <a data-mdb-tab-init
                         className="nav-link active"
