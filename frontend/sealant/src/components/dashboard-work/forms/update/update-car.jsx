@@ -34,7 +34,6 @@ function UpdateCars(props) {
             setCar(response.data);
         }).catch((error) => {
             console.log("Request error: " + error);
-            alert("Что-то пошло не так, попробуйте попозже!");
             history.push('/dash');
         });
     };
@@ -71,7 +70,6 @@ function UpdateCars(props) {
             history.push('/dash');
         }).catch((error) => {
             console.log("Request error: " + error);
-            alert("Что-то пошло не так, попробуйте попозже!");
             history.push('/dash');
         });
     };

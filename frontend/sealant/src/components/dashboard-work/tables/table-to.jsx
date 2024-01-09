@@ -3,7 +3,7 @@ import React from "react";
 import { useHistory } from 'react-router-dom';
 
 
-export default function FetchTo(props) {
+export default function TableTo(props) {
     let history = useHistory();
 
     return (
@@ -12,6 +12,7 @@ export default function FetchTo(props) {
                 <thead className="bg-light">
                     <tr>
                         <th>№</th>
+                        <th>Зав. № машины</th>
                         <th>Вид ТО</th>
                         <th>Дата проведения ТО</th>
                         <th>Наработка, м/час</th>
@@ -26,6 +27,12 @@ export default function FetchTo(props) {
                     {props.to ? props.to.map((to, index) => (
                         <tr key={index}>
                             <td>{index + 1}</td>
+
+                            <td>
+                                <a href={`/getcar/${props.to[index]['car']['factory_number']}`}>
+                                    {props.to[index]['car']['factory_number'] ? props.to[index]['car']['factory_number'] : 'Не указано !'}
+                                </a>
+                            </td>
 
                             <td title={to.type_of_maintenance ? to.type_of_maintenance['description'] : ''}>
                                 {to.type_of_maintenance ? to.type_of_maintenance['description'].slice(0, 15) + '...' : 'Не указано !'}

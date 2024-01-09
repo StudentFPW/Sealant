@@ -549,7 +549,9 @@ class CarsViewSet(viewsets.ViewSet):
             if query:
                 queryset = Cars.objects.filter(
                     factory_number=query.get("factory_number")
-                ).order_by("-shipped_from_factory",)
+                ).order_by(
+                    "-shipped_from_factory",
+                )
             else:
                 queryset = Cars.objects.filter().order_by(
                     "-shipped_from_factory",
@@ -559,32 +561,63 @@ class CarsViewSet(viewsets.ViewSet):
         # Пользователь авторизовался ↓
         if request.user.is_authenticated:
             if request.user.is_superuser:
-                queryset = Cars.objects.filter().order_by(
-                    "-shipped_from_factory",
-                )
+                if query:
+                    queryset = Cars.objects.filter(
+                        factory_number=query.get("factory_number")
+                    ).order_by(
+                        "-shipped_from_factory",
+                    )
+                else:
+                    queryset = Cars.objects.filter().order_by(
+                        "-shipped_from_factory",
+                    )
                 serializer = CarsSerializer(queryset, many=True)
                 return Response(serializer.data)
             # Является клиентом ↓
             if request.user.is_client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
-                queryset = Cars.objects.filter(client=client_obj).order_by(
-                    "-shipped_from_factory",
-                )
+                if query:
+                    queryset = Cars.objects.filter(
+                        factory_number=query.get("factory_number"), client=client_obj
+                    ).order_by(
+                        "-shipped_from_factory",
+                    )
+                else:
+                    queryset = Cars.objects.filter(client=client_obj).order_by(
+                        "-shipped_from_factory",
+                    )
                 serializer = CarsSerializer(queryset, many=True)
                 return Response(serializer.data)
             # Является сервисной организацией ↓
             if request.user.is_service:
                 service_obj = Service.objects.get(service_id=request.user.pk)
-                queryset = Cars.objects.filter(service_company=service_obj).order_by(
-                    "-shipped_from_factory",
-                )
+                if query:
+                    queryset = Cars.objects.filter(
+                        factory_number=query.get("factory_number"),
+                        service_company=service_obj,
+                    ).order_by(
+                        "-shipped_from_factory",
+                    )
+                else:
+                    queryset = Cars.objects.filter(
+                        service_company=service_obj
+                    ).order_by(
+                        "-shipped_from_factory",
+                    )
                 serializer = CarsSerializer(queryset, many=True)
                 return Response(serializer.data)
             # Является менеджером ↓
             if request.user.is_manager:
-                queryset = Cars.objects.filter().order_by(
-                    "-shipped_from_factory",
-                )
+                if query:
+                    queryset = Cars.objects.filter(
+                        factory_number=query.get("factory_number")
+                    ).order_by(
+                        "-shipped_from_factory",
+                    )
+                else:
+                    queryset = Cars.objects.filter().order_by(
+                        "-shipped_from_factory",
+                    )
                 serializer = CarsSerializer(queryset, many=True)
                 return Response(serializer.data)
             return Response(status=403)
@@ -723,31 +756,62 @@ class ToViewSet(viewsets.ViewSet):
         Функция возвращает список объектов на основе роли пользователя (клиент, служба или менеджер) и
         статуса их аутентификации.
         """
+        query = self.request.query_params
         if request.user.is_authenticated:
             if request.user.is_superuser:
-                queryset = To.objects.filter().order_by(
-                    "-maintenance_date",
-                )
+                if query:
+                    queryset = To.objects.filter(
+                        car__factory_number=query.get("factory_number")
+                    ).order_by(
+                        "-maintenance_date",
+                    )
+                else:
+                    queryset = To.objects.filter().order_by(
+                        "-maintenance_date",
+                    )
                 serializer = ToSerializer(queryset, many=True)
                 return Response(serializer.data)
             if request.user.is_client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
-                queryset = To.objects.filter(car__client=client_obj).order_by(
-                    "-maintenance_date",
-                )
+                if query:
+                    queryset = To.objects.filter(
+                        car__factory_number=query.get("factory_number"),
+                        car__client=client_obj,
+                    ).order_by(
+                        "-maintenance_date",
+                    )
+                else:
+                    queryset = To.objects.filter(car__client=client_obj).order_by(
+                        "-maintenance_date",
+                    )
                 serializer = ToSerializer(queryset, many=True)
                 return Response(serializer.data)
             if request.user.is_service:
                 service_obj = Service.objects.get(service_id=request.user.pk)
-                queryset = To.objects.filter(service_company=service_obj).order_by(
-                    "-maintenance_date",
-                )
+                if query:
+                    queryset = To.objects.filter(
+                        car__factory_number=query.get("factory_number"),
+                        service_company=service_obj,
+                    ).order_by(
+                        "-maintenance_date",
+                    )
+                else:
+                    queryset = To.objects.filter(service_company=service_obj).order_by(
+                        "-maintenance_date",
+                    )
                 serializer = ToSerializer(queryset, many=True)
                 return Response(serializer.data)
             if request.user.is_manager:
-                queryset = To.objects.filter().order_by(
-                    "-maintenance_date",
-                )
+                if query:
+                    queryset = To.objects.filter(
+                        car__factory_number=query.get("factory_number")
+                    ).order_by(
+                        "-maintenance_date",
+                    )
+                else:
+                    queryset = To.objects.filter().order_by(
+                        "-maintenance_date",
+                    )
                 serializer = ToSerializer(queryset, many=True)
                 return Response(serializer.data)
             return Response(status=403)
@@ -870,33 +934,60 @@ class ComplaintsViewSet(viewsets.ViewSet):
         Функция возвращает список жалоб в зависимости от роли пользователя (клиент, служба или менеджер),
         если пользователь прошел аутентификацию.
         """
+        query = self.request.query_params
         if request.user.is_authenticated:
             if request.user.is_superuser:
-                queryset = Complaints.objects.filter().order_by(
-                    "-refusal_date",
-                )
+                if query:
+                    queryset = Complaints.objects.filter(
+                        car__factory_number=query.get("factory_number")
+                    ).order_by(
+                        "-refusal_date",
+                    )
+                else:
+                    queryset = Complaints.objects.filter().order_by(
+                        "-refusal_date",
+                    )
                 serializer = ComplaintsSerializer(queryset, many=True)
                 return Response(serializer.data)
             if request.user.is_client:
                 client_obj = Client.objects.get(client_id=request.user.pk)
-                queryset = Complaints.objects.filter(car__client=client_obj).order_by(
-                    "-refusal_date",
-                )
+                if query:
+                    queryset = Complaints.objects.filter(
+                        car__factory_number=query.get("factory_number"), car__client=client_obj
+                    ).order_by(
+                        "-refusal_date",
+                    )
+                else:
+                    queryset = Complaints.objects.filter(car__client=client_obj).order_by(
+                        "-refusal_date",
+                    )
                 serializer = ComplaintsSerializer(queryset, many=True)
                 return Response(serializer.data)
             if request.user.is_service:
                 service_obj = Service.objects.get(service_id=request.user.pk)
-                queryset = Complaints.objects.filter(
-                    service_company=service_obj
-                ).order_by(
-                    "-refusal_date",
-                )
+                if query:
+                    queryset = Complaints.objects.filter(
+                        car__factory_number=query.get("factory_number"), service_company=service_obj
+                    ).order_by(
+                        "-refusal_date",
+                    )
+                else:
+                    queryset = Complaints.objects.filter(service_company=service_obj).order_by(
+                        "-refusal_date",
+                    )
                 serializer = ComplaintsSerializer(queryset, many=True)
                 return Response(serializer.data)
             if request.user.is_manager:
-                queryset = Complaints.objects.filter().order_by(
-                    "-refusal_date",
-                )
+                if query:
+                    queryset = Complaints.objects.filter(
+                        car__factory_number=query.get("factory_number")
+                    ).order_by(
+                        "-refusal_date",
+                    )
+                else:
+                    queryset = Complaints.objects.filter().order_by(
+                        "-refusal_date",
+                    )
                 serializer = ComplaintsSerializer(queryset, many=True)
                 return Response(serializer.data)
             return Response(status=403)

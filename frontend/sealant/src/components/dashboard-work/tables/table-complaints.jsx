@@ -3,7 +3,7 @@ import React from "react";
 import { useHistory } from 'react-router-dom';
 
 
-export default function FetchComplaints(props) {
+export default function TableComplaints(props) {
     let history = useHistory();
 
     return (
@@ -12,6 +12,7 @@ export default function FetchComplaints(props) {
                 <thead className="bg-light">
                     <tr>
                         <th>№</th>
+                        <th>Зав. № машины</th>
                         <th>Дата отказа</th>
                         <th>Наработка, м/час</th>
                         <th>Узел отказа</th>
@@ -29,6 +30,13 @@ export default function FetchComplaints(props) {
                     {props.complaints ? props.complaints.map((complaints, index) => (
                         <tr key={index}>
                             <td>{index + 1}</td>
+
+                            <td>
+                                <a href={`/getcar/${props.complaints[index]['car']['factory_number']}`}>
+                                    {props.complaints[index]['car']['factory_number'] ? props.complaints[index]['car']['factory_number'] : 'Не указано !'}
+                                </a>
+                            </td>
+
                             <td>{complaints.refusal_date ? complaints.refusal_date : 'Не указано !'}</td>
                             <td>{complaints.operating_hours ? complaints.operating_hours : 'Не указано !'}</td>
 
@@ -36,15 +44,15 @@ export default function FetchComplaints(props) {
                                 {complaints.failure_node ? complaints.failure_node['description'].slice(0, 15) + '...' : 'Не указано !'}
                             </td>
 
-                            <td title={complaints.failure_description}>
+                            <td title={complaints.failure_description ? complaints.failure_description : ''}>
                                 {complaints.failure_description ? complaints.failure_description.slice(0, 15) + '...' : 'Не указано !'}
                             </td>
 
-                            <td title={complaints.recovery_method['description']}>
+                            <td title={complaints.recovery_method ? complaints.recovery_method['description'] : ''}>
                                 {complaints.recovery_method ? complaints.recovery_method['description'].slice(0, 15) + '...' : 'Не указано !'}
                             </td>
 
-                            <td title={complaints.parts_used}>
+                            <td title={complaints.parts_used ? complaints.parts_used : ''}>
                                 {complaints.parts_used ? complaints.parts_used.slice(0, 15) + '...' : 'Не указано !'}
                             </td>
 

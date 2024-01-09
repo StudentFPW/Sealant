@@ -1,23 +1,37 @@
 import React, { useState, useEffect } from "react";
 
 import secureLocalStorage from "react-secure-storage";
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { Tab, initMDB } from "mdb-ui-kit";
 
-import { main } from '../urls';
-import Navbar from "./navbar";
+import withRouter from "../../../../withRouter/withRouter";
+import { main } from '../../../../urls';
 import TableCars from "./tables/table-cars";
 import TableTo from "./tables/table-to";
 import TableComplaints from "./tables/table-complaints";
+import Header from "./header";
+import Footer from "../../../footer";
 
 
-export default function Body() {
-    const [cars, setCars] = useState([]);
+function GetCar(props) {
+    const [car, setCar] = useState([]);
     const [to, setTo] = useState([]);
     const [complaints, setComplaints] = useState([]);
     const [staffstatus, setStaffStatus] = useState([]);
-    const [clientstatus, setClientStatus] = useState([]);
     initMDB({ Tab });
+    let history = useHistory();
+
+    if (!secureLocalStorage.getItem('token')) {
+        history.push('/login');
+    } else {
+        useEffect(() => {
+            fetchUser();
+            fetchCar();
+            fetchTo();
+            fetchComplaints();
+        }, []);
+    };
 
     const fetchUser = async () => {
         await axios.request({
@@ -29,31 +43,27 @@ export default function Body() {
         }).then(response => {
             let manager = response.data["results"][0]['is_manager'];
             let admin = response.data["results"][0]['is_superuser'];
-            let client = response.data["results"][0]['is_client'];
             if (manager || admin) {
                 setStaffStatus('allow');
             };
-            if (client) {
-                setClientStatus('disallow');
-            };
         }).catch((error) => {
             console.log("Request error: " + error);
-            alert("Что-то пошло не так, попробуйте попозже!");
             history.push('/dash');
         });
     };
 
-    const fetchCars = async () => {
+    const fetchCar = async () => {
         await axios.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
             method: "GET",
-            url: `${main}/api/v1/cars/`
+            url: `${main}/api/v1/cars/?factory_number=${props.params.factory_number}`
         }).then(response => {
-            setCars(response.data);
+            setCar(response.data);
         }).catch((error) => {
             console.log("Request error: " + error);
+            history.push('/dash');
         });
     };
 
@@ -63,11 +73,12 @@ export default function Body() {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
             method: "GET",
-            url: `${main}/api/v1/to/`
+            url: `${main}/api/v1/to/?factory_number=${props.params.factory_number}`
         }).then(response => {
             setTo(response.data);
         }).catch((error) => {
             console.log("Request error: " + error);
+            history.push('/dash');
         });
     };
 
@@ -77,29 +88,18 @@ export default function Body() {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
             method: "GET",
-            url: `${main}/api/v1/compl/`
+            url: `${main}/api/v1/compl/?factory_number=${props.params.factory_number}`
         }).then(response => {
             setComplaints(response.data);
         }).catch((error) => {
             console.log("Request error: " + error);
+            history.push('/dash');
         });
     };
 
-    useEffect(() => {
-        fetchCars();
-        fetchTo();
-        fetchComplaints();
-        fetchUser();
-    }, []);
-
     return (
         <React.Fragment>
-            {/* Компонент `<Navbar Staff={staffstatus} client={clientstatus} />` отображает компонент
-            панели навигации с переданными ему реквизитами `staff` и `client`. Эти реквизиты
-            используются для определения видимости и функциональности определенных элементов на
-            панели навигации в зависимости от роли пользователя. */}
-            <Navbar staff={staffstatus} client={clientstatus} />
-
+            <Header cars={car} />
             <ul className="nav nav-tabs nav-fill mb-3"
                 id="ex1"
                 role="tablist"
@@ -141,21 +141,12 @@ export default function Body() {
                 </li>
             </ul>
 
-            {/* <TableCars cars={cars} Staffstatus={staffstatus} />` — это
-                компонент, который отображается на первой вкладке интерфейса с
-                вкладками. Он передает реквизиты cars и Staffstatus компоненту
-                TableCars. Свойство cars содержит массив данных об автомобилях, а
-                свойство Staffstatus указывает, является ли пользователь сотрудником
-                компании или нет. Компонент TableCars будет использовать эти
-                реквизиты для отображения данных автомобиля и определения функций,
-                доступных пользователю в зависимости от его роли. */}
-
             <div className="tab-content" id="ex2-content">
                 <div className="tab-pane fade show active"
                     id="ex2-tabs-1"
                     role="tabpanel"
                     aria-labelledby="ex2-tab-1"
-                >{cars.length ? <TableCars cars={cars} staffstatus={staffstatus} /> :
+                >{car.length ? <TableCars cars={car} staffstatus={staffstatus} /> :
                     <h5 className="text-center fw-bolder">Пусто !</h5>
                     }</div>
 
@@ -175,6 +166,9 @@ export default function Body() {
                     <h5 className="text-center fw-bolder">Пусто !</h5>
                     }</div>
             </div>
+            <Footer />
         </React.Fragment>
     );
 };
+
+export default withRouter(GetCar);

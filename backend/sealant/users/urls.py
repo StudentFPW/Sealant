@@ -9,9 +9,6 @@ from .viewsets import (
     ServiceRegistrationViewSet as service,
     ManagerRegistrationViewSet as manager,
     UserViewSet,
-    # ClientViewSet,
-    # ServiceViewSet,
-    # ManagerViewSet,
 )
 
 urlpatterns = [
@@ -23,7 +20,4 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(), name="rest_logout"),
     path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     path("token/refresh/", get_refresh_view().as_view(), name="token_refresh"),
-    # path("list/client/", ClientViewSet.as_view({"get": "list"}), name="list-client"),
-    # path("list/service/", ServiceViewSet.as_view({"get": "list"}), name="list-service"),
-    # path("list/manager/", ManagerViewSet.as_view({"get": "list"}), name="list-manager"),
 ]

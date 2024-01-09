@@ -36,7 +36,6 @@ export default function DashboardHome() {
             };
         } else {
             alert('Пожалуйста введите заводской номер!');
-            alert("Что-то пошло не так, попробуйте попозже!");
             history.push('/');
         };
     };
@@ -47,9 +46,6 @@ export default function DashboardHome() {
             setCars(response.data);
         } catch (error) {
             console.log("Request error: " + error);
-            alert('Что-то пошло не так, попробуйте попозже!');
-            alert("Что-то пошло не так, попробуйте попозже!");
-            history.push('/');
         };
     };
 

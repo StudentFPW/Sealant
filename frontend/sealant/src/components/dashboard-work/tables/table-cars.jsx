@@ -3,7 +3,7 @@ import React from "react";
 import { useHistory } from 'react-router-dom';
 
 
-export default function FetchCars(props) {
+export default function TableCars(props) {
     let history = useHistory();
 
     return (
@@ -38,7 +38,11 @@ export default function FetchCars(props) {
                         <tr key={index}>
                             <td>{index + 1}</td>
 
-                            <td><a href="#">{cars.factory_number ? cars.factory_number : 'Не указано !'}</a></td>
+                            <td>
+                                <a href={`/getcar/${cars.factory_number}`}>
+                                    {cars.factory_number ? cars.factory_number : 'Не указано !'}
+                                </a>
+                            </td>
 
                             <td>
                                 <a href={`/vehicle/${cars.vehicle_model.id}`}>

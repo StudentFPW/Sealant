@@ -34,7 +34,6 @@ function DriveAxleModel(props) {
             setDriveAxle(response.data);
         }).catch((error) => {
             console.log("Request error: " + error);
-            alert("Что-то пошло не так, попробуйте попозже!");
             history.push('/dash');
         });
     };
