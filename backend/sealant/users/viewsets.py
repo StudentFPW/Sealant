@@ -8,6 +8,8 @@ from .serializers import (
     ServiceCustomRegistrationSerializer,
     ManagerCustomRegistrationSerializer,
     UserDetailsSerializer,
+    ServiceSerializer,
+    ClientSerializer,
 )
 
 # Класс разрешений IsAdminUser будет отказывать в разрешении любому пользователю,
@@ -44,3 +46,15 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return User.objects.filter(id=self.request.user.id)
+
+
+class ServiceViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ServiceSerializer
+    queryset = Service.objects.all()
+
+
+class ClientViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ClientSerializer
+    queryset = Client.objects.all()

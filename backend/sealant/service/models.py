@@ -109,7 +109,7 @@ class Cars(models.Model):
         related_name="ClientCars",
     )
 
-    сonsignee = models.CharField(max_length=1000, null=True, blank=True)
+    сonsignee = models.CharField(max_length=1000)
     engine_number = models.CharField(max_length=500)
     drive_axle_number = models.CharField(max_length=500)
     delivery_address = models.CharField(max_length=1000)

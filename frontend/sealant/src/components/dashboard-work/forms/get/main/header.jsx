@@ -15,17 +15,17 @@ export default function Header(props) {
 
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <div className="hstack gap-3">
-                            <div className="bg-body-tertiary border">Номер машины: {props.cars[0] ? props.cars[0]['id'] : ''}</div>
-                            <div className="bg-body-tertiary border">Заводской номер: {props.cars[0] ? props.cars[0]['factory_number'] : ''}</div>
+                            <div className="bg-body-tertiary border">Номер машины: {props.car[0] ? props.car[0]['id'] : ''}</div>
+                            <div className="bg-body-tertiary border">Заводской номер: {props.car[0] ? props.car[0]['factory_number'] : ''}</div>
                         </div>
                     </div>
 
-                    <ul className="navbar-nav flex-row">
+                    <div className="navbar-nav flex-row">
                         <p title="
                         1. Наведите курсор на интересующий вас элемент (В частности предложения с 3 точками!).
                         3. При нажатии на какую либо из моделей комплектующих машины, отображается полная информация (запчасти).
                         "><InfoSquare size={20} color="#163E6C" /></p>
-                    </ul>
+                    </div>
 
                     <div className="w-auto p-3 translucent-bg">
                         Информация о проведенных ТО и рекламации вашей техники

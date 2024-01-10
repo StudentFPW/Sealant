@@ -1,9 +1,12 @@
 import React from "react";
 
+import { useHistory } from 'react-router-dom';
 import { InfoSquare } from 'react-bootstrap-icons';
 
 
 export default function Navbar(props) {
+    let history = useHistory();
+
     return (
         <React.Fragment>
             <nav className="navbar navbar-expand-lg navbar-light"
@@ -14,7 +17,8 @@ export default function Navbar(props) {
                             type="button"
                             className="btn btn-danger"
                             style={{ WebkitTextFillColor: "black", backgroundColor: '#D20A11' }}
-                            data-mdb-ripple-init>
+                            data-mdb-ripple-init
+                            onClick={() => { history.push('/createcar') }}>
                             Зафиксировать технику
                         </button> : ""
                         }&nbsp;&nbsp;
@@ -23,7 +27,8 @@ export default function Navbar(props) {
                             type="button"
                             className="btn btn-danger"
                             style={{ WebkitTextFillColor: "black", backgroundColor: '#D20A11' }}
-                            data-mdb-ripple-init>
+                            data-mdb-ripple-init
+                            onClick={() => { history.push('/createto') }}>
                             Зафиксировать ТО
                         </button>&nbsp;&nbsp;
 
@@ -32,7 +37,8 @@ export default function Navbar(props) {
                                 type="button"
                                 className="btn btn-danger"
                                 style={{ WebkitTextFillColor: "black", backgroundColor: '#D20A11' }}
-                                data-mdb-ripple-init>
+                                data-mdb-ripple-init
+                                onClick={() => { history.push('/createcomplain') }}>
                                 Зафиксировать рекламацию
                             </button>
                         }

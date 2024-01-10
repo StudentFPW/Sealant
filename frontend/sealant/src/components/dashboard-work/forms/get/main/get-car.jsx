@@ -99,14 +99,14 @@ function GetCar(props) {
 
     return (
         <React.Fragment>
-            <Header cars={car} />
+            <Header car={car} />
             <ul className="nav nav-tabs nav-fill mb-3"
                 id="ex1"
                 role="tablist"
                 style={{ backgroundColor: '#D20A11' }}>
                 <li className="nav-item" role="presentation">
                     <a data-mdb-tab-init
-                        className="nav-link active"
+                        className="nav-link"
                         id="ex2-tab-1"
                         href="#ex2-tabs-1"
                         role="tab"
@@ -118,7 +118,7 @@ function GetCar(props) {
 
                 <li className="nav-item" role="presentation">
                     <a data-mdb-tab-init
-                        className="nav-link"
+                        className="nav-link active"
                         id="ex2-tab-2"
                         href="#ex2-tabs-2"
                         role="tab"
@@ -142,7 +142,7 @@ function GetCar(props) {
             </ul>
 
             <div className="tab-content" id="ex2-content">
-                <div className="tab-pane fade show active"
+                <div className="tab-pane fade"
                     id="ex2-tabs-1"
                     role="tabpanel"
                     aria-labelledby="ex2-tab-1"
@@ -150,7 +150,7 @@ function GetCar(props) {
                     <h5 className="text-center fw-bolder">Пусто !</h5>
                     }</div>
 
-                <div className="tab-pane fade"
+                <div className="tab-pane fade show active"
                     id="ex2-tabs-2"
                     role="tabpanel"
                     aria-labelledby="ex2-tab-2"

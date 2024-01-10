@@ -3,6 +3,8 @@ import React from "react";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom/cjs/react-router-dom.min';
 
+import CreateCar from "./components/dashboard-work/forms/create/create-car";
+
 import GetCar from "./components/dashboard-work/forms/get/main/get-car";
 
 import DriveAxleModel from "./components/dashboard-work/forms/get/models/get-drive-axle-model";
@@ -27,6 +29,9 @@ export default function App() {
     <React.Fragment>
       <Router>
         <Switch>
+          <Route path='/createcar'>
+            <CreateCar />
+          </Route>
           <Route path='/getcar/:factory_number'>
             <GetCar />
           </Route>
