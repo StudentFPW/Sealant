@@ -3,6 +3,8 @@ import React from "react";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom/cjs/react-router-dom.min';
 
+import CreateTo from "./components/dashboard-work/forms/create/create-to";
+import CreateComplain from "./components/dashboard-work/forms/create/create-complain";
 import CreateCar from "./components/dashboard-work/forms/create/create-car";
 
 import GetCar from "./components/dashboard-work/forms/get/main/get-car";
@@ -17,10 +19,9 @@ import UpdateCars from "./components/dashboard-work/forms/update/update-car";
 import UpdateTo from "./components/dashboard-work/forms/update/update-to";
 import UpdateComplaints from "./components/dashboard-work/forms/update/update-complain";
 
-import Login from "./components/dashboard-welcome/login";
-import DashboardHome from "./components/dashboard-welcome/dashboard-home";
-
 import Profile from "./components/dashboard-work/profile";
+import DashboardHome from "./components/dashboard-welcome/dashboard-home";
+import Login from "./components/dashboard-welcome/login";
 import DashboardWork from "./components/dashboard-work/main";
 
 
@@ -29,6 +30,12 @@ export default function App() {
     <React.Fragment>
       <Router>
         <Switch>
+          <Route path='/createto'>
+            <CreateTo />
+          </Route>
+          <Route path='/createcomplain'>
+            <CreateComplain />
+          </Route>
           <Route path='/createcar'>
             <CreateCar />
           </Route>
@@ -59,17 +66,17 @@ export default function App() {
           <Route path='/updatecomplaints/:id'>
             <UpdateComplaints />
           </Route>
+          <Route path='/profile'>
+            <Profile />
+          </Route>
           <Route path='/dash'>
-            <DashboardWork /> {/* 3 */}
+            <DashboardWork />
           </Route>
           <Route path='/login'>
-            <Login /> {/* 2 */}
-          </Route>
-          <Route path='/profile'>
-            <Profile /> {/* 4 */}
+            <Login />
           </Route>
           <Route path='/'>
-            <DashboardHome /> {/* 1 */}
+            <DashboardHome />
           </Route>
         </Switch>
       </Router>

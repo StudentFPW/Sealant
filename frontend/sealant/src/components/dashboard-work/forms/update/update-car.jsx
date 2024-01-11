@@ -7,7 +7,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardBody } from 'mdb-react-ui
 import { Button } from "react-bootstrap";
 
 import withRouter from "../../../withRouter/withRouter";
-import './styles/update.css';
+import '../styles/forms.css';
 import { main } from "../../../urls";
 
 
@@ -67,9 +67,10 @@ function UpdateCars(props) {
             url: `${main}/api/v1/cars/${props.params.id}/`,
             data: formdata
         }).then(() => {
-            history.push('/dash');
+            history.push(`/getcar/${document.getElementById('form1').value}`);
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert('Что-то пошло не так, попробуйте попозже !');
             history.push('/dash');
         });
     };

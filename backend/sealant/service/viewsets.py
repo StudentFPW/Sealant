@@ -33,16 +33,6 @@ from .serializers import (
 
 from users.models import Service, Client
 
-# Спагетти без принципа DRY (* ￣︿￣)
-# Была идея использовать наследование, но тогда мы пойдем против одного под принципа SOLID X﹏X
-
-# Я мог работать с классом viewsets.ModelViewSet и уже в дочернем классе использовать
-# инструкции подвязанные в группу а именно permission_required = ('service.add_cars', 'service.change_cars', 'service.delete_cars')
-# LoginRequiredMixin, PermissionRequiredMixin.
-# В таком случае код был бы в разы меньше.
-
-# Я взял за основу этот метод так как легче оперировать данными.
-
 
 class TechniqueViewSet(viewsets.ViewSet):
     view_is_async = True
@@ -698,6 +688,7 @@ class CarsViewSet(viewsets.ViewSet):
                     steering_axle_number=request.data["steering_axle_number"],
                     factory_number=request.data["factory_number"],
                     equipment=request.data["equipment"],
+                    shipped_from_factory=request.data["shipped_from_factory"],
                     supply_contract_date=request.data["supply_contract_date"],
                 )
                 create.save()
@@ -976,12 +967,15 @@ class ComplaintsViewSet(viewsets.ViewSet):
                 client_obj = Client.objects.get(client_id=request.user.pk)
                 if query:
                     queryset = Complaints.objects.filter(
-                        car__factory_number=query.get("factory_number"), car__client=client_obj
+                        car__factory_number=query.get("factory_number"),
+                        car__client=client_obj,
                     ).order_by(
                         "-refusal_date",
                     )
                 else:
-                    queryset = Complaints.objects.filter(car__client=client_obj).order_by(
+                    queryset = Complaints.objects.filter(
+                        car__client=client_obj
+                    ).order_by(
                         "-refusal_date",
                     )
                 serializer = ComplaintsSerializer(queryset, many=True)
@@ -990,12 +984,15 @@ class ComplaintsViewSet(viewsets.ViewSet):
                 service_obj = Service.objects.get(service_id=request.user.pk)
                 if query:
                     queryset = Complaints.objects.filter(
-                        car__factory_number=query.get("factory_number"), service_company=service_obj
+                        car__factory_number=query.get("factory_number"),
+                        service_company=service_obj,
                     ).order_by(
                         "-refusal_date",
                     )
                 else:
-                    queryset = Complaints.objects.filter(service_company=service_obj).order_by(
+                    queryset = Complaints.objects.filter(
+                        service_company=service_obj
+                    ).order_by(
                         "-refusal_date",
                     )
                 serializer = ComplaintsSerializer(queryset, many=True)

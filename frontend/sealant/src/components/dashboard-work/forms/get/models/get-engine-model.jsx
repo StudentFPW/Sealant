@@ -8,7 +8,7 @@ import { Button } from "react-bootstrap";
 
 import withRouter from "../../../../withRouter/withRouter";
 import { main } from "../../../../urls";
-import './styles/get-models.css';
+import '../../styles/forms.css';
 
 
 function EngineModel(props) {

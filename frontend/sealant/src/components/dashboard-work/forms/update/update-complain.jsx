@@ -7,7 +7,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardBody } from 'mdb-react-ui
 import { Button } from "react-bootstrap";
 
 import withRouter from "../../../withRouter/withRouter";
-import './styles/update.css';
+import '../styles/forms.css';
 import { main } from "../../../urls";
 
 
@@ -48,7 +48,6 @@ function UpdateComplaints(props) {
             parts_used: document.getElementById('form6').value ? document.getElementById('form6').value : complain.parts_used,
             restore_date: document.getElementById('form7').value ? document.getElementById('form7').value : complain.restore_date,
             equipment_downtime: document.getElementById('form8').value ? document.getElementById('form8').value : complain.equipment_downtime,
-            service_company: complain.service_company['service']['company'],
         };
         putComplain(data);
     };
@@ -65,6 +64,7 @@ function UpdateComplaints(props) {
             history.push('/dash');
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert('Что-то пошло не так, попробуйте попозже !');
             history.push('/dash');
         });
     };

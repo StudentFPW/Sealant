@@ -48,14 +48,7 @@ export default function Profile() {
             method: "GET",
             url: `${main}/api/v1/user/`
         }).then(response => {
-            // Это не совсем безопасно по отношению к приватным данным ! ↓↓↓
             setUser(response.data["results"][0]);
-            // Через secureLocalStorage не получается вывести данные должным образом !
-            // Сам метод работает <<иногда>> !
-            // secureLocalStorage.setItem('user', response.data["results"][0]);
-
-            // В <<макете основной внутренний страницы>> была функциональность вывести статус пользователя.
-            // Я это сделал на странице профиля. Так как ей там с самое место с остальными данными пользователя.
             let client = response.data["results"][0]['is_client'];
             let manager = response.data["results"][0]['is_manager'];
             let service = response.data["results"][0]['is_service'];
@@ -73,7 +66,7 @@ export default function Profile() {
             };
         }).catch((error) => {
             console.log("Request error: " + error);
-            history.push('/dash');
+            history.push('/login');
         });
     };
 

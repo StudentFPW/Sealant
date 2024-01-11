@@ -7,7 +7,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardBody } from 'mdb-react-ui
 import { Button } from "react-bootstrap";
 import Form from 'react-bootstrap/Form';
 
-import './styles/create.css';
+import '../styles/forms.css';
 import { main } from "../../../urls";
 
 
@@ -143,19 +143,20 @@ export default function CreateCar() {
     const getFormData = () => {
         let data = {
             factory_number: document.getElementById('form1').value ? document.getElementById('form1').value : alert('Укажите заводской номер машины !'),
-            vehicle_model: document.getElementById('form2').value !== 'Модель техники' ? document.getElementById('form2').value : alert('Укажите модель техники !'),
-            engine_model: document.getElementById('form3').value !== 'Модель двигателя' ? document.getElementById('form3').value : alert('Укажите модель двигателя !'),
-            engine_number: document.getElementById('form4').value ? document.getElementById('form4').value : alert('Укажите заводской номер двигателя !'),
-            transmission_model: document.getElementById('form5').value !== 'Модель трансмиссии' ? document.getElementById('form5').value : alert('Укажите модель трансмиссии !'),
-            transmission_number: document.getElementById('form6').value ? document.getElementById('form6').value : alert('Укажите заводской номер трансмиссии !'),
-            drive_axle_model: document.getElementById('form7').value !== 'Модель ведущего моста' ? document.getElementById('form7').value : alert('Укажите модель ведущего моста !'),
-            drive_axle_number: document.getElementById('form8').value ? document.getElementById('form8').value : alert('Укажите заводской номер ведущего моста !'),
-            steering_axle_model: document.getElementById('form9').value !== 'Модель управляемого моста' ? document.getElementById('form9').value : alert('Укажите модель управляемого моста !'),
-            steering_axle_number: document.getElementById('form10').value ? document.getElementById('form10').value : alert('Укажите заводской номер управляемого моста !'),
-            supply_contract_date: document.getElementById('form11').value ? document.getElementById('form11').value : alert('Укажите дату !'),
-            сonsignee: document.getElementById('form13').value ? document.getElementById('form13').value : alert('Укажите грузополучателя !'),
-            delivery_address: document.getElementById('form14').value ? document.getElementById('form14').value : alert('Укажите адрес поставки !'),
-            equipment: document.getElementById('form15').value ? document.getElementById('form15').value : '',
+            engine_number: document.getElementById('form2').value ? document.getElementById('form2').value : alert('Укажите заводской номер двигателя !'),
+            transmission_number: document.getElementById('form3').value ? document.getElementById('form3').value : alert('Укажите заводской номер трансмиссии !'),
+            drive_axle_number: document.getElementById('form4').value ? document.getElementById('form4').value : alert('Укажите заводской номер ведущего моста !'),
+            steering_axle_number: document.getElementById('form5').value ? document.getElementById('form5').value : alert('Укажите заводской номер управляемого моста !'),
+            shipped_from_factory: document.getElementById('form6').value ? document.getElementById('form6').value : alert('Укажите дату !'),
+            supply_contract_date: document.getElementById('form7').value ? document.getElementById('form7').value : alert('Укажите дату !'),
+            сonsignee: document.getElementById('form8').value ? document.getElementById('form8').value : alert('Укажите грузополучателя !'),
+            delivery_address: document.getElementById('form9').value ? document.getElementById('form9').value : alert('Укажите адрес поставки !'),
+            equipment: document.getElementById('form10').value ? document.getElementById('form10').value : '',
+            vehicle_model: document.getElementById('form11').value !== 'Модель техники' ? document.getElementById('form11').value : alert('Укажите модель техники !'),
+            engine_model: document.getElementById('form12').value !== 'Модель двигателя' ? document.getElementById('form12').value : alert('Укажите модель двигателя !'),
+            transmission_model: document.getElementById('form13').value !== 'Модель трансмиссии' ? document.getElementById('form13').value : alert('Укажите модель трансмиссии !'),
+            drive_axle_model: document.getElementById('form14').value !== 'Модель ведущего моста' ? document.getElementById('form14').value : alert('Укажите модель ведущего моста !'),
+            steering_axle_model: document.getElementById('form15').value !== 'Модель управляемого моста' ? document.getElementById('form15').value : alert('Укажите модель управляемого моста !'),
             client: document.getElementById('form16').value !== 'Клиент' ? document.getElementById('form16').value : alert('Необходимо определить клиента !'),
             service_company: document.getElementById('form17').value !== 'Сервисная компания' ? document.getElementById('form17').value : alert('Необходимо определить сервисную компанию !'),
         };
@@ -174,7 +175,7 @@ export default function CreateCar() {
             history.push(`/getcar/${document.getElementById('form1').value}`);
         }).catch((error) => {
             console.log("Request error: " + error);
-            alert('Что-то пошло не так, попробуйте попозже !')
+            alert('Что-то пошло не так, попробуйте попозже !');
             history.push('/dash');
         });
     };
@@ -193,110 +194,110 @@ export default function CreateCar() {
                                         <input
                                             type="text"
                                             id="form1"
-                                            className="form-control"
-                                            required />
-                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                    <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form4">Зав. № двигателя</label>
-                                        <input
-                                            type="text"
-                                            id="form4"
-                                            className="form-control"
-                                            required />
-                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                    <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form6">Зав. № трансмиссии</label>
-                                        <input
-                                            type="text"
-                                            id="form6"
-                                            className="form-control"
-                                            required />
-                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                    <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form8">Зав. № ведущего моста</label>
-                                        <input
-                                            type="text"
-                                            id="form8"
-                                            className="form-control"
-                                            required />
-                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                    <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form10">Зав. № управляемого моста</label>
-                                        <input
-                                            type="text"
-                                            id="form10"
-                                            className="form-control"
-                                            required />
-                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-                                    <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form11">Договор по ставке №, Дата</label>
-                                        <input
-                                            type="text"
-                                            id="form11"
                                             className="form-control" />
                                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                     <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form13">Грузополучатель</label>
+                                        <label className="form-label" htmlFor="form2">Зав. № двигателя</label>
                                         <input
                                             type="text"
-                                            id="form13"
-                                            className="form-control"
-                                            required />
+                                            id="form2"
+                                            className="form-control" />
                                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                     <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form14">Адрес поставки</label>
+                                        <label className="form-label" htmlFor="form3">Зав. № трансмиссии</label>
                                         <input
                                             type="text"
-                                            id="form14"
-                                            className="form-control"
-                                            required />
+                                            id="form3"
+                                            className="form-control" />
                                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                     <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form15">Оборудование</label>
+                                        <label className="form-label" htmlFor="form4">Зав. № ведущего моста</label>
                                         <input
                                             type="text"
-                                            id="form15"
-                                            className="form-control"
-                                            required />
+                                            id="form4"
+                                            className="form-control" />
                                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <Form.Select id="form2" required>
+                                    <div className="form-outline" data-mdb-input-init>
+                                        <label className="form-label" htmlFor="form5">Зав. № управляемого моста</label>
+                                        <input
+                                            type="text"
+                                            id="form5"
+                                            className="form-control" />
+                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <div className="form-outline" data-mdb-input-init>
+                                        <label className="form-label" htmlFor="form6">Дата отгрузки</label>
+                                        <input
+                                            type="text"
+                                            id="form6"
+                                            className="form-control" />
+                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <div className="form-outline" data-mdb-input-init>
+                                        <label className="form-label" htmlFor="form7">Договор по ставке №, Дата</label>
+                                        <input
+                                            type="text"
+                                            id="form7"
+                                            className="form-control" />
+                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <div className="form-outline" data-mdb-input-init>
+                                        <label className="form-label" htmlFor="form8">Грузополучатель</label>
+                                        <input
+                                            type="text"
+                                            id="form8"
+                                            className="form-control" />
+                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <div className="form-outline" data-mdb-input-init>
+                                        <label className="form-label" htmlFor="form9">Адрес поставки</label>
+                                        <input
+                                            type="text"
+                                            id="form9"
+                                            className="form-control" />
+                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <div className="form-outline" data-mdb-input-init>
+                                        <label className="form-label" htmlFor="form10">Оборудование</label>
+                                        <input
+                                            type="text"
+                                            id="form10"
+                                            className="form-control" />
+                                    </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                                    <Form.Select id="form11">
                                         <option>Модель техники</option>
                                         {teh ? teh.map((teh, index) => (
                                             <option key={index} value={teh['id']}>{teh['name']}</option>
                                         )) : null}
                                     </Form.Select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <Form.Select id="form3">
+                                    <Form.Select id="form12">
                                         <option>Модель двигателя</option>
                                         {eng ? eng.map((eng, index) => (
                                             <option key={index} value={eng['id']}>{eng['name']}</option>
                                         )) : null}
                                     </Form.Select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <Form.Select id="form5">
+                                    <Form.Select id="form13">
                                         <option>Модель трансмиссии</option>
                                         {tran ? tran.map((tran, index) => (
                                             <option key={index} value={tran['id']}>{tran['name']}</option>
                                         )) : null}
                                     </Form.Select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <Form.Select id="form7">
+                                    <Form.Select id="form14">
                                         <option>Модель ведущего моста</option>
                                         {axle ? axle.map((axle, index) => (
                                             <option key={index} value={axle['id']}>{axle['name']}</option>
                                         )) : null}
                                     </Form.Select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-                                    <Form.Select id="form9">
+                                    <Form.Select id="form15">
                                         <option>Модель управляемого моста</option>
                                         {steaxle ? steaxle.map((steaxle, index) => (
                                             <option key={index} value={steaxle['id']}>{steaxle['name']}</option>

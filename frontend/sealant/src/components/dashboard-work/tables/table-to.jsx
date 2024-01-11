@@ -18,6 +18,7 @@ export default function TableTo(props) {
                         <th>Наработка, м/час</th>
                         <th>№ заказ-наряда</th>
                         <th>Дата заказа-наряда</th>
+                        <th>Обслуживающая компания</th>
                         <th>Сервисная компания</th>
                         {props.staffstatus === "allow" ? <th></th> : ''}
                     </tr>
@@ -42,6 +43,7 @@ export default function TableTo(props) {
                             <td>{to.operating_hours ? to.operating_hours : 'Не указано !'}</td>
                             <td>{to.order_number ? to.order_number : 'Не указано !'}</td>
                             <td>{to.order_date ? to.order_date : 'Не указано !'}</td>
+                            <td>{to.maintenance_company ? to.maintenance_company['service']['company'] : 'Не указано !'}</td>
                             <td>{to.service_company ? to.service_company['service']['company'] : 'Не указано !'}</td>
 
                             {props.staffstatus === "allow" ? <td>

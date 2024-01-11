@@ -7,7 +7,7 @@ import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardBody } from 'mdb-react-ui
 import { Button } from "react-bootstrap";
 
 import withRouter from "../../../withRouter/withRouter";
-import './styles/update.css';
+import '../styles/forms.css';
 import { main } from "../../../urls";
 
 
@@ -45,7 +45,6 @@ function UpdateTo(props) {
             operating_hours: document.getElementById('form3').value ? document.getElementById('form3').value : to.operating_hours,
             order_number: document.getElementById('form4').value ? document.getElementById('form4').value : to.order_number,
             order_date: document.getElementById('form5').value ? document.getElementById('form5').value : to.order_date,
-            service_company: to.service_company['service']['company'],
         };
         putTo(data);
     };
@@ -62,6 +61,7 @@ function UpdateTo(props) {
             history.push('/dash');
         }).catch((error) => {
             console.log("Request error: " + error);
+            alert('Что-то пошло не так, попробуйте попозже !');
             history.push('/dash');
         });
     };
