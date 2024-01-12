@@ -3,6 +3,8 @@ import React from "react";
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom/cjs/react-router-dom.min';
 
+import Registration from "./components/dashboard-work/forms/registration/users";
+
 import CreateTo from "./components/dashboard-work/forms/create/create-to";
 import CreateComplain from "./components/dashboard-work/forms/create/create-complain";
 import CreateCar from "./components/dashboard-work/forms/create/create-car";
@@ -30,6 +32,9 @@ export default function App() {
     <React.Fragment>
       <Router>
         <Switch>
+          <Route path='/reg'>
+            <Registration />
+          </Route>
           <Route path='/createto'>
             <CreateTo />
           </Route>

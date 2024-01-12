@@ -31,7 +31,6 @@ export default function Login() {
         } catch (error) {
             console.log("Request error: " + error);
             alert('Учетные данные не верны');
-            history.push('/');
         };
     };
 

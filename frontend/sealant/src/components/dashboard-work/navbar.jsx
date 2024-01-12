@@ -41,7 +41,16 @@ export default function Navbar(props) {
                                 onClick={() => { history.push('/createcomplain') }}>
                                 Зафиксировать рекламацию
                             </button>
-                        }
+                        }&nbsp;&nbsp;
+
+                        {props.staff === 'allow' ? <button
+                            type="button"
+                            className="btn btn-danger"
+                            style={{ WebkitTextFillColor: "black", backgroundColor: '#D20A11' }}
+                            data-mdb-ripple-init
+                            onClick={() => { history.push('/reg') }}>
+                            Зарегистрировать пользователя
+                        </button> : ""}
                     </div>
 
                     <ul className="navbar-nav flex-row d-none d-md-flex">

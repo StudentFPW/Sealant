@@ -38,7 +38,6 @@ export default function Body() {
             };
         }).catch((error) => {
             console.log("Request error: " + error);
-            history.push('/login');
         });
     };
 

@@ -66,7 +66,6 @@ export default function Profile() {
             };
         }).catch((error) => {
             console.log("Request error: " + error);
-            history.push('/login');
         });
     };
 

@@ -48,7 +48,6 @@ function GetCar(props) {
             };
         }).catch((error) => {
             console.log("Request error: " + error);
-            history.push('/login');
         });
     };
 
