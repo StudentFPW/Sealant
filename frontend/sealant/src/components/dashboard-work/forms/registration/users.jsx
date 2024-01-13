@@ -137,6 +137,7 @@ export default function Registration() {
                             <Card className="shadow">
                                 <Card.Body>
                                     <div className="mb-3 mt-4">
+
                                         <ul className="navbar-nav flex-row">
                                             <p title="
                                                 1. Выберите тип пользователя.
@@ -144,8 +145,8 @@ export default function Registration() {
                                                 3. Имя пользователя не может начинаться на админ, суппорт, сервис или название сервиса.
                                             "><InfoSquare size={20} color="#163E6C" /></p>
                                         </ul>
-                                        <Form onSubmit={handleSubmit}>
 
+                                        <Form onSubmit={handleSubmit}>
                                             <Form.Label>Выберите тип пользователя</Form.Label>
                                             <Form.Select id="user-type" required>
                                                 <option></option>
@@ -225,6 +226,7 @@ export default function Registration() {
                                                 </Button>
                                             </div>
                                         </Form >
+
                                     </div>
                                 </Card.Body>
                             </Card>

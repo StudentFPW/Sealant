@@ -119,8 +119,8 @@ class Cars(models.Model):
 
     equipment = models.TextField(null=True, blank=True)
 
-    supply_contract_date = models.DateField(null=True, blank=True)
-    shipped_from_factory = models.DateField(null=True, blank=True)
+    supply_contract_date = models.DateField()
+    shipped_from_factory = models.DateField()
 
     def __str__(self):
         return f"Зав. № машины: {self.factory_number}, Модель техники: {self.vehicle_model.name}, Модель двигателя: {self.engine_model.name}"
@@ -157,10 +157,10 @@ class To(models.Model):
 
     order_number = models.CharField(max_length=1000)
 
-    maintenance_date = models.DateField(null=True, blank=True)
+    maintenance_date = models.DateField()
     order_date = models.DateField()
 
-    operating_hours = models.IntegerField(null=True, blank=True)
+    operating_hours = models.IntegerField()
 
     def __str__(self):
         return f"Дата: {self.maintenance_date}"
@@ -195,11 +195,11 @@ class Complaints(models.Model):
     parts_used = models.CharField(max_length=1000, null=True, blank=True)
     failure_description = models.TextField()
 
-    refusal_date = models.DateField(null=True, blank=True)
-    restore_date = models.DateField(null=True, blank=True)
+    refusal_date = models.DateField()
+    restore_date = models.DateField()
 
-    operating_hours = models.IntegerField(null=True, blank=True)
-    equipment_downtime = models.IntegerField(null=True, blank=True)
+    operating_hours = models.IntegerField()
+    equipment_downtime = models.IntegerField()
 
     def __str__(self):
         return (
