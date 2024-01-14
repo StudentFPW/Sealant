@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import secureLocalStorage from "react-secure-storage";
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { axiosInstance } from '../../../../config/http';
 import { Tab, initMDB } from "mdb-ui-kit";
 
 import withRouter from "../../../../withRouter/withRouter";
@@ -34,7 +34,7 @@ function GetCar(props) {
     };
 
     const fetchUser = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -48,11 +48,12 @@ function GetCar(props) {
             };
         }).catch((error) => {
             console.log("Request error: " + error);
+            history.push('/dash');
         });
     };
 
     const fetchCar = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -67,7 +68,7 @@ function GetCar(props) {
     };
 
     const fetchTo = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -82,7 +83,7 @@ function GetCar(props) {
     };
 
     const fetchComplaints = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },

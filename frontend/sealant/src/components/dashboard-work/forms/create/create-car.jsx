@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import secureLocalStorage from "react-secure-storage";
-import axios from 'axios';
+import { axiosInstance } from '../../../config/http';
 import { useHistory } from 'react-router-dom';
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 
@@ -34,7 +34,7 @@ export default function CreateCar() {
     };
 
     const fetchTechnique = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -49,7 +49,7 @@ export default function CreateCar() {
     };
 
     const fetchEngine = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -64,7 +64,7 @@ export default function CreateCar() {
     };
 
     const fetchTransmission = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -79,7 +79,7 @@ export default function CreateCar() {
     };
 
     const fetchAxle = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -94,7 +94,7 @@ export default function CreateCar() {
     };
 
     const fetchSteeringAxle = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -109,7 +109,7 @@ export default function CreateCar() {
     };
 
     const fetchClients = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -124,7 +124,7 @@ export default function CreateCar() {
     };
 
     const fetchServices = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -167,7 +167,7 @@ export default function CreateCar() {
     };
 
     const postCar = async (formdata) => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },

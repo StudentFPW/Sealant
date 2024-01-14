@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import secureLocalStorage from "react-secure-storage";
-import axios from 'axios';
+import { axiosInstance } from '../../../config/http';
 import { useHistory } from 'react-router-dom';
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 
@@ -28,7 +28,7 @@ export default function CreateTo() {
     };
 
     const fetchTypeTo = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -43,7 +43,7 @@ export default function CreateTo() {
     };
 
     const fetchMaintenanceCompany = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -58,7 +58,7 @@ export default function CreateTo() {
     };
 
     const fetchCars = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -73,7 +73,7 @@ export default function CreateTo() {
     };
 
     const fetchServices = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -107,7 +107,7 @@ export default function CreateTo() {
     };
 
     const postTo = async (formdata) => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },

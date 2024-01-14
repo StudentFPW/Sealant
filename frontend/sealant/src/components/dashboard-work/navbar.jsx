@@ -3,6 +3,8 @@ import React from "react";
 import { useHistory } from 'react-router-dom';
 import { InfoSquare } from 'react-bootstrap-icons';
 
+import { main } from '../urls';
+
 
 export default function Navbar(props) {
     let history = useHistory();
@@ -50,7 +52,16 @@ export default function Navbar(props) {
                             data-mdb-ripple-init
                             onClick={() => { history.push('/reg') }}>
                             Зарегистрировать пользователя
-                        </button> : ""}
+                        </button> : ""}&nbsp;&nbsp;
+
+                        {props.staff === 'allow' ? <a href={`${main}/api/v1/export-cars-xlsx/`}><button
+                            type="button"
+                            className="btn btn-danger"
+                            style={{ WebkitTextFillColor: "black", backgroundColor: '#D20A11' }}
+                            data-mdb-ripple-init
+                            onClick={() => { alert("Скачивание начинается !"); }}>
+                            Скачать базу данных
+                        </button></a> : ""}
                     </div>
 
                     <ul className="navbar-nav flex-row d-none d-md-flex">

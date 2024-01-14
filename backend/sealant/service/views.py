@@ -1,11 +1,11 @@
 from django.http import HttpResponse
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
-from rest_framework.decorators import api_view, permission_classes
+
+from rest_framework.decorators import api_view
+
 from .resources import CarsResource
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated, IsAdminUser])
 def cars_export_xlsx(request):
     """
     Функция экспортирует данные автомобиля в файл Excel и возвращает их в виде загружаемого ответа.
@@ -33,7 +33,6 @@ def cars_export_xlsx(request):
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated, IsAdminUser])
 def cars_export_json(request):
     cars_resource = CarsResource()
     data = cars_resource.export()

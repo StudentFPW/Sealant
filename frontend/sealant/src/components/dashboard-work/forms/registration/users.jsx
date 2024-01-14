@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import validator from 'validator';
 import secureLocalStorage from "react-secure-storage";
-import axios from 'axios';
+import { axiosInstance } from '../../../config/http';
 import { useHistory } from 'react-router-dom';
 import { InfoSquare } from 'react-bootstrap-icons';
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
@@ -32,7 +32,7 @@ export default function Registration() {
     };
 
     const regClient = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -50,7 +50,7 @@ export default function Registration() {
     };
 
     const regService = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -68,7 +68,7 @@ export default function Registration() {
     };
 
     const regManager = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },

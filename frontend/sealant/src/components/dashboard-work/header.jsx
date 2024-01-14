@@ -1,7 +1,7 @@
 import React from "react";
 
 import secureLocalStorage from "react-secure-storage";
-import axios from 'axios';
+import { axiosInstance } from '../config/http';
 import { useHistory } from 'react-router-dom';
 import { Telegram } from 'react-bootstrap-icons';
 
@@ -13,7 +13,7 @@ export default function Header() {
     let history = useHistory();
 
     const handleLogout = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -25,6 +25,7 @@ export default function Header() {
             history.push('/');
         }).catch((error) => {
             console.log("Request error: " + error);
+            history.push('/dash');
         });
     };
 

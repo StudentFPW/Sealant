@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import axios from 'axios';
+import { axiosInstance } from '../config/http';
 import secureLocalStorage from "react-secure-storage";
 import { useHistory } from 'react-router-dom';
 import { Telegram } from 'react-bootstrap-icons';
@@ -24,7 +24,7 @@ export default function DashboardHome() {
         let item = document.getElementsByClassName('form-control')[0].value;
         if (item) {
             try {
-                const response = await axios.get(`${main}/api/v1/cars/?factory_number=${item}`);
+                const response = await axiosInstance.get(`${main}/api/v1/cars/?factory_number=${item}`);
                 if (response.data.length) {
                     setCars(response.data);
                 } else {
@@ -33,6 +33,7 @@ export default function DashboardHome() {
             } catch (error) {
                 console.log("Request error: " + error);
                 alert('Что-то пошло не так, попробуйте попозже!');
+                history.push('/');
             };
         } else {
             alert('Пожалуйста введите заводской номер!');
@@ -42,7 +43,7 @@ export default function DashboardHome() {
 
     const fetchCars = async () => {
         try {
-            const response = await axios.get(`${main}/api/v1/cars/`);
+            const response = await axiosInstance.get(`${main}/api/v1/cars/`);
             setCars(response.data);
         } catch (error) {
             console.log("Request error: " + error);

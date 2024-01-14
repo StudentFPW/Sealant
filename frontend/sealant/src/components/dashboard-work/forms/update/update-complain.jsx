@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import secureLocalStorage from "react-secure-storage";
-import axios from 'axios';
+import { axiosInstance } from '../../../config/http';
 import { useHistory } from 'react-router-dom';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
 import { Button } from "react-bootstrap";
@@ -24,7 +24,7 @@ function UpdateComplaints(props) {
     };
 
     const fetchComplain = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -53,7 +53,7 @@ function UpdateComplaints(props) {
     };
 
     const putComplain = async (formdata) => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },

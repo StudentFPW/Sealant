@@ -2,7 +2,7 @@ import React from "react";
 
 import secureLocalStorage from "react-secure-storage";
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { axiosInstance } from '../config/http';
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 
 import { main } from '../urls';
@@ -19,7 +19,7 @@ export default function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(
+            const response = await axiosInstance.post(
                 `${main}/api/v1/login/`,
                 {
                     username: secureLocalStorage.getItem("username"),
@@ -31,6 +31,7 @@ export default function Login() {
         } catch (error) {
             console.log("Request error: " + error);
             alert('Учетные данные не верны');
+            history.push('/login');
         };
     };
 

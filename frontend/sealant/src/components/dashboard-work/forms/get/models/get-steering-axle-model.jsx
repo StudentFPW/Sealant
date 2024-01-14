@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import secureLocalStorage from "react-secure-storage";
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { axiosInstance } from '../../../../config/http';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
 import { Button } from "react-bootstrap";
 
@@ -24,7 +24,7 @@ function SteeringAxleModel(props) {
     };
 
     const fetchSteeringAxle = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+import { axiosInstance } from '../config/http';
+import { useHistory } from 'react-router-dom';
 import secureLocalStorage from "react-secure-storage";
-import axios from 'axios';
 import { Tab, initMDB } from "mdb-ui-kit";
 
 import { main } from '../urls';
@@ -17,10 +18,11 @@ export default function Body() {
     const [complaints, setComplaints] = useState([]);
     const [staffstatus, setStaffStatus] = useState([]);
     const [clientstatus, setClientStatus] = useState([]);
+    let history = useHistory();
     initMDB({ Tab });
 
     const fetchUser = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -38,11 +40,12 @@ export default function Body() {
             };
         }).catch((error) => {
             console.log("Request error: " + error);
+            history.push('/dash');
         });
     };
 
     const fetchCars = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -56,7 +59,7 @@ export default function Body() {
     };
 
     const fetchTo = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -70,7 +73,7 @@ export default function Body() {
     };
 
     const fetchComplaints = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -92,10 +95,6 @@ export default function Body() {
 
     return (
         <React.Fragment>
-            {/* Компонент `<Navbar Staff={staffstatus} client={clientstatus} />` отображает компонент
-            панели навигации с переданными ему реквизитами `staff` и `client`. Эти реквизиты
-            используются для определения видимости и функциональности определенных элементов на
-            панели навигации в зависимости от роли пользователя. */}
             <Navbar staff={staffstatus} client={clientstatus} />
 
             <ul className="nav nav-tabs nav-fill mb-3"
@@ -138,15 +137,6 @@ export default function Body() {
                     >Рекламация</a>
                 </li>
             </ul>
-
-            {/* <TableCars cars={cars} Staffstatus={staffstatus} />` — это
-                компонент, который отображается на первой вкладке интерфейса с
-                вкладками. Он передает реквизиты cars и Staffstatus компоненту
-                TableCars. Свойство cars содержит массив данных об автомобилях, а
-                свойство Staffstatus указывает, является ли пользователь сотрудником
-                компании или нет. Компонент TableCars будет использовать эти
-                реквизиты для отображения данных автомобиля и определения функций,
-                доступных пользователю в зависимости от его роли. */}
 
             <div className="tab-content" id="ex2-content">
                 <div className="tab-pane fade show active"

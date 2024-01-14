@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import secureLocalStorage from "react-secure-storage";
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { axiosInstance } from '../config/http';
 import {
     MDBCol,
     MDBContainer,
@@ -41,7 +41,7 @@ export default function Profile() {
     };
 
     const fetchUser = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -66,11 +66,12 @@ export default function Profile() {
             };
         }).catch((error) => {
             console.log("Request error: " + error);
+            history.push('/dash');
         });
     };
 
     const fetchCars = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -85,7 +86,7 @@ export default function Profile() {
     };
 
     const fetchTo = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -100,7 +101,7 @@ export default function Profile() {
     };
 
     const fetchComplaints = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },

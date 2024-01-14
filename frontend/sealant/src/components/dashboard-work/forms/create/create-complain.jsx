@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import secureLocalStorage from "react-secure-storage";
-import axios from 'axios';
+import { axiosInstance } from '../../../config/http';
 import { useHistory } from 'react-router-dom';
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 
@@ -28,7 +28,7 @@ export default function CreateComplain() {
     };
 
     const fetchFailure = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -43,7 +43,7 @@ export default function CreateComplain() {
     };
 
     const fetchRecoveryMethod = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -58,7 +58,7 @@ export default function CreateComplain() {
     };
 
     const fetchCars = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -73,7 +73,7 @@ export default function CreateComplain() {
     };
 
     const fetchServices = async () => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
@@ -109,7 +109,7 @@ export default function CreateComplain() {
     };
 
     const postComplain = async (formdata) => {
-        await axios.request({
+        await axiosInstance.request({
             headers: {
                 Authorization: `Bearer ${secureLocalStorage.getItem('token')}`,
             },
