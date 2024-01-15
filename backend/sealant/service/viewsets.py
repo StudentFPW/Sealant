@@ -38,10 +38,6 @@ class TechniqueViewSet(viewsets.ViewSet):
     view_is_async = True
 
     def list(self, request):
-        """
-        Эта функция возвращает список объектов Technique, если пользователь прошел аутентификацию и является
-        менеджером, в противном случае она возвращает соответствующий статус ответа.
-        """
         if request.user.is_authenticated:
             manager = request.user.is_manager
             client = request.user.is_client
@@ -54,10 +50,6 @@ class TechniqueViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def create(self, request):
-        """
-        Функция create создает новый объект Technique, если пользователь аутентифицирован и является
-        менеджером, и возвращает сериализованные данные созданного объекта.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager or request.user.is_superuser:
                 create = Technique.objects.create(
@@ -70,10 +62,6 @@ class TechniqueViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        """
-        Функция извлекает объект Technique, если пользователь прошел проверку подлинности и является
-        менеджером, в противном случае она возвращает соответствующий статус ответа.
-        """
         if request.user.is_authenticated:
             manager = request.user.is_manager
             client = request.user.is_client
@@ -87,10 +75,6 @@ class TechniqueViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def update(self, request, pk=None):
-        """
-        Эта функция обновляет объект Technique, если пользователь прошел аутентификацию и является
-        менеджером, в противном случае она возвращает соответствующий статус ответа.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager or request.user.is_superuser:
                 update = get_object_or_404(Technique.objects.all(), pk=pk)
@@ -103,10 +87,6 @@ class TechniqueViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def destroy(self, request, pk=None):
-        """
-        Функция destroy удаляет объект Technique, если пользователь аутентифицирован и является менеджером,
-        в противном случае она возвращает соответствующий код состояния ответа.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(Technique.objects.all(), pk=pk)
@@ -554,9 +534,6 @@ class CarsViewSet(viewsets.ViewSet):
     view_is_async = True
 
     def list(self, request):
-        """
-        Эта функция возвращает список автомобилей на основе аутентификации и роли пользователя.
-        """
         query = self.request.query_params
         # Пользователь не авторизовался ↓
         if not request.user.is_authenticated:
@@ -638,10 +615,6 @@ class CarsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def create(self, request):
-        """
-        Функция create создает новый экземпляр модели Cars с предоставленными данными, если пользователь
-        прошел аутентификацию и является менеджером.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager or request.user.is_superuser:
                 technique_obj = get_object_or_404(
@@ -698,10 +671,6 @@ class CarsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        """
-        Функция get извлекает конкретный объект автомобиля в зависимости от роли пользователя (клиент,
-        служба или менеджер) и возвращает сериализованные данные.
-        """
         client = request.user.is_client
         service = request.user.is_service
         manager = request.user.is_manager
@@ -732,10 +701,6 @@ class CarsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def update(self, request, pk=None):
-        """
-        Функция update обновляет объект автомобиля, если пользователь аутентифицирован и является
-        менеджером, в противном случае она возвращает соответствующий статус ответа.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager or request.user.is_superuser:
                 queryset = Cars.objects.all()
@@ -749,10 +714,6 @@ class CarsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def destroy(self, request, pk=None):
-        """
-        Функция «destroy» удаляет объект автомобиля, если пользователь аутентифицирован и является
-        менеджером, в противном случае она возвращает соответствующий код состояния ответа.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(Cars.objects.all(), pk=pk)
@@ -766,10 +727,6 @@ class ToViewSet(viewsets.ViewSet):
     view_is_async = True
 
     def list(self, request):
-        """
-        Функция возвращает список объектов на основе роли пользователя (клиент, служба или менеджер) и
-        статуса их аутентификации.
-        """
         query = self.request.query_params
         if request.user.is_authenticated:
             if request.user.is_superuser:
@@ -832,10 +789,6 @@ class ToViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def create(self, request):
-        """
-        Функция create создает новый объект To с предоставленными данными и возвращает сериализованные
-        данные.
-        """
         client = request.user.is_client
         service = request.user.is_service
         manager = request.user.is_manager
@@ -874,10 +827,6 @@ class ToViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        """
-        Функция get извлекает конкретный объект в зависимости от роли пользователя (клиент, служба или
-        менеджер) и возвращает его сериализованные данные.
-        """
         client = request.user.is_client
         service = request.user.is_service
         manager = request.user.is_manager
@@ -908,10 +857,6 @@ class ToViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def update(self, request, pk=None):
-        """
-        Функция update обновляет объект «To», если пользователь аутентифицирован и является менеджером, в
-        противном случае она возвращает соответствующий статус ответа.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager or request.user.is_superuser:
                 queryset = To.objects.all()
@@ -925,12 +870,6 @@ class ToViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def destroy(self, request, pk=None):
-        """
-        Функция проверяет, аутентифицирован ли пользователь и является ли он менеджером, и если да, удаляет
-        объект и возвращает код состояния 204; в противном случае он возвращает код состояния 403, если
-        пользователь не является менеджером, или код состояния 401, если пользователь не прошел проверку
-        подлинности.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(To.objects.all(), pk=pk)
@@ -944,10 +883,6 @@ class ComplaintsViewSet(viewsets.ViewSet):
     view_is_async = True
 
     def list(self, request):
-        """
-        Функция возвращает список жалоб в зависимости от роли пользователя (клиент, служба или менеджер),
-        если пользователь прошел аутентификацию.
-        """
         query = self.request.query_params
         if request.user.is_authenticated:
             if request.user.is_superuser:
@@ -1014,10 +949,6 @@ class ComplaintsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def create(self, request):
-        """
-        Функция «создать» создает новый объект жалобы, если пользователь прошел аутентификацию и имеет
-        необходимые разрешения.
-        """
         service = request.user.is_service
         manager = request.user.is_manager
         if request.user.is_authenticated:
@@ -1057,10 +988,6 @@ class ComplaintsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def retrieve(self, request, pk=None):
-        """
-        Функция «получить» извлекает конкретную жалобу в зависимости от роли пользователя (клиент, служба
-        или менеджер) и возвращает сериализованные данные жалобы.
-        """
         client = request.user.is_client
         service = request.user.is_service
         manager = request.user.is_manager
@@ -1091,9 +1018,6 @@ class ComplaintsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def update(self, request, pk=None):
-        """
-        Эта функция обновляет объект жалобы, если пользователь прошел аутентификацию и является менеджером.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager or request.user.is_superuser:
                 queryset = Complaints.objects.all()
@@ -1107,10 +1031,6 @@ class ComplaintsViewSet(viewsets.ViewSet):
         return Response(status=401)
 
     def destroy(self, request, pk=None):
-        """
-        Функция «destroy» удаляет объект жалобы, если пользователь аутентифицирован и является менеджером, в
-        противном случае она возвращает соответствующий код состояния ответа.
-        """
         if request.user.is_authenticated:
             if request.user.is_manager or request.user.is_superuser:
                 delete = get_object_or_404(Complaints.objects.all(), pk=pk)

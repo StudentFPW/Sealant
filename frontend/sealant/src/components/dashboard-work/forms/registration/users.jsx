@@ -88,13 +88,13 @@ export default function Registration() {
     const getFormData = () => {
         let data = {
             first_name: document.getElementById('form1').value,
-            last_name: document.getElementById('form2').value ? document.getElementById('form2').value : '',
+            last_name: document.getElementById('form2').value,
             username: document.getElementById('form3').value,
             email: document.getElementById('form4').value,
             password1: document.getElementById('form5').value,
             password2: document.getElementById('form6').value,
             company: document.getElementById('form7').value,
-            website: document.getElementById('form8').value ? document.getElementById('form8').value : '',
+            website: document.getElementById('form8').value,
         };
         return data;
     };
@@ -165,7 +165,7 @@ export default function Registration() {
                                                 <div className="col">
                                                     <div data-mdb-input-init className="form-outline">
                                                         <label className="form-label" htmlFor="form2">Фамилия</label>
-                                                        <input type="text" id="form2" className="form-control" />
+                                                        <input type="text" id="form2" className="form-control" required />
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,7 +205,7 @@ export default function Registration() {
 
                                             <div data-mdb-input-init className="form-outline mb-4">
                                                 <label className="form-label" htmlFor="form8">Веб сайт</label>
-                                                <input type="url" id="form8" className="form-control" />
+                                                <input type="url" id="form8" className="form-control" required />
                                             </div>
 
                                             <div className="d-grid">
