@@ -137,7 +137,7 @@ export default function CreateComplain() {
                                     <Form onSubmit={handleSubmit}>
 
                                         <div className="form-outline" data-mdb-input-init>
-                                            <label className="form-label" htmlFor="form1">Дата отказа</label>
+                                            <label className="form-label" htmlFor="form1">Дата отказа - Формат(YYYY-MM-DD)</label>
                                             <input
                                                 type="text"
                                                 id="form1"
@@ -172,7 +172,7 @@ export default function CreateComplain() {
                                         </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                         <div className="form-outline" data-mdb-input-init>
-                                            <label className="form-label" htmlFor="form5">Дата восстановления</label>
+                                            <label className="form-label" htmlFor="form5">Дата восстановления - Формат(YYYY-MM-DD)</label>
                                             <input
                                                 type="text"
                                                 id="form5"

@@ -144,7 +144,7 @@ export default function CreateTo() {
                                         </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                         <div className="form-outline" data-mdb-input-init>
-                                            <label className="form-label" htmlFor="form2">Дата проведения ТО</label>
+                                            <label className="form-label" htmlFor="form2">Дата проведения ТО - Формат(YYYY-MM-DD)</label>
                                             <input
                                                 type="text"
                                                 id="form2"
@@ -153,7 +153,7 @@ export default function CreateTo() {
                                         </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                         <div className="form-outline" data-mdb-input-init>
-                                            <label className="form-label" htmlFor="form3">Дата заказа-наряда</label>
+                                            <label className="form-label" htmlFor="form3">Дата заказа-наряда - Формат(YYYY-MM-DD)</label>
                                             <input
                                                 type="text"
                                                 id="form3"

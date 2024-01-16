@@ -175,7 +175,7 @@ function UpdateCars(props) {
                                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                     <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form11">Договор по ставке №, Дата</label>
+                                        <label className="form-label" htmlFor="form11">Договор по ставке №, Дата - Формат(YYYY-MM-DD)</label>
                                         <input
                                             placeholder={car.supply_contract_date ? car.supply_contract_date : 'Отсутствует !'}
                                             type="text"
@@ -184,7 +184,7 @@ function UpdateCars(props) {
                                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                     <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form12">Дата отгрузки</label>
+                                        <label className="form-label" htmlFor="form12">Дата отгрузки - Формат(YYYY-MM-DD)</label>
                                         <input
                                             placeholder={car.shipped_from_factory ? car.shipped_from_factory : 'Отсутствует !'}
                                             type="text"

@@ -85,7 +85,7 @@ function UpdateTo(props) {
                                 </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                 <div className="form-outline" data-mdb-input-init>
-                                    <label className="form-label" htmlFor="form2">Дата проведения ТО</label>
+                                    <label className="form-label" htmlFor="form2">Дата проведения ТО - Формат(YYYY-MM-DD)</label>
                                     <input
                                         placeholder={to.maintenance_date ? to.maintenance_date : 'Отсутствует !'}
                                         type="text"
@@ -112,7 +112,7 @@ function UpdateTo(props) {
                                 </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                 <div className="form-outline" data-mdb-input-init>
-                                    <label className="form-label" htmlFor="form5">Дата заказа-наряда</label>
+                                    <label className="form-label" htmlFor="form5">Дата заказа-наряда - Формат(YYYY-MM-DD)</label>
                                     <input
                                         placeholder={to.order_date ? to.order_date : 'Отсутствует !'}
                                         type="text"

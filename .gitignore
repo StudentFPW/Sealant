@@ -10,6 +10,6 @@ pyvenv.cfg
 venv
 .env
 pip-selfcheck.json
-db.sqlite3
+# db.sqlite3
 __pycache__
-migrations
+# migrations

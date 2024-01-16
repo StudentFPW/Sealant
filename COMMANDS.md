@@ -11,7 +11,7 @@
 6. py manage.py makemigrations
 7. py manage.py migrate
 8. py manage.py initadmin → Логин:пароль для нового администратора admin:admin
-8. py manage.py runserver
+9. py manage.py runserver
 ```
 
 ## Frontend

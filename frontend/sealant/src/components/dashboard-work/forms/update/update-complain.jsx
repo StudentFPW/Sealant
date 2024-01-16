@@ -79,7 +79,7 @@ function UpdateComplaints(props) {
                                 <MDBCardBody className="text-center">
 
                                     <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form1">Дата отказа</label>
+                                        <label className="form-label" htmlFor="form1">Дата отказа - Формат(YYYY-MM-DD)</label>
                                         <input
                                             placeholder={complain.refusal_date ? complain.refusal_date : 'Отсутствует !'}
                                             type="text"
@@ -137,7 +137,7 @@ function UpdateComplaints(props) {
                                     </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                     <div className="form-outline" data-mdb-input-init>
-                                        <label className="form-label" htmlFor="form7">Дата восстановления</label>
+                                        <label className="form-label" htmlFor="form7">Дата восстановления - Формат(YYYY-MM-DD)</label>
                                         <input
                                             placeholder={complain.restore_date ? complain.restore_date : 'Отсутствует !'}
                                             type="text"

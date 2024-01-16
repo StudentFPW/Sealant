@@ -240,7 +240,7 @@ export default function CreateCar() {
                                         </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                         <div className="form-outline" data-mdb-input-init>
-                                            <label className="form-label" htmlFor="form6">Дата отгрузки</label>
+                                            <label className="form-label" htmlFor="form6">Дата отгрузки - Формат(YYYY-MM-DD)</label>
                                             <input
                                                 type="text"
                                                 id="form6"
@@ -249,7 +249,7 @@ export default function CreateCar() {
                                         </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                                         <div className="form-outline" data-mdb-input-init>
-                                            <label className="form-label" htmlFor="form7">Договор по ставке №, Дата</label>
+                                            <label className="form-label" htmlFor="form7">Договор по ставке №, Дата - Формат(YYYY-MM-DD)</label>
                                             <input
                                                 type="text"
                                                 id="form7"

@@ -19,9 +19,6 @@ class Command(BaseCommand):
             admin.is_active = True
             admin.is_staff = True
             admin.is_admin = True
-            admin.is_client = True
-            admin.is_service = True
-            admin.is_manager = True
             admin.save()
             print("Account created")
         else:
