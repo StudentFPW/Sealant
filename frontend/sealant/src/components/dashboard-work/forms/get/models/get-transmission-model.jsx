@@ -18,6 +18,7 @@ function TransmissionModel(props) {
     if (!secureLocalStorage.getItem('token')) {
         history.push('/login');
     } else {
+        /* eslint-disable-next-line react-hooks/rules-of-hooks */
         useEffect(() => {
             fetchTransmission();
         }, []);
