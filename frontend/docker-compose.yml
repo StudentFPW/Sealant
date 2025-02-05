@@ -1,5 +1,0 @@
-services:
-  react-app:
-    build: ./sealant
-    ports:
-      - "3000:3000"

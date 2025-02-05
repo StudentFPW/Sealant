@@ -12,3 +12,4 @@ django-import-export==3.3.4
 pandas==2.1.4
 dj-rest-auth[with_social]
 drf-yasg[validation]
+psycopg2-binary==2.9.6
